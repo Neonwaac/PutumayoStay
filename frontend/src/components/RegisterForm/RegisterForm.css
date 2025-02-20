@@ -1,0 +1,84 @@
+.register-form{
+    width: 20vw;
+    min-width: 400px;
+    height: 100vh;
+    top: 0;
+    background: var(--ps-color-gs5);
+    justify-content: center;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    padding: 20px;
+    position: absolute;
+}
+.register-form-title{
+    width: 100%;
+    font-size: 2rem;
+    text-align: center;
+}
+.register-form-form{
+    width: 100%;
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.register-form-label{
+    width: 100%;
+    padding: 0 30px;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: var(--ps-color-gs1);
+    font-weight: 410;
+}
+.register-form-input{
+    width: 80%;
+    background: transparent;
+    padding: 10px 15px;
+    border: none;
+    outline: none;
+    border: 1px var(--ps-color-gs4) solid;
+    border-radius: 7px;
+    font-size: 1rem;
+    color: var(--ps-color-gs1);
+    margin-bottom: 10px;
+}
+.register-form-button{
+    width: 150px;
+    background: var(--ps-color-green2);
+    padding: 10px;
+    font-size: 1rem;
+    margin-top: 20px;
+    border: none;
+    color: var(--ps-color-gs5);
+    font-weight: 600;
+    border-radius: 7px;
+    cursor: pointer;
+}
+.register-form-button:hover{
+    background: var(--ps-color-green4);
+    transition-duration: 0.2s;
+}
+.register-form-swap{
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: 400;
+}
+.register-form-link{
+    color: var(--ps-color-green2);
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+.register-form-link:hover{
+    color: var(--ps-color-green4);
+    transition-duration: 0.2s;
+}
+.register-form-image{
+    width: 200px;
+    margin-top: 50px;
+}

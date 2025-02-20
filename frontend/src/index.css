@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=New+Amsterdam&family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&display=swap');
+*{
+  margin: 0;
+}
+:root{
+  --ps-color-green1: #093a23;
+  --ps-color-green2: #137f4b;
+  --ps-color-green3: #269a5a;
+  --ps-color-green4: #3cb371;
+  --ps-color-green5: #84d6a5;
+  --ps-color-red1: #8a1414;
+  --ps-color-red2: #cd1f1f;
+  --ps-color-red3: #d94848;
+  --ps-color-yellow1: #ffc61a;
+  --ps-color-yellow2: #f6de9f;
+  --ps-color-blue1: #126baf;
+  --ps-color-blue2: #2381c6;
+  --ps-color-blue3: #a5c9ee;
+  --ps-color-gs1: #121922;
+  --ps-color-gs2: #1a252f;
+  --ps-color-gs3: #404a56;
+  --ps-color-gs4: #b3bcc6;
+  --ps-color-gs5: #f6f2e6;
+  --ps-color-orange1: #e6731a;
+  --ps-color-purple1: #7f4dcc;
+}
+body{
+  width: 100vw;
+  height: 100vh;
+  font-family: "Montserrat", serif;
+}
