@@ -22,9 +22,10 @@ class Usuario {
             throw new Error(`Error al insertar usuario: ${error.message}`);
         }
     }
-    static async editarUsuario(id, correo, username, password, nombres, apellidos, edad){
-    }
     static async subirFoto(id, foto){
+        
+    }
+    static async editarUsuario(id, correo, username, password, foto, nombres, apellidos, edad){
         
     }
 }
