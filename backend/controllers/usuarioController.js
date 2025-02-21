@@ -4,6 +4,15 @@ const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const fs = require('fs');
 
+exports.obtenerUsuarios = async (req, res) => {
+    try {
+        const usuarios = await Usuario.obtenerUsuarios();
+        res.status(200).json(usuarios);
+    } catch (error) {
+        console.error('Error al obtener usuarios:', error);
+        res.status(500).json({ message: 'Hubo un error al obtener los usuarios', error: error.message });
+    }
+}
 exports.crearUsuario = async (req, res) => {
     //SOLO RECIBE 3 PARAMETROS DEBIDO A QUE EL RESTO DE PROPIEDADES DEL USUARIO PUEDEN SER NULAS
     //Y SE AGREGAN A LA HORA DE EDITAR EL USUARIO
@@ -19,15 +28,19 @@ exports.crearUsuario = async (req, res) => {
         res.status(500).json({ message: 'Hubo un error al crear el usuario', error: error.message });
     }
 };
-exports.editarUsuario = async (req, res) => {
+exports.addFotoUsuario = async (req, res) => {
     const { id } = req.params;
-    const { correo, username, password, foto, nombres, apellidos, edad} = req.body;
-    try{
-        const usuarioEditado = await Usuario.editarUsuario(id, correo, username, password, foto, nombres, apellidos, edad);
-        res.status(200).json({ message: 'Usuario editado correctamente', usuario: usuarioEditado });
-    }catch(error){
-        console.error('Error al editar usuario:', error);
-        res.status(500).json({ message: 'Hubo un error al editar el usuario', error: error.message });
+    const foto = req.file; // Accede correctamente al archivo subido
+
+    if (!foto) {
+        return res.status(400).json({ message: 'No se subió ninguna foto' });
     }
 
+    try {
+        const fotoGuardada = await Usuario.addFotoUsuario(id, foto);
+        res.status(201).json({ message: 'Foto guardada correctamente', foto: fotoGuardada });
+    } catch (error) {
+        console.error('Error al guardar foto:', error);
+        res.status(500).json({ message: 'Hubo un error al guardar la foto', error: error.message });
+    }
 };
