@@ -1,7 +1,7 @@
 import React from "react";
 import "./RoomsPage.css";
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
-import RoomsLayout from "../../layouts/HotelLayout/RoomsLayout";
+import RoomsLayout from "../../layouts/RoomsLayout/RoomsLayout";
 function RoomsPage(){
 
     return(
