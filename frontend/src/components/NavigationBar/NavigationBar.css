@@ -31,7 +31,7 @@
 .navigation-bar-link{
     color: var(--ps-color-gs5);
     font-weight: 500;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     text-decoration: none;
     transition-duration: 0.2s;
 }

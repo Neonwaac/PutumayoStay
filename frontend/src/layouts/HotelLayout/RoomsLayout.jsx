@@ -1,15 +1,19 @@
 import react from "react";
 import './RoomsLayout.css';
-import { Link } from "react-router-dom";
+import RoomCard from "../../components/RoomCard/RoomCard";
 
 function RoomsLayout(){
     return(
-        <section className="hotel-layout">
-            <div className="hotel-layout-view-all-container">
-                <h1 className="hotel-layout-title">Habitaciones</h1>
-                <button onClick={(event)=>{event.preventDefault();viewAll("rooms");}} className="hotel-layout-view-all-button">Ver todas las habitaciones</button>
+        <section className="rooms-layout">
+            <div className="rooms-layout-view-all-container">
+                <h1 className="rooms-layout-title">Habitaciones</h1>
+                <button className="rooms-layout-view-all-button">Ver todas las habitaciones</button>
+
             </div>
-            
+            <RoomCard/>
+            <RoomCard/>
         </section>
     )
 }
+
+export default RoomsLayout;

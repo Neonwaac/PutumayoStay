@@ -1,0 +1,31 @@
+.rooms-layout{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px 0px;
+}
+.rooms-layout-title{
+    font-size: 2rem;
+    margin: 15px;
+}
+.rooms-layout-view-all-container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.rooms-layout-view-all-button{
+    width: 300px;
+    margin: 15px;
+    padding: 5px;
+    color: var(--ps-color-green2);
+    border: 2px solid var(--ps-color-green2);
+    background: var(--ps-color-gs5);
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 20px;
+    transition-duration: 0.2s;
+}
