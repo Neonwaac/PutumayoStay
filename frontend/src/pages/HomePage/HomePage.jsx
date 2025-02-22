@@ -16,7 +16,7 @@ function HomePage() {
             <RoomsLayout/>
             <div className="reviews-layout-view-all-container">
                 <h1 className="reviews-layout-title">Reseñas de Usuarios</h1>
-                <button className="rooms-layout-view-all-button">Ver todas las reseñas</button>
+                <button className="rooms-layout-view-all-button">Ver más reseñas de usuarios</button>
             </div>
             <ReviewsLayout/>
             <AppFooter />

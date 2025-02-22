@@ -1,6 +1,7 @@
 import React from "react";
 import './RoomCard.css';
 import hotelPhoto from "../../assets/PALETA-PUTUMAYOSTAY.jpg"
+
 function RoomCard(){
     return(
         <section className="room-card">

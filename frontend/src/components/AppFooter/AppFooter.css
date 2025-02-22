@@ -36,13 +36,6 @@
 .app-footer-logo{
     height: 50%;
 }
-.app-footeryoutube-icon{
-    color: red;
-}
-.app-footer-instagram-icon{
-    background: -webkit-linear-gradient(#8c00ff, #ff01ff, yellow);
-    -webkit-text-fill-color: transparent;
-}
 .app-footer-creators{
     width: 100%;
     text-align: center;
@@ -53,4 +46,6 @@
 .app-footer-item{
     width: 100%;
     text-align: left;
+    color: var(--ps-color-gs5);
+    text-decoration: none;
 }
