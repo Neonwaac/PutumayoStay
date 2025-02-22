@@ -7,7 +7,7 @@ function RoomCard(){
             <img className="room-card-image" src={hotelPhoto} alt="foto"/>
             <div className="room-card-content">
                 <h3 className="room-card-title">Habitación Ejecutiva</h3>
-                <p className="room-card-description">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+                <p className="room-card-description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Texto de mierdita para rellenar la descripción de la habitación</p>
                 <p className="room-card-info">✔️ Capacidad para 20 personas</p>
                 <p className="room-card-info">✔️ Desde $20.000 por noche</p>
                 <p className="room-card-info">✔️ Habitación tipo Ejecutiva</p>

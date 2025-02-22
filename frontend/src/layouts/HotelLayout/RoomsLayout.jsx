@@ -12,6 +12,8 @@ function RoomsLayout(){
             </div>
             <RoomCard/>
             <RoomCard/>
+            <RoomCard/>
+
         </section>
     )
 }
