@@ -1,0 +1,61 @@
+.dashboard-menu{
+    width: 100%;
+    max-width: 380px;
+    height: 100%;
+    background: var(--ps-color-green2);
+    display: flex;
+    flex-wrap: wrap;
+    color: var(--ps-color-gs5);
+    gap: 20px;
+}
+.dashboard-menu-top{
+    width: 100%;
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-top: 20px;
+}
+.dashboard-menu-mid{
+    width: 100%;
+}
+.dashboard-menu-option{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 0px 20px 20px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background 0.3s ease;
+}
+
+.dashboard-menu-option-close-session{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 0px 20px 20px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background 0.3s ease;
+    color: var(--ps-color-gs5);
+    background: var(--ps-color-red2);
+    font-weight: 700;
+}
+.dashboard-menu-option-close-session:hover {
+    background: var(--ps-color-red3);
+    border-radius: 8px;
+}
+.dashboard-menu-option:hover {
+    background: var(--ps-color-green3);
+    border-radius: 8px;
+}
+.dashboard-menu-bot{
+    display: flex;
+    padding: 10px 0px;
+    width: 100%;
+}
+.dashboard-menu-version{
+    width: 100%;
+    text-align: center;
+    font-weight: 500;
+    color: var(--ps-color-gs2)
+}
