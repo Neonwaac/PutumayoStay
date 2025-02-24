@@ -14,6 +14,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 15px;
 }
 .reviews-layout-view-all-button{
     width: 300px;

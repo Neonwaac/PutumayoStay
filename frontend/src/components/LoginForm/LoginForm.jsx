@@ -15,6 +15,7 @@ function LoginForm(){
             </form>
             <p className="login-form-swap">¿No tienes cuenta?<Link to="/register" className="login-form-link"> Regístrate</Link></p>
             <img className="login-form-image" src={companyLogo} alt="logo"/>
+            <h5 className="login-form-version">PUTUMAYO STAY v1.3</h5>
         </section>
     );
 }

@@ -82,3 +82,11 @@
     width: 200px;
     margin-top: 50px;
 }
+.register-form-version{
+    width: 100%;
+    text-align: right;
+    font-weight: 500;
+    color: var(--ps-color-gs3);
+    align-self: flex-end;
+    margin: 15px;
+}

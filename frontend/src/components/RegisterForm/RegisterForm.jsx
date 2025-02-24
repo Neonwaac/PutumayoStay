@@ -17,6 +17,8 @@ function RegisterForm() {
             </form>
             <p className="register-form-swap">¿Ya tienes una cuenta?<Link to="/login" className="register-form-link"> Inicia Sesión</Link></p>
             <img className="register-form-image" src={companyLogo} alt="logo"/>
+            <h5 className="register-form-version">PUTUMAYO STAY v1.3</h5>
+            
         </section>
     );
 }
