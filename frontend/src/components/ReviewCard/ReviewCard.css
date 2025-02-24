@@ -2,9 +2,10 @@
     width: 100%;
     max-width: 650px;
     height: 100px;
-    border: 1px solid var(--ps-color-gs4);
     display: flex;
+    border-radius: 20px;
     padding: 30px 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     gap: 30px;
 }
 .review-card-left{

@@ -3,7 +3,8 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
+    gap: 30px;
+    margin-bottom: 30px;
 }
 .reviews-layout-title{
     font-size: 2rem;
@@ -16,20 +17,21 @@
     justify-content: center;
     margin: 15px;
 }
-.reviews-layout-view-all-button{
+.reviews-layout-view-all-button {
     width: 300px;
-    margin: 15px;
-    padding: 5px;
+    padding: 12px;
     color: var(--ps-color-green1);
     border: 2px solid var(--ps-color-green1);
-    background: var(--ps-color-gs5);
-    font-size: 1.2rem;
+    background: transparent;
+    font-size: 1.1rem;
     font-weight: 600;
-    border-radius: 20px;
+    border-radius: 30px;
     cursor: pointer;
-    transition-duration: 0.2s;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
-.reviews-layout-view-all-button:hover{
+.reviews-layout-view-all-button:hover {
     background: var(--ps-color-green1);
-    color: var(--ps-color-gs5)
+    color: var(--ps-color-gs5);
+    transform: translateY(-2px);
 }

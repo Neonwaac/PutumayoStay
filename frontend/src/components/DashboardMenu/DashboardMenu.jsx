@@ -18,19 +18,19 @@ function DashboardMenu() {
                 Mis Reservas
             </div>
             <div className="dashboard-menu-option">
-                <FaHistory lassName="dashboard-menu-option-icon"/>
+                <FaHistory className="dashboard-menu-option-icon"/>
                 Historial de Reservas
             </div>
             <div className="dashboard-menu-option">
-                <FaCreditCard lassName="dashboard-menu-option-icon"/>
+                <FaCreditCard className="dashboard-menu-option-icon"/>
                 Historial de Pagos
             </div>
             <div className="dashboard-menu-option">
-                <FaBell lassName="dashboard-menu-option-icon"/>
+                <FaBell className="dashboard-menu-option-icon"/>
                 Notificaciones
             </div>
             <div className="dashboard-menu-option-close-session">
-                <FaArrowAltCircleLeft className="dashboard-menu-option-icon"/>
+                <FaArrowAltCircleLeft className="dashboard-menu-option-icon-close-session"/>
                 Cerrar Sesión
             </div>
         </nav>

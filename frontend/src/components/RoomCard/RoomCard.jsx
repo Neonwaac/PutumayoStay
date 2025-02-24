@@ -1,6 +1,6 @@
 import React from "react";
 import './RoomCard.css';
-import hotelPhoto from "../../assets/PALETA-PUTUMAYOSTAY.jpg"
+import hotelPhoto from "../../assets/hotelpruebaps.webp"
 
 function RoomCard(){
     return(

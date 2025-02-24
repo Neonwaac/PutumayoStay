@@ -5,15 +5,24 @@
     height: auto;
     display: flex;
     flex-direction: column;
-    border: 1px solid var(--ps-color-gs4);
     overflow: hidden;
     background: var(--ps-color-gs5);
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+.room-card:hover {
+    transform: translateY(-10px);
 }
 .room-card-image{
     width: 100%;
     height: auto;
     object-fit: cover; 
     aspect-ratio: 16 / 9;
+    transition: transform 0.3s ease;
+}
+.room-card:hover .room-card-image {
+    transform: scale(1.05);
 }
 .room-card-content{
     display: flex;

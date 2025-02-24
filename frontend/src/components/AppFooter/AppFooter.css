@@ -2,7 +2,7 @@
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    background: var(--ps-color-green2);
+    background: linear-gradient(to right, var(--ps-color-green1), var(--ps-color-green2));
 }
 
 .app-footer-left{

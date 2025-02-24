@@ -7,8 +7,7 @@ function ReviewsLayout(){
         <section className="reviews-layout">
             <ReviewCard />
             <ReviewCard />
-            <ReviewCard />
-            <ReviewCard />
+            
 
         </section>
     )
