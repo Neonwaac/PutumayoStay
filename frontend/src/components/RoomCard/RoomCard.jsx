@@ -12,6 +12,7 @@ function RoomCard(){
                 <p className="room-card-info">✔️ Capacidad para 20 personas</p>
                 <p className="room-card-info">✔️ Desde $20.000 por noche</p>
                 <p className="room-card-info">✔️ Habitación tipo Ejecutiva</p>
+                <button className="room-card-info-button">Mas info</button>
                 <button className="room-card-button">Reservar Ahora</button>
             </div>
         </section>

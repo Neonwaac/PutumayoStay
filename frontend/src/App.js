@@ -6,6 +6,7 @@ import DashboardPage from './pages/DashboardPage/DashboardPage';
 import RoomsPage from './pages/RoomsPage/RoomsPage';
 import ReviewsPage from './pages/ReviewsPage/ReviewsPage';
 import AboutPage from './pages/AboutPage/AboutPage';
+import RoomPage from './pages/RoomPage/RoomPage';
 function App() {
   return (
     <BrowserRouter>
@@ -16,6 +17,7 @@ function App() {
       <Route path="/dashboard" element={<DashboardPage />} />
       <Route path="*" element={<HomePage />} />
       <Route path="/rooms" element={<RoomsPage />} />
+      <Route path="/rooms/:id" element={<RoomPage/>} />
       <Route path="/reviews" element={<ReviewsPage />} />
       <Route path="/about" element={<AboutPage />} />
     </Routes>

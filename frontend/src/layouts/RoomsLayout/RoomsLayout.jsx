@@ -8,8 +8,6 @@ function RoomsLayout(){
             <RoomCard/>
             <RoomCard/>
             <RoomCard/>
-            <RoomCard/>
-
         </section>
     )
 }

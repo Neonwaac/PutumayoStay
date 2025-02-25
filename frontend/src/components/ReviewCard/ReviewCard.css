@@ -4,9 +4,14 @@
     height: 100px;
     display: flex;
     border-radius: 20px;
-    padding: 30px 10px;
+    padding: 30px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     gap: 30px;
+}
+.review-card:hover{
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transform: translateY(-5px);
+    transition-duration: 0.2s;
 }
 .review-card-left{
     width: 25%;
@@ -42,10 +47,10 @@
 }
 .review-card-user{
     width: 100%;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: 600;
     text-align: center;
-    color: darkgreen;
+    color: var(--ps-color-green1);
 }
 .review-card-date{
     width: 100%;
@@ -57,17 +62,16 @@
     padding: 10px;
     align-self: center;
     border: none;
-    border-radius: 16px;
-    background: var(--ps-color-gs5);
-    color: var(--ps-color-red2);
-    border: 2px solid var(--ps-color-red2);
-    font-size: 1rem;
+    border-radius: 40px;
+    background: var(--ps-color-red2);
+    color: var(--ps-color-gs5);
+    font-size: 2rem;
     font-weight: 600;
     cursor: pointer;
     transition-duration: 0.2s;
 }
 .review-card-delete-button:hover{
-    background: var(--ps-color-red2);
+    background: var(--ps-color-red1);
     color: var(--ps-color-gs5);
     transition-duration: 0.2s;
 }

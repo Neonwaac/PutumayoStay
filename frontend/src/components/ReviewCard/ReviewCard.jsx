@@ -1,6 +1,6 @@
 import react from "react";
 import './ReviewCard.css';
-
+import { RiDeleteBinFill } from "react-icons/ri";
 function ReviewCard(){
     return(
         <section className="review-card">
@@ -17,7 +17,7 @@ function ReviewCard(){
                 </p>
             </div>
             <button className="review-card-delete-button">
-                Eliminar
+            <RiDeleteBinFill />
             </button>
         </section>
     )
