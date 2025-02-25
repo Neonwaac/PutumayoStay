@@ -44,3 +44,27 @@ exports.addFotoUsuario = async (req, res) => {
         res.status(500).json({ message: 'Hubo un error al guardar la foto', error: error.message });
     }
 };
+exports.iniciarSesion = async (req, res) => {
+    const { username, password } = req.body;
+    if(!username || !password){
+        return res.status(400).json({ message: 'Rellena todos los campos' });
+    }
+    try{
+        const token = await Usuario.iniciarSesion(username, password);
+        res.status(201).json({ message: 'Inicio de sesión exitoso', token: token })
+    }catch(error){
+        res.status(500).json({ message: 'Error al iniciar sesión', error: error.message})
+    }
+}
+exports.verificarToken = (req, res) => {
+    try {
+        const token = req.headers.authorization?.split(" ")[1];
+        if (!token) {
+            return res.status(401).json({ mensaje: "No autorizado: Token no encontrado", valido: false });
+        }
+        const tokenDecoded = Usuario.verificarToken(token);
+        res.json({ valido: true, mensaje: "Token válido", usuario: tokenDecoded });
+    } catch (error) {
+        return res.status(401).json({ mensaje: "Token inválido o expirado", valido: false });
+    }
+};
