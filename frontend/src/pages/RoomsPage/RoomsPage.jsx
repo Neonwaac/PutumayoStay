@@ -3,6 +3,7 @@ import "./RoomsPage.css";
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
 import RoomsLayout from "../../layouts/RoomsLayout/RoomsLayout";
 import { FaSearch } from "react-icons/fa"
+import AppFooter from "../../components/AppFooter/AppFooter.";
 function RoomsPage() {
 
     return (
@@ -15,7 +16,7 @@ function RoomsPage() {
                     <button className="rooms-page-filter-search-button"><FaSearch /></button>
                 </div>
                 <div className="rooms-page-filter-category">
-                    <p className="rooms-page-filter-category-title">Selecciona categoría</p>
+                    <p className="rooms-page-filter-category-title">Seleccionar categoría</p>
                     <button className="rooms-page-filter-category-option">Normal</button>
                     <button className="rooms-page-filter-category-option">Ejectutivo</button>
                     <button className="rooms-page-filter-category-option">Familiar</button>
@@ -23,6 +24,7 @@ function RoomsPage() {
                 </div>
             </div>
             <RoomsLayout />
+            <AppFooter />
         </section>
     );
 }
