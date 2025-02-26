@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./RoomsPage.css";
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
 import RoomsLayout from "../../layouts/RoomsLayout/RoomsLayout";
-import { FaSearch } from "react-icons/fa"
+import { FaSearch, FaPlus } from "react-icons/fa"
 import AppFooter from "../../components/AppFooter/AppFooter.";
+import { useNavigate } from "react-router-dom";
 function RoomsPage() {
-
+    const [user, setUser] = useState("")
+    const navigate = useNavigate();
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        const storedUser = JSON.parse(localStorage.getItem('user'));
+        if(storedUser){
+            setUser(storedUser);
+        }else{
+            navigate("/login")
+        }
+    },[navigate]);
     return (
         <section className="rooms-page">
             <NavigationBar />
@@ -26,6 +37,7 @@ function RoomsPage() {
                 </div>
             </div>
             <RoomsLayout />
+            {user && Number(user.rol) === 2 && <button className="rooms-page-add-button"><FaPlus /></button>}
             <AppFooter />
         </section>
     );

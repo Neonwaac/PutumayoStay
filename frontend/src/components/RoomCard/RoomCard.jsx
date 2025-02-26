@@ -6,7 +6,6 @@ function RoomCard({key, id, nombre, descripcion, capacidad, foto, precio, catego
     const specificRoom = (e) => {
         e.preventDefault();
         navigate("/rooms/"+id)
-        
     }
     return(
         <section className="room-card">

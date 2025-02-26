@@ -10,7 +10,7 @@ function RoomsLayout(){
     const navigate = useNavigate();
     useEffect(() => {
         const token = localStorage.getItem('token');
-        const storedUser = JSON.parse(localStorage.getItem('usuario'));
+        const storedUser = JSON.parse(localStorage.getItem('user'));
         if(storedUser){
             setUser(storedUser);
         }else{
