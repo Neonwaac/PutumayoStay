@@ -1,7 +1,13 @@
 import React from "react";
 import './RoomCard.css';
-
-function RoomCard({id, nombre, descripcion, capacidad, foto, precio, categoria}){
+import { useNavigate } from "react-router-dom";
+function RoomCard({key, id, nombre, descripcion, capacidad, foto, precio, categoria}){
+    const navigate = useNavigate()
+    const specificRoom = (e) => {
+        e.preventDefault();
+        navigate("/rooms/"+id)
+        
+    }
     return(
         <section className="room-card">
             <img className="room-card-image" src={foto} alt="foto"/>
@@ -11,7 +17,7 @@ function RoomCard({id, nombre, descripcion, capacidad, foto, precio, categoria})
                 <p className="room-card-info">✔️ Capacidad para {capacidad} personas</p>
                 <p className="room-card-info">✔️ $ {precio} por noche</p>
                 <p className="room-card-info">✔️ Habitación {categoria}</p>
-                <button className="room-card-info-button">Mas info</button>
+                <button className="room-card-info-button" onClick={specificRoom} >Mas info</button>
                 <button className="room-card-button">Reservar Ahora</button>
             </div>
         </section>

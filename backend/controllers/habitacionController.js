@@ -12,3 +12,13 @@ exports.obtenerTodasLasHabitaciones = async(req, res) => {
         res.status(500).json({message: 'Error al obtener las habitaciones'})
     }
 }
+
+exports.obtenerHabitacionPorId = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const habitacion = await Habitacion.obtenerHabitacionPorId(id);
+        res.status(200).json(habitacion)
+    } catch (error) {
+        res.status(500).json({message: 'Error al obtener la habitacion'})
+    }
+}

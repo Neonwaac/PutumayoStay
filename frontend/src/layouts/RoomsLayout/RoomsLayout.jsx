@@ -37,6 +37,7 @@ function RoomsLayout(){
             {rooms.map((habitacion) => (
                 <RoomCard
                 key={habitacion.id}
+                id={habitacion.id}
                 nombre={habitacion.nombre}
                 descripcion={habitacion.descripcion}
                 capacidad={habitacion.capacidad}

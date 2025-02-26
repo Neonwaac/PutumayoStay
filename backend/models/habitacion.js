@@ -26,6 +26,21 @@ class Habitacion {
       throw new Error("Error al obtener las habitaciones de la database");
     }
   }
+  static async obtenerHabitacionPorId(id) {
+    try {
+      const query = `SELECT habitaciones.id, habitaciones.nombre, habitaciones.descripcion, habitaciones.foto, habitaciones.capacidad, habitaciones.precio, categorias.nombre AS categoria
+        FROM habitaciones
+        LEFT JOIN categorias ON habitaciones.categoria = categorias.id 
+        WHERE habitaciones.id = ?`;
+      const [result] = await db.promise().execute(query, [id]);
+      if (result.length === 0){
+        throw new Error("No se encontro la habitación con ID "+id)
+      }
+      return result[0];
+    } catch (error) {
+      throw new Error("Error al obtener la habitacion de la database");
+    }
+  }
 }
 
 module.exports = Habitacion;
