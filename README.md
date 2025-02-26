@@ -81,7 +81,7 @@ PORT=8077
 
 ### 4️⃣ Iniciar el servidor backend
 ```bash
-npm start
+node index.js
 ```
 
 ### 5️⃣ Frontend: Instalación de dependencias
