@@ -47,14 +47,15 @@ exports.addFotoUsuario = async (req, res) => {
 exports.iniciarSesion = async (req, res) => {
     const { username, password } = req.body;
     if(!username || !password){
-        return res.status(400).json({ message: 'Rellena todos los campos' });
+        return res.status(400).json( {message: 'Faltan campos requeridos'} );
     }
     try{
-        const token = await Usuario.iniciarSesion(username, password);
-        res.status(201).json({ message: 'Inicio de sesión exitoso', token: token })
+        const { dbUser, token } = await Usuario.iniciarSesion(username, password);
+        return res.status(200).json( {message: 'Inicio de sesión exitoso', usuario: dbUser, token: token} )
     }catch(error){
-        res.status(500).json({ message: 'Error al iniciar sesión', error: error.message})
+        return res.status(500).json( {message: error.message})
     }
+    
 }
 exports.verificarToken = (req, res) => {
     try {
@@ -62,7 +63,7 @@ exports.verificarToken = (req, res) => {
         if (!token) {
             return res.status(401).json({ mensaje: "No autorizado: Token no encontrado", valido: false });
         }
-        const tokenDecoded = Usuario.verificarToken(token);
+        const tokenDecoded = this.verificarToken(token);
         res.json({ valido: true, mensaje: "Token válido", usuario: tokenDecoded });
     } catch (error) {
         return res.status(401).json({ mensaje: "Token inválido o expirado", valido: false });
