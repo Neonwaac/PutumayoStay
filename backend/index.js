@@ -3,11 +3,12 @@ const app = express();
 const cors = require('cors');
 const path = require('path');
 const usuarioRoutes = require('./routes/usuarioRoutes.js');
+const habitacionRoutes = require('./routes/habitacionRoutes.js')
 require('dotenv').config();
 const db = require('./db/db.js');
 
 app.use(express.json());
-app.use(cors())
+app.use(cors());
 
 db.connect((err) => {
     if (err) {
@@ -21,6 +22,7 @@ app.use('/uploads/images', express.static(path.join(__dirname, 'uploads/images')
 app.use('/uploads/archives', express.static(path.join(__dirname, 'uploads/archives')));
 app.use('/uploads/videos', express.static(path.join(__dirname, 'uploads/videos')));
 app.use(usuarioRoutes);
+app.use(habitacionRoutes)
 const PORT = 8077;
 app.listen(PORT, () => {
     console.log("Servidor corriendo en http://localhost:"+PORT);
