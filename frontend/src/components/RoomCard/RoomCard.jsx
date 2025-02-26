@@ -1,17 +1,16 @@
 import React from "react";
 import './RoomCard.css';
-import hotelPhoto from "../../assets/hotelpruebaps.webp"
 
-function RoomCard(){
+function RoomCard({id, nombre, descripcion, capacidad, foto, precio, categoria}){
     return(
         <section className="room-card">
-            <img className="room-card-image" src={hotelPhoto} alt="foto"/>
+            <img className="room-card-image" src={foto} alt="foto"/>
             <div className="room-card-content">
-                <h3 className="room-card-title">Habitación Ejecutiva</h3>
-                <p className="room-card-description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Texto de mierdita para rellenar la descripción de la habitación</p>
-                <p className="room-card-info">✔️ Capacidad para 20 personas</p>
-                <p className="room-card-info">✔️ Desde $20.000 por noche</p>
-                <p className="room-card-info">✔️ Habitación tipo Ejecutiva</p>
+                <h3 className="room-card-title">{nombre}</h3>
+                <p className="room-card-description">{descripcion}</p>
+                <p className="room-card-info">✔️ Capacidad para {capacidad} personas</p>
+                <p className="room-card-info">✔️ $ {precio} por noche</p>
+                <p className="room-card-info">✔️ Habitación {categoria}</p>
                 <button className="room-card-info-button">Mas info</button>
                 <button className="room-card-button">Reservar Ahora</button>
             </div>
