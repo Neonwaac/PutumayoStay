@@ -41,6 +41,23 @@ class Habitacion {
       throw new Error("Error al obtener la habitacion de la database");
     }
   }
+  static async crearHabitacion(nombre, descripcion, capacidad, precio, foto, categoria){
+    try {
+      const uniqueName = await Habitacion.saveImage(foto);
+      const photoPath = "http://localhost:8077/uploads/images/"+uniqueName;
+      const query = "INSERT INTO habitaciones (nombre, descripcion, capacidad, precio, foto, categoria) VALUES (?, ?, ?, ?, ?, ?)";
+      const [habitacion] = await db.promise().execute(query, [nombre, descripcion, capacidad, precio, photoPath, categoria]);
+      return habitacion;
+    } catch (error) {
+      throw new Error("Error al crear la habitacion");
+    }
+  }
+  static async saveImage(foto) {
+      const uniqueName = Date.now() + '-' + Math.round(Math.random() * 1E9);
+      const newPath = path.join("./uploads/images/", uniqueName+foto.originalname);
+      fs.renameSync(foto.path, newPath);
+      return uniqueName+foto.originalname;
+  }
 }
 
 module.exports = Habitacion;

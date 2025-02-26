@@ -22,3 +22,13 @@ exports.obtenerHabitacionPorId = async (req, res) => {
         res.status(500).json({message: 'Error al obtener la habitacion'})
     }
 }
+exports.crearHabitacion = async (req, res) => {
+    try{
+        const { nombre, descripcion, capacidad, precio, categoria } = req.body;
+        const foto = req.file;
+        const habitacion = await Habitacion.crearHabitacion(nombre, descripcion, capacidad, precio, foto, categoria);
+        res.status(200).json({message: 'Habitación creada correctamente'});
+    }catch(error){
+        res.status(500).json({ message: 'Error al crear la habitacion'} )
+    }
+}

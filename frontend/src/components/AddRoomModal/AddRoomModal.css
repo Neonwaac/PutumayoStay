@@ -1,0 +1,86 @@
+.add-room-modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .add-room-modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-height: 70%;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 420px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  }
+  .add-room-modal-title{
+    font-size: 2rem;
+    width: 100%;
+    text-align: center;
+    margin: 20px;
+  }
+  .add-room-modal-form{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .add-room-modal-close-button {
+    margin-top: 10px;
+    background: red;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+  }
+.add-room-modal-input-image[type="file"]{
+    display: none;
+}
+.add-room-modal-label-image{
+    width: 80%;
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    background: var(--ps-color-green5);
+    color: var(--ps-color-gs1);
+    border-radius: 5px;
+    margin-bottom: 20px;
+    transition-duration: 0.2s;
+    margin: 10px;
+}
+.add-room-modal-label-image:hover{
+    background: var(--ps-color-green4);
+    color: var(--ps-color-gs5);
+    transition-duration: 0.2s;
+}
+.add-room-modal-label{
+    width: 100%;
+    font-weight: 500;
+    font-size: 1rem;
+    margin-top: 15px;
+}
+.add-room-modal-input{
+    width: 100%;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--ps-color-gs4)
+}
+.add-room-modal-text-area{
+    width: 100%;
+    height: fit-content;
+    max-height: 100px;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--ps-color-gs4)
+}
+  

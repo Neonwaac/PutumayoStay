@@ -5,11 +5,13 @@ import RoomsLayout from "../../layouts/RoomsLayout/RoomsLayout";
 import { FaSearch, FaPlus } from "react-icons/fa";
 import AppFooter from "../../components/AppFooter/AppFooter.";
 import { useNavigate } from "react-router-dom";
+import AddRoomModal from "../../components/AddRoomModal/AddRoomModal";
 function RoomsPage() {
   const [user, setUser] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
+
   useEffect(() => {
-    const token = localStorage.getItem("token");
     const storedUser = JSON.parse(localStorage.getItem("user"));
     if (storedUser) {
       setUser(storedUser);
@@ -18,6 +20,8 @@ function RoomsPage() {
     }
   }, [navigate]);
 
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false)
   return (
     <section className="rooms-page">
       <NavigationBar />
@@ -58,13 +62,14 @@ function RoomsPage() {
           <h3 className="rooms-page-add-title">🛠️ Agrega una habitación</h3>
         )}
         {user && (Number(user.rol) === 2 || Number(user.rol) === 3) && (
-          <button className="rooms-page-add-button">
+          <button className="rooms-page-add-button" onClick={openModal}>
             <FaPlus />
           </button>
         )}
       </div>
       <RoomsLayout />
       <AppFooter />
+      <AddRoomModal isOpen={isModalOpen} onClose={closeModal} />
     </section>
   );
 }

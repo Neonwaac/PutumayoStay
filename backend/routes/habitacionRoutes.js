@@ -6,5 +6,6 @@ const upload = multer({ dest: 'uploads/' });
 const fs = require('fs');
 
 router.get("/rooms", habitacionController.obtenerTodasLasHabitaciones);
-router.get("/rooms/:id", habitacionController.obtenerHabitacionPorId)
+router.get("/rooms/:id", habitacionController.obtenerHabitacionPorId);
+router.post("/rooms", upload.single('foto'),habitacionController.crearHabitacion);
 module.exports = router;
