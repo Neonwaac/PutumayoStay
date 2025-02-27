@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import "./RoomPage.css";
+import "./SpecificRoomPage.css";
 import { useParams } from "react-router-dom";
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
 import AppFooter from "../../components/AppFooter/AppFooter.";
 import SpecificRoomCard from "../../components/SpecificRoomCard/SpecificRoomCard";
-function RoomPage() {
+function SpecificRoomPage() {
   const { id } = useParams();
   useEffect(() => {
     const fetchRoom = async() => {
@@ -23,4 +23,4 @@ function RoomPage() {
     </section>
   );
 }
-export default RoomPage;
+export default SpecificRoomPage;

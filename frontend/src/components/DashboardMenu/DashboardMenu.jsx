@@ -1,8 +1,42 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { FaChartBar, FaUser, FaBell, FaArrowAltCircleLeft, FaCalendarCheck, FaHistory, FaCreditCard} from "react-icons/fa"; 
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import "./DashboardMenu.css";
 
 function DashboardMenu() {
+    const navigate = useNavigate();
+    const [user, setUser] = useState(null);
+    useEffect(()=>{
+        const storedUser = JSON.parse(localStorage.getItem("user"));
+        if (storedUser) {
+          setUser(storedUser);
+        } else {
+          navigate("/login");
+        }
+      }, [navigate]);
+    const cerrarSesion = (e) => {
+        e.preventDefault();
+        Swal.fire({
+            title: "Estas seguro de cerrar sesión?",
+            icon: "warning",
+            showCancelButton: true,
+            cancelButtonText: "Cancelar",
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Confirmar"
+            }).then((result) => {
+            if (result.isConfirmed) {
+                 Swal.fire({
+                 title: "Hasta pronto!!...",
+                 text: "Has cerrado sesión.",
+                 icon: "success"
+                 });
+                }
+                localStorage.removeItem('user')
+                window.location.reload(true)
+            })
+    }
   return (
     <section className="dashboard-menu">
         <div className="dashboard-menu-top">
@@ -29,7 +63,7 @@ function DashboardMenu() {
                 <FaBell className="dashboard-menu-option-icon"/>
                 Notificaciones
             </div>
-            <div className="dashboard-menu-option-close-session">
+            <div className="dashboard-menu-option-close-session" onClick={cerrarSesion}>
                 <FaArrowAltCircleLeft className="dashboard-menu-option-icon-close-session"/>
                 Cerrar Sesión
             </div>

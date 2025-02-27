@@ -1,8 +1,10 @@
 import React from "react";
 
-function SpecificRoomCard(){
+function SpecificRoomCard({id, nombre, descripcion, capacidad, foto, precio, categoria}){
     return(
-        <h1>HOLA</h1>
+        <section className="specific-room-card">
+            
+        </section>
     )
 }
 

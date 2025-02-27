@@ -8,7 +8,7 @@ function RoomCard({key, id, nombre, descripcion, capacidad, foto, precio, catego
     const navigate = useNavigate()
     const specificRoom = (e) => {
         e.preventDefault();
-        navigate("/rooms/"+id)
+        navigate("/specificroom/"+id)
     }
     const deleteRoom = (e) => {
          e.preventDefault();
