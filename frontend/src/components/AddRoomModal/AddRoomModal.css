@@ -13,16 +13,16 @@
   
   .add-room-modal-content {
     background: var(--ps-color-gs5);
-    padding: 20px;
+    padding: 40px;
     border-radius: 20px;
-    max-height: 70%;
-    width: 100%;
+    width: 50%;
     display: flex;
     flex-wrap: wrap;
-    max-width: 480px;
+    min-width: 420px;
     overflow-y: auto;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
     animation: modalAppear 0.3s ease-out;
+    z-index: 1000;
   }
   @keyframes modalAppear {
     from {
@@ -34,43 +34,57 @@
         transform: translateY(0);
     }
 }
+.add-room-modal-left{
+  width: 55%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+}
+.add-room-modal-right{
+  width: 40%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.add-room-modal-preview-image{
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 12px 12px 0px 0px;
+}
   .add-room-modal-title{
     font-size: 2rem;
     width: 100%;
     text-align: center;
-    margin: 20px;
+    margin-bottom: 20px;
   }
   .add-room-modal-form{
     width: 100%;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
   }
 
-  .add-room-modal-close-button {
-    margin-top: 10px;
-    background: red;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-  }
 .add-room-modal-input-image[type="file"]{
     display: none;
 }
 .add-room-modal-label-image{
   width: 100%;
+  max-height: 20px;
   padding: 1rem;
   cursor: pointer;
-  background: linear-gradient(135deg, var(--ps-color-green2), var(--ps-color-green3));
+  background: linear-gradient(135deg, var(--ps-color-blue1), var(--ps-color-blue2));
   color: var(--ps-color-gs5);
-  border-radius: 12px;
+  border-radius: 0px 0px 12px 12px ;
   text-align: center;
   font-weight: 600;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 .add-room-modal-label-image:hover{
-    background: var(--ps-color-green4);
+    background: var(--ps-color-blue2);
     color: var(--ps-color-gs5);
     transition-duration: 0.2s;
 }
@@ -82,16 +96,22 @@
   font-weight: 600;
   font-size: 1rem;
   color: var(--ps-color-green1);
-  margin-top: 0.5rem;
+  margin: 15px 0px 5px 5px;
 }
 .add-room-modal-input{
   width: 100%;
-  padding: 0.8rem 1rem;
+  padding: 10px 16px;
   border-radius: 12px;
-  border: 2px solid var(--ps-color-gs4);
-  background: white;
+  border: 1px solid var(--ps-color-gs4);
+  background: var(--ps-color-gs5);
+  color: var(--ps-color-gs3);
   font-size: 1rem;
   transition: all 0.3s ease;
+}
+.add-room-modal-item-container{
+  width: 48%;
+  display: flex;
+  flex-wrap: wrap;
 }
 .add-room-modal-input:focus {
   outline: none;
@@ -101,11 +121,11 @@
 .add-room-modal-text-area {
   width: 100%;
   min-height: 100px;
-  max-height: 200px;
+  max-height: 100px;
   padding: 0.8rem 1rem;
   border-radius: 12px;
-  border: 2px solid var(--ps-color-gs4);
-  background: white;
+  border: 1px solid var(--ps-color-gs4);
+  background: var(--ps-color-gs5);
   font-size: 1rem;
   resize: vertical;
   transition: all 0.3s ease;
@@ -117,10 +137,10 @@
 }
 .add-room-modal-select {
   width: 100%;
-  padding: 0.8rem 1rem;
+  padding: 10px 16px;
   border-radius: 12px;
-  border: 2px solid var(--ps-color-gs4);
-  background: white;
+  border: 1px solid var(--ps-color-gs4);
+  background: var(--ps-color-gs5);
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -131,8 +151,8 @@
   box-shadow: 0 0 0 3px rgba(19, 127, 75, 0.1);
 }
 .add-room-modal-button {
-  width: 100%;
-  padding: 1rem;
+  width: 20%;
+  padding: 20px;
   margin-top: 1rem;
   border: none;
   border-radius: 12px;
@@ -144,9 +164,28 @@
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
+.add-room-modal-button-close {
+  width: 20%;
+  padding: 20px;
+  margin-top: 1rem;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(var(--ps-color-red3), var(--ps-color-red1));
+  color: var(--ps-color-gs5);
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
 
 .add-room-modal-button:hover {
-  background: linear-gradient(135deg, var(--ps-color-green2), var(--ps-color-green3));
+  background: linear-gradient(135deg, var(--ps-color-green1), var(--ps-color-green3));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+.add-room-modal-button-close:hover {
+  background: linear-gradient(135deg, var(--ps-color-red2), var(--ps-color-red1));
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
