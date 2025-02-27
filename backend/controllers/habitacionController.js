@@ -32,3 +32,13 @@ exports.crearHabitacion = async (req, res) => {
         res.status(500).json({ message: 'Error al crear la habitacion'} )
     }
 }
+
+exports.eliminarHabitacion = async (req, res) => {
+    const {id} = req.params;
+    try{
+        await Habitacion.eliminarHabitacion(id);
+        res.status(200).json({message: "Habitación eliminada correctamente"})
+    }catch(error){
+        res.status(500).json( { message: "No se pudo eliminar la habitación"} )
+    }
+}

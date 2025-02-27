@@ -58,6 +58,15 @@ class Habitacion {
       fs.renameSync(foto.path, newPath);
       return uniqueName+foto.originalname;
   }
+  static async eliminarHabitacion(id){
+    try {
+      const query = "DELETE FROM habitaciones WHERE id = ?"
+      await db.promise().execute(query, [id])
+    } catch (error) {
+      throw new Error("Error al eliminar la habitación")
+    }
+
+  }
 }
 
 module.exports = Habitacion;
