@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { FaChartBar, FaUser, FaBell, FaArrowAltCircleLeft, FaCalendarCheck, FaHistory, FaCreditCard} from "react-icons/fa"; 
+import { FaUser, FaBell, FaArrowAltCircleLeft, FaCalendarCheck, FaHistory, FaCreditCard} from "react-icons/fa"; 
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import "./DashboardMenu.css";

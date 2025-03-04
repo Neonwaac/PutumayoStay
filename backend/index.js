@@ -15,7 +15,7 @@ db.connect((err) => {
         console.log(err);
         process.exit(1)
     } else {
-        console.log('Connectado a la database --| PutumayoStay |--');
+        console.log('Conectado a la database --| PutumayoStay |--');
     }
 })
 app.use('/uploads/images', express.static(path.join(__dirname, 'uploads/images')));
