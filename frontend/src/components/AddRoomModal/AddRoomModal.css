@@ -50,6 +50,7 @@
 .add-room-modal-preview-image{
   width: 100%;
   aspect-ratio: 16 / 9;
+  object-fit: cover;
   overflow: hidden;
   border-radius: 12px 12px 0px 0px;
 }

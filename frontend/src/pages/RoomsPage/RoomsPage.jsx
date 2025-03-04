@@ -3,7 +3,7 @@ import "./RoomsPage.css";
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
 import RoomsLayout from "../../layouts/RoomsLayout/RoomsLayout";
 import { FaSearch, FaPlus } from "react-icons/fa";
-import AppFooter from "../../components/AppFooter/AppFooter.";
+import AppFooter from "../../components/AppFooter/AppFooter";
 import { useNavigate } from "react-router-dom";
 import AddRoomModal from "../../components/AddRoomModal/AddRoomModal";
 function RoomsPage() {

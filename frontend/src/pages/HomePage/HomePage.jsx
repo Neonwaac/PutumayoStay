@@ -2,7 +2,7 @@ import React from "react";
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
 import "./HomePage.css";
 import RoomsLayout from "../../layouts/RoomsLayout/RoomsLayout";
-import AppFooter from "../../components/AppFooter/AppFooter.";
+import AppFooter from "../../components/AppFooter/AppFooter";
 import ReviewsLayout from "../../layouts/ReviewsLayout/ReviewsLayout";
 import { useNavigate } from "react-router-dom";
 

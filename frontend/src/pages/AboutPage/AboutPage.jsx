@@ -1,7 +1,7 @@
 import react from "react";
 import './AboutPage.css';
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
-import AppFooter from "../../components/AppFooter/AppFooter.";
+import AppFooter from "../../components/AppFooter/AppFooter";
 
 function AboutPage(){
     return(
