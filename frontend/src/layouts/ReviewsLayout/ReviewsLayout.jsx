@@ -10,7 +10,6 @@ function ReviewsLayout(){
             try {
                 const response = await axios.get("http://localhost:8077/reviews")
                 setReviews(response.data)
-                console.log(response.data[0])
             } catch (error) {
                 Swal.fire({
                     icon: "error",

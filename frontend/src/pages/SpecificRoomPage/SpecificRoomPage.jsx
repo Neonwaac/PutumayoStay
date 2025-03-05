@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import NavigationBar from "../../components/NavigationBar/NavigationBar";
 import AppFooter from "../../components/AppFooter/AppFooter";
 import SpecificRoomCard from "../../components/SpecificRoomCard/SpecificRoomCard";
+import SpecificReviewsLayout from "../../layouts/SpecificReviewsLayout/SpecificReviewsLayout";
 function SpecificRoomPage() {
   const { id } = useParams();
   const [room, setRoom] = useState(null);
@@ -34,6 +35,10 @@ function SpecificRoomPage() {
       telefono_empresa={room.telefono_empresa}
       correo_empresa={room.correo_empresa}
       foto_empresa={room.foto_empresa}
+      />
+      <h1 className="specific-room-page-reviews-title">Reseñas de {room.nombre}</h1>
+      <SpecificReviewsLayout 
+      id= {room.id}
       />
       <AppFooter />
     </section>

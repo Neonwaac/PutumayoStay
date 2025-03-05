@@ -1,0 +1,15 @@
+.specific-reviews-layout{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+.specific-reviews-layout-no-reviews{
+    width: 100%;
+    text-align: center;
+    font-weight: 300;
+    font-size: 1rem;
+    margin: 20px;
+}

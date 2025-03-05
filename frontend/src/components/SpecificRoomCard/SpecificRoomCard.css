@@ -1,6 +1,6 @@
 .specific-room-card{
     width: 100%;
-    max-width: 1450px;
+    max-width: 1280px;
     background: linear-gradient(135deg, var(--ps-color-green1), var(--ps-color-green2));;
     display: flex;
     justify-self: center;
@@ -52,6 +52,7 @@
     border-radius: 15px;
     font-size: 0.9rem;
     font-weight: 600;
+    flex-grow: 1;
     color: var(--ps-color-gs5);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
@@ -65,7 +66,7 @@
 
 .specific-room-card-button {
     width: 100%;
-    margin: 25px 0 10px;
+    margin: 10px 0;
     padding: 15px;
     border-radius: 15px;
     background: var(--ps-color-yellow1);

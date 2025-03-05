@@ -3,3 +3,9 @@
     display: flex;
     flex-wrap: wrap;
 }
+.reviews-page-title{
+    width: 100%;
+    text-align: center;
+    margin: 20px;
+    font-size: 2rem;
+}
