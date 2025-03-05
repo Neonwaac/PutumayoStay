@@ -25,7 +25,7 @@ function RoomsPage() {
   return (
     <section className="rooms-page">
       <NavigationBar />
-      <h1 className="rooms-page-title">Todas nuestras habitaciones</h1>
+      <h1 className="rooms-page-title">Encuentra tu habitación ideal</h1>
       <div className="rooms-page-filter-container">
         <div className="rooms-page-filter-search">
           <input

@@ -1,7 +1,7 @@
 import React from "react";
 import './SpecificRoomCard.css'
 
-function SpecificRoomCard({id, nombre, descripcion, capacidad, foto, precio, categoria}){
+function SpecificRoomCard({id, nombre, descripcion, capacidad, foto, precio, categoria, nombre_empresa, telefono_empresa, correo_empresa, foto_empresa}){
     return(
         <section className="specific-room-card">
             <div className="specific-room-card-left">
@@ -14,11 +14,11 @@ function SpecificRoomCard({id, nombre, descripcion, capacidad, foto, precio, cat
                 <p className="specific-room-card-data">$ {precio} por noche</p>
                 <p className="specific-room-card-data">Habitación {categoria}</p>
                 <div className="specific-room-card-company">
-                    <img  src="http://localhost:8077/uploads/images/habitacion1.jpg" className="specific-room-card-company-img"></img>
+                    <img  src={foto_empresa} className="specific-room-card-company-img"></img>
                     <div className="specific-room-card-company-info">
-                        <h3 className="specific-room-card-company-name">Hotel Oceano</h3>
-                        <h5 className="specific-room-card-company-email">hoteloceano@gmail.com</h5>
-                        <h4 className="specific-room-card-company-number">+57 312 390 3681</h4>
+                        <h3 className="specific-room-card-company-name">{nombre_empresa}</h3>
+                        <h5 className="specific-room-card-company-email">{correo_empresa}</h5>
+                        <h4 className="specific-room-card-company-number">+57 {telefono_empresa}</h4>
                     </div>
                     
                 </div>

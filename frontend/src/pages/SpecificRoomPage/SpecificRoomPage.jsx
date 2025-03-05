@@ -30,6 +30,10 @@ function SpecificRoomPage() {
       foto={room.foto}
       precio={room.precio}
       categoria={room.categoria}
+      nombre_empresa={room.nombre_empresa}
+      telefono_empresa={room.telefono_empresa}
+      correo_empresa={room.correo_empresa}
+      foto_empresa={room.foto_empresa}
       />
       <AppFooter />
     </section>
