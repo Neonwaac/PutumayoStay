@@ -24,7 +24,7 @@ exports.obtenerHabitacionPorId = async (req, res) => {
 }
 exports.crearHabitacion = async (req, res) => {
     try{
-        const { nombre, descripcion, capacidad, precio, categoria } = req.body;
+        const { nombre, descripcion, capacidad, precio, categoria, id_empresa} = req.body;
         const foto = req.file;
         const habitacion = await Habitacion.crearHabitacion(nombre, descripcion, capacidad, precio, foto, categoria);
         res.status(200).json({message: 'Habitación creada correctamente'});
