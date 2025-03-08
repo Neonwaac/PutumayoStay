@@ -19,3 +19,13 @@ exports.ObtenerReviewsPorHabitacion = async(req, res) => {
         
     }
 }
+
+exports.CrearReview = async(req, res) => {
+    try{
+        const { valor, descripcion, id_usuario, id_habitacion } = req.body;
+        await Review.CrearReview(valor, descripcion, id_usuario, id_habitacion);
+        res.status(200).json('Review publicada correctamente')
+    }catch(error){
+        res.status(500).json('Error al publicar la review')
+    }
+}

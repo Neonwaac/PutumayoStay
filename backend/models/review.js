@@ -13,7 +13,8 @@ class Review{
             habitaciones.nombre AS nombre_habitacion
             FROM reviews
             LEFT JOIN habitaciones ON reviews.id_habitacion = habitaciones.id
-            LEFT JOIN usuarios ON reviews.id_usuario = usuarios.id;
+            LEFT JOIN usuarios ON reviews.id_usuario = usuarios.id
+            ORDER BY reviews.timestamp DESC;
             `
             const [reviews] = await db.promise().execute(query);
             return reviews
@@ -30,11 +31,21 @@ class Review{
             LEFT JOIN habitaciones ON reviews.id_habitacion = habitaciones.id
             LEFT JOIN usuarios ON reviews.id_usuario = usuarios.id
             WHERE habitaciones.id = ?
+            ORDER BY reviews.timestamp DESC;
             `
             const [reviews] = await db.promise().execute(query, [id]);
             return reviews
         } catch (error) {
             throw new Error("Error al obtener las reviews de la database");
+        }
+    }
+    static async CrearReview(valor, descripcion, id_usuario, id_habitacion){
+        try {
+            const query = "INSERT INTO reviews (valor, descripcion, id_usuario, id_habitacion) VALUES (?, ?, ?, ?)"
+            await db.promise().execute(query, [valor, descripcion, id_usuario, id_habitacion])
+            return
+        } catch (error) {
+            throw new Error(`Error al crear la review: ${error.message}`)
         }
     }
 }
