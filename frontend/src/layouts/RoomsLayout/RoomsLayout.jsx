@@ -4,7 +4,7 @@ import './RoomsLayout.css';
 import axios from 'axios';
 import RoomCard from "../../components/RoomCard/RoomCard";
 import Swal from "sweetalert2";
-function RoomsLayout(){
+function RoomsLayout({maxRoomCards}){
     const [user, setUser] = useState(null);
     const [rooms, setRooms] = useState([]);
     const navigate = useNavigate();
@@ -34,7 +34,7 @@ function RoomsLayout(){
     }, [])
     return(
         <section className="rooms-layout">
-            {rooms.map((habitacion) => (
+            { (maxRoomCards ? rooms.slice(0, maxRoomCards) : rooms).map((habitacion) => (
                 <RoomCard
                 key={habitacion.id}
                 id={habitacion.id}
@@ -44,10 +44,10 @@ function RoomsLayout(){
                 foto={habitacion.foto}
                 precio={habitacion.precio}
                 categoria={habitacion.categoria}
+                id_empresa={habitacion.id_empresa}
                 />
             ))
             }
-            
         </section>
     )
 }

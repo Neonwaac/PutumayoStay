@@ -69,7 +69,7 @@ function RoomsPage() {
       </div>
       <RoomsLayout />
       <AppFooter />
-      <AddRoomModal isOpen={isModalOpen} onClose={closeModal} />
+      <AddRoomModal isOpen={isModalOpen} onClose={closeModal} id_empresa={user.id}/>
     </section>
   );
 }

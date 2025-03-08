@@ -3,12 +3,12 @@
     max-width: 1200px;
     display: flex;
     align-items: center;
-    margin: 20px auto;
     border-radius: 20px;
     padding: 25px;
+    margin: 5px auto;
     gap: 20px;
     background: white;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -113,6 +113,7 @@
     letter-spacing: 2px;
     color: var(--ps-color-yellow1);
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    align-self: start;
 }
 
 .review-card-date {

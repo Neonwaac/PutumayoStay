@@ -1,0 +1,122 @@
+.add-review-card {
+    width: 90%;
+    max-width: 1200px;
+    min-height: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 30px;
+    gap: 20px;
+    background: white;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.add-review-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.add-review-card-title {
+    color: var(--ps-color-green1);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+.add-review-card-nombre-habitacion{
+    color: var(--ps-color-orange1)
+}
+
+.add-review-card-stars-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.add-review-card-star {
+    font-size: 2rem;
+    color: var(--ps-color-gs4);
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.add-review-card-star:hover {
+    color: var(--ps-color-yellow2);
+    transform: scale(1.2);
+}
+
+.add-review-card-star.selected {
+    color: var(--ps-color-yellow1);
+}
+
+.add-review-card-text-area {
+    width: 100%;
+    min-height: 50px;
+    max-height: 50px;
+    padding: 15px;
+    border: 2px solid var(--ps-color-gs4);
+    border-radius: 15px;
+    font-size: 1rem;
+    font-family: inherit;
+    resize: vertical;
+    transition: border-color 0.3s ease;
+}
+
+.add-review-card-text-area:focus {
+    outline: none;
+    border-color: var(--ps-color-green2);
+}
+
+.add-review-card-text-area::placeholder {
+    color: var(--ps-color-gs3);
+}
+
+.add-review-card-button {
+    align-self: flex-end;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 25px;
+    background: linear-gradient(to left, var(--ps-color-green2), var(--ps-color-green1));
+    color: var(--ps-color-gs5);
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.add-review-card-button:hover {
+    background: linear-gradient(135deg, var(--ps-color-green3), var(--ps-color-green4));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.add-review-card-button-icon {
+    font-size: 1.1rem;
+}
+
+/* Responsive design */
+@media (max-width: 576px) {
+    .add-review-card {
+        padding: 20px;
+    }
+    
+    .add-review-card-title {
+        font-size: 1.3rem;
+    }
+    
+    .add-review-card-star {
+        font-size: 1.5rem;
+    }
+    
+    .add-review-card-button {
+        width: 100%;
+        justify-content: center;
+    }
+}

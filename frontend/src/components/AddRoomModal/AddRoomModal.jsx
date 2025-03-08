@@ -3,7 +3,7 @@ import "./AddRoomModal.css";
 import PreviewPhoto from "../../assets/default-preview-photo.png"
 import axios from "axios";
 import Swal from "sweetalert2";
-const AddRoomModal = ({ isOpen, onClose }) => {
+const AddRoomModal = ({ isOpen, onClose, id_empresa }) => {
   const [formData, setFormData] = useState({
     nombre: "",
     descripcion: "",
@@ -11,6 +11,7 @@ const AddRoomModal = ({ isOpen, onClose }) => {
     precio: "",
     categoria: "1",
     foto: null,
+    id_empresa: id_empresa
   });
 
   const handleChange = (event) => {
@@ -35,6 +36,7 @@ const AddRoomModal = ({ isOpen, onClose }) => {
     data.append("precio", formData.precio);
     data.append("categoria", formData.categoria);
     data.append("foto", formData.foto);
+    data.append("id_empresa", id_empresa)
 
     try {
       const response = await axios.post("http://localhost:8077/rooms", data, {

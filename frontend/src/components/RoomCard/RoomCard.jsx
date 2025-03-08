@@ -3,7 +3,7 @@ import './RoomCard.css';
 import { useNavigate } from "react-router-dom";
 import axios from "axios"
 import Swal from "sweetalert2";
-function RoomCard({key, id, nombre, descripcion, capacidad, foto, precio, categoria}){
+function RoomCard({key, id, nombre, descripcion, capacidad, foto, precio, categoria, id_empresa}){
     const [user, setUser] = useState(null);
     const navigate = useNavigate()
     const specificRoom = (e) => {
@@ -53,7 +53,7 @@ function RoomCard({key, id, nombre, descripcion, capacidad, foto, precio, catego
     return(
         <section className="room-card">
             <img className="room-card-image" src={foto} alt="foto"/>
-            {user && Number(user.rol) === 2 && <button className="room-card-delete-button" onClick={deleteRoom}>Eliminar</button>}
+            {user && (Number(user.rol) === 2 || (Number(user.rol) == 3 && user.id == id_empresa)) ?<button className="room-card-delete-button" onClick={deleteRoom}>Eliminar</button>:null}
             <div className="room-card-content">
                 <h3 className="room-card-title">{nombre}</h3>
                 <p className="room-card-description">{descripcion}</p>

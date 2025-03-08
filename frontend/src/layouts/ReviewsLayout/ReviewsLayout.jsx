@@ -3,7 +3,7 @@ import './ReviewsLayout.css';
 import ReviewCard from "../../components/ReviewCard/ReviewCard";
 import axios from "axios";
 import Swal from "sweetalert2";
-function ReviewsLayout(){
+function ReviewsLayout({maxReviewCards}){
     const [reviews, setReviews] = useState([]);
     useEffect(() =>{
         const fetchReviews = async () =>{
@@ -22,7 +22,7 @@ function ReviewsLayout(){
     },[])
     return(
         <section className="reviews-layout">
-            {reviews.map((review) => (
+            {reviews.slice(0, maxReviewCards).map((review) => (
                 <ReviewCard 
                 id={review.id}
                 valor={review.valor}
