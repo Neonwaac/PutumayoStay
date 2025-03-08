@@ -17,7 +17,7 @@ class Habitacion {
   }
   static async obtenerTodasLasHabitaciones() {
     try {
-      const query = `SELECT habitaciones.id, habitaciones.nombre, habitaciones.descripcion, habitaciones.foto, habitaciones.capacidad, habitaciones.precio, categorias.nombre AS categoria
+      const query = `SELECT habitaciones.id, habitaciones.nombre, habitaciones.descripcion, habitaciones.foto, habitaciones.capacidad, habitaciones.precio, habitaciones.id_empresa, categorias.nombre AS categoria
             FROM habitaciones
             LEFT JOIN categorias ON habitaciones.categoria = categorias.id`;
       const [habitaciones] = await db.promise().execute(query);
@@ -30,11 +30,11 @@ class Habitacion {
     try {
       const query = `SELECT habitaciones.id, habitaciones.nombre, habitaciones.descripcion, 
       habitaciones.foto, habitaciones.capacidad, habitaciones.precio, categorias.nombre AS categoria,
-      empresas.nombre AS nombre_empresa, empresas.telefono AS telefono_empresa, empresas.correo AS correo_empresa, empresas.foto AS foto_empresa
-        FROM habitaciones
-        LEFT JOIN categorias ON habitaciones.categoria = categorias.id
-        LEFT JOIN empresas ON habitaciones.id_empresa = empresas.id
-        WHERE habitaciones.id = ?`;
+      usuarios.username AS nombre_empresa, usuarios.telefono AS telefono_empresa, usuarios.correo AS correo_empresa, usuarios.foto AS foto_empresa
+      FROM habitaciones
+      LEFT JOIN categorias ON habitaciones.categoria = categorias.id
+      LEFT JOIN usuarios ON habitaciones.id_empresa = usuarios.id
+       WHERE habitaciones.id = ?`;
       const [result] = await db.promise().execute(query, [id]);
       if (result.length === 0){
         throw new Error("No se encontro la habitación con ID "+id)
@@ -48,7 +48,7 @@ class Habitacion {
     try {
       const uniqueName = await Habitacion.saveImage(foto);
       const photoPath = "http://localhost:8077/uploads/images/"+uniqueName;
-      const query = "INSERT INTO habitaciones (nombre, descripcion, capacidad, precio, foto, categoria) VALUES (?, ?, ?, ?, ?, ?)";
+      const query = "INSERT INTO habitaciones (nombre, descripcion, capacidad, precio, foto, categoria, id_empresa) VALUES (?, ?, ?, ?, ?, ?, ?)";
       const [habitacion] = await db.promise().execute(query, [nombre, descripcion, capacidad, precio, photoPath, categoria, id_empresa]);
       return habitacion;
     } catch (error) {

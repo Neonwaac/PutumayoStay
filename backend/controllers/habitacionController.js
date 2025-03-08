@@ -26,7 +26,7 @@ exports.crearHabitacion = async (req, res) => {
     try{
         const { nombre, descripcion, capacidad, precio, categoria, id_empresa} = req.body;
         const foto = req.file;
-        const habitacion = await Habitacion.crearHabitacion(nombre, descripcion, capacidad, precio, foto, categoria);
+        const habitacion = await Habitacion.crearHabitacion(nombre, descripcion, capacidad, precio, foto, categoria, id_empresa);
         res.status(200).json({message: 'Habitación creada correctamente'});
     }catch(error){
         res.status(500).json({ message: 'Error al crear la habitacion'} )
