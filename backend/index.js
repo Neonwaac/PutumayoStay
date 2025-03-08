@@ -5,6 +5,7 @@ const path = require('path');
 const usuarioRoutes = require('./routes/usuarioRoutes.js');
 const habitacionRoutes = require('./routes/habitacionRoutes.js')
 const reviewRoutes = require('./routes/reviewRoutes.js');
+const reservaRoutes = require('./routes/reservaRoutes.js')
 require('dotenv').config();
 const db = require('./db/db.js');
 
@@ -25,7 +26,7 @@ app.use('/uploads/videos', express.static(path.join(__dirname, 'uploads/videos')
 app.use(usuarioRoutes);
 app.use(habitacionRoutes);
 app.use(reviewRoutes);
-
+app.use(reservaRoutes);
 const PORT = 8077;
 app.listen(PORT, () => {
     console.log("Servidor corriendo en http://localhost:"+PORT);
