@@ -11,31 +11,37 @@ class Usuario {
         this.correo = correo;
         this.password = password;
     }
-    static async iniciarSesion(username, password){
+    static async iniciarSesion(username, password) {
         const query = "SELECT * FROM usuarios WHERE username = ?";
-        try{
-            const [dbResponse] = await db.promise().execute(query, [username])
-
-            if(dbResponse.length === 0){
-                throw new Error('Usuario '+username+' no encontrado')
+        try {
+            const [dbResponse] = await db.promise().execute(query, [username]);
+    
+            if (dbResponse.length === 0) {
+                throw new Error("Usuario no encontrado");
             }
-
+    
             const dbUser = dbResponse[0];
-            const isPasswordValid = await bcrypt.compare(password, dbUser.password)
-            
-            if(!isPasswordValid){
-                throw new Error('Contraseña incorrecta');
+            const isPasswordValid = await bcrypt.compare(password, dbUser.password);
+    
+            if (!isPasswordValid) {
+                throw new Error("Contraseña incorrecta");
             }
-            const token = this.generarToken(dbUser.id, dbUser.username, dbUser.password)
+            const token = this.generarToken(dbUser.id, dbUser.username, dbUser.rol);
             const tokenQuery = "UPDATE usuarios SET token = ? WHERE id = ?";
-            await db.promise().execute(tokenQuery,[token, dbUser.id])
-            return { dbUser, token }
-        }catch(error){
+            await db.promise().execute(tokenQuery, [token, dbUser.id]);
+            delete dbUser.password;
+    
+            return { usuario: dbUser, token };
+        } catch (error) {
             throw error;
         }
     }
-    static generarToken(id, username, rol){
-        return jwt.sign( {id: id, username: username, rol: rol}, 'secret_provisional',{ expiresIn: '1h'} )
+    static generarToken(id, username, rol) {
+        return jwt.sign(
+            { id, username, rol },
+            process.env.JWT_SECRET || "secret_provisional",
+            { expiresIn: "1h" }
+        );
     }
     static async obtenerUsuarios(){
         try{
@@ -74,9 +80,6 @@ class Usuario {
         const newPath = path.join("./uploads/images/", uniqueName+foto.originalname);
         fs.renameSync(foto.path, newPath);
         return uniqueName+foto.originalname;
-    }
-    static verificarToken(token) {
-        return jwt.verify(token, 'secret_provisional');
     }
 }
 module.exports = Usuario;
