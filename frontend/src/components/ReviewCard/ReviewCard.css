@@ -7,7 +7,7 @@
     padding: 25px;
     margin: 5px auto;
     gap: 20px;
-    background: white;
+    background: whitesmoke;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }

@@ -4,6 +4,7 @@ import "./NavigationBar.css";
 import companyLogo from "../../assets/larger-light-logo.png";
 import axios from "axios";
 import Swal from "sweetalert2";
+import defaultPhoto from "../../assets/default-user-photo.png"
 function NavigationBar() {
     //RECUPERAR Y VALIDAR SI EL USUARIO EXISTE EN EL LOCALSTORAGE
   const [user, setUser] = useState();
@@ -65,7 +66,10 @@ function NavigationBar() {
                     <Link className="navigation-bar-link" to="/reviews">Reseñas</Link>
                 </div>
                 <div className="navigation-bar-link-container">
-                    <Link className="navigation-bar-link" to="/dashboard">Cuenta</Link>
+                    <Link className="navigation-bar-user" to="/dashboard">
+                    {user && user.foto ? <img className="navigation-bar-user-img" src={user.foto}></img>:
+                    <img className="navigation-bar-user-img" src={defaultPhoto}></img>}
+                    </Link>
                 </div>
             </div>
         </section>
