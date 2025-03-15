@@ -10,7 +10,7 @@ class Review{
         try {
             const query = `SELECT reviews.id, reviews.valor, reviews.descripcion, reviews.timestamp, 
             usuarios.username AS nombre_usuario, usuarios.foto AS foto_usuario,
-            habitaciones.nombre AS nombre_habitacion
+            habitaciones.nombre AS nombre_habitacion, id_habitacion
             FROM reviews
             LEFT JOIN habitaciones ON reviews.id_habitacion = habitaciones.id
             LEFT JOIN usuarios ON reviews.id_usuario = usuarios.id
@@ -26,7 +26,7 @@ class Review{
         try {
             const query = `SELECT reviews.id, reviews.valor, reviews.descripcion, reviews.timestamp, 
             usuarios.username AS nombre_usuario, usuarios.foto AS foto_usuario,
-            habitaciones.nombre AS nombre_habitacion
+            habitaciones.nombre AS nombre_habitacion, id_habitacion
             FROM reviews
             LEFT JOIN habitaciones ON reviews.id_habitacion = habitaciones.id
             LEFT JOIN usuarios ON reviews.id_usuario = usuarios.id
