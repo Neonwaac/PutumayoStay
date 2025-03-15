@@ -31,6 +31,7 @@ function ReviewsLayout({maxReviewCards}){
                 nombre_usuario={review.nombre_usuario}
                 foto_usuario={review.foto_usuario}
                 nombre_habitacion={review.nombre_habitacion}
+                id_habitacion={review.id_habitacion}
                 />
             ))}
         </section>
