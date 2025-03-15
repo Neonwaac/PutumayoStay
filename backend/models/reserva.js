@@ -16,5 +16,12 @@ class Reserva{
             throw error
         }
     }
+    static async obtenerReservas(){
+        const query = `SELECT r.id, r.monto, TIMESTAMPDIFF(DAY, r.fecha_ingreso, r.fecha_salida) AS noches, 
+        r.timestamp, r.estado, h.nombre, h.foto FROM reservas as r
+        INNER JOIN habitaciones as h ON r.id_habitacion = h.id
+        WHERE r.estado > 0;
+        `
+    }
 }
 module.exports = Reserva;
