@@ -85,7 +85,7 @@
     height: 45px;
     object-fit: cover;
     border-radius: 50%;
-    border: 3px solid var(--ps-color-gs5);
+    border: 2px solid var(--ps-color-gs5);
     transition: all 0.3s ease;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 }

@@ -49,6 +49,9 @@ function RoomCard({key, id, nombre, descripcion, capacidad, foto, precio, catego
           navigate("/login");
         }
       }, [navigate]);
+      function sumNumbers(num1, num2){
+        
+      }
     
     return(
         <section className="room-card">
@@ -61,7 +64,7 @@ function RoomCard({key, id, nombre, descripcion, capacidad, foto, precio, catego
                 <p className="room-card-info">✔️ $ {precio} por noche</p>
                 <p className="room-card-info">✔️ Habitación {categoria}</p>
                 <button className="room-card-info-button" onClick={specificRoom} >Mas info</button>
-                <button className="room-card-button">Reservar Ahora</button>
+                <button className="room-card-button" onClick={specificRoom} >Reservar Ahora</button>
             </div>
         </section>
     )

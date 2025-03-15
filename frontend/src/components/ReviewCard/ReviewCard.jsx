@@ -2,7 +2,7 @@ import React from "react";
 import './ReviewCard.css';
 import { Link } from "react-router-dom";
 import defaultPhoto from "../../assets/default-user-photo.png"
-function ReviewCard({id, valor, descripcion, timestamp, nombre_usuario, foto_usuario, nombre_habitacion}){
+function ReviewCard({id, valor, descripcion, timestamp, nombre_usuario, foto_usuario, nombre_habitacion, id_habitacion}){
     const starValue = valor && !isNaN(valor) && valor > 0 ? "⭐".repeat(Math.min(valor, 5)) : "⭐";
     const formatTimeAgo = (timestamp) => {
         const now = new Date();
@@ -33,7 +33,7 @@ function ReviewCard({id, valor, descripcion, timestamp, nombre_usuario, foto_usu
                 <h2 className="review-card-user-name">
                     {nombre_usuario.toUpperCase()}
                     <span className="review-card-user-room">
-                    ➜ <Link to="/" className="review-card-room-name">{nombre_habitacion}</Link>
+                    ➜ <Link to={"/specificroom/"+id_habitacion} className="review-card-room-name">{nombre_habitacion}</Link>
                     </span>
                 </h2>
                 <p className="review-card-description">

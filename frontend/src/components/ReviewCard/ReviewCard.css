@@ -69,27 +69,13 @@
     text-decoration: none;
     font-size: 1.1rem;
     transition: color 0.3s ease;
-    position: relative;
 }
 
 .review-card-room-name:hover {
     color: var(--ps-color-green2);
+    text-decoration: underline
 }
 
-.review-card-room-name::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -2px;
-    left: 0;
-    background-color: var(--ps-color-green2);
-    transition: width 0.3s ease;
-}
-
-.review-card-room-name:hover::after {
-    width: 100%;
-}
 
 .review-card-description {
     color: var(--ps-color-gs2);
