@@ -1,0 +1,131 @@
+.add-booking-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+.add-booking-modal-content {
+    background: var(--ps-color-gs5);
+    padding: 40px;
+    border-radius: 20px;
+    width: 30%;
+    display: flex;
+    flex-wrap: wrap;
+    min-width: 420px;
+    overflow-y: auto;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    animation: modalAppear 0.3s ease-out;
+    z-index: 1000;
+}
+
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.add-booking-modal-left {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+}
+
+.add-booking-modal-title {
+    font-size: 2rem;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.add-booking-modal-form {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.add-booking-modal-label {
+    width: 100%;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--ps-color-green1);
+    margin: 15px 0px 5px 5px;
+}
+
+.add-booking-modal-input {
+    width: 100%;
+    padding: 10px 16px;
+    border-radius: 12px;
+    border: 1px solid var(--ps-color-gs4);
+    background: var(--ps-color-gs5);
+    color: var(--ps-color-gs3);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.add-booking-modal-input:focus {
+    outline: none;
+    border-color: var(--ps-color-green2);
+    box-shadow: 0 0 0 3px rgba(19, 127, 75, 0.1);
+}
+
+.add-booking-modal-button {
+    width: 20%;
+    padding: 20px;
+    margin-top: 1rem;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--ps-color-green1), var(--ps-color-green2));
+    color: var(--ps-color-gs5);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.add-booking-modal-button-close {
+    width: 20%;
+    padding: 20px;
+    margin-top: 1rem;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(var(--ps-color-red3), var(--ps-color-red1));
+    color: var(--ps-color-gs5);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.add-booking-modal-button:hover {
+    background: linear-gradient(135deg, var(--ps-color-green1), var(--ps-color-green3));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.add-booking-modal-button-close:hover {
+    background: linear-gradient(135deg, var(--ps-color-red2), var(--ps-color-red1));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.add-booking-modal-content::-webkit-scrollbar {
+    width: 6px;
+}
