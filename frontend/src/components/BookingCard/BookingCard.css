@@ -1,0 +1,109 @@
+.booking-card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+    align-items: center;
+}
+
+.booking-card-date {
+    width: 100%;
+    margin-left: 5%;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ps-color-gs3);
+}
+
+.booking-card-hr {
+    width: 100%;
+    height: 1px;
+    background: var(--ps-color-gs4);
+    margin-bottom: 20px;
+    border: none;
+}
+
+.booking-card-content {
+    width: 95%;
+    display: flex;
+    background: whitesmoke;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    border-radius: 0px 30px 30px 30px;
+    gap: 20px;
+    align-items: center;
+}
+
+.booking-card-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+.booking-card-info-container{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    flex-grow: 1;
+}
+.booking-card-title {
+    width: 100%;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--ps-color-gs1);
+    margin-bottom: 10px;
+}
+
+.booking-card-info {
+    width: 100%;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin: 5px 0px;
+
+    color: var(--ps-color-gs1);
+}
+.booking-card-button-print{
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--ps-color-blue1), var(--ps-color-blue2));
+    transition-duration: 0.2s;
+    color: var(--ps-color-gs5);
+}
+.booking-card-button-print:hover{
+    background: linear-gradient(135deg, var(--ps-color-blue2), var(--ps-color-blue3));
+    transition-duration: 0.2s;
+}
+.booking-card-buttons{
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+.booking-card-button-pay{
+    padding: 15px;
+    width: 100px;
+    border: none;
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--ps-color-green1), var(--ps-color-green2));
+    transition-duration: 0.2s;
+    color: var(--ps-color-gs5);
+}
+
+.booking-card-button-cancel{
+    padding: 15px;
+    width: 100px;
+    border: none;
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--ps-color-red1), var(--ps-color-red2));
+    transition-duration: 0.2s;
+    color: var(--ps-color-gs5);
+}
+
+.booking-card-button-pay:hover{
+    background: linear-gradient(135deg, var(--ps-color-green2), var(--ps-color-green3));
+    transition-duration: 0.2s;
+}
+.booking-card-button-cancel:hover{
+    background: linear-gradient(135deg, var(--ps-color-red2), var(--ps-color-red3));
+    transition-duration: 0.2s;
+}

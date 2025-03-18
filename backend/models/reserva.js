@@ -1,4 +1,5 @@
 const db = require('../db/db');
+
 class Reserva{
     constructor(monto, fecha_ingreso, fecha_salida, id_usuario, id_habitacion){
         this.monto = monto,
@@ -16,12 +17,18 @@ class Reserva{
             throw error
         }
     }
-    static async obtenerReservas(){
-        const query = `SELECT r.id, r.monto, TIMESTAMPDIFF(DAY, r.fecha_ingreso, r.fecha_salida) AS noches, 
-        r.timestamp, r.estado, h.nombre, h.foto FROM reservas as r
-        INNER JOIN habitaciones as h ON r.id_habitacion = h.id
-        WHERE r.estado > 0;
-        `
+    static async obtenerReservas(id){
+        try {
+            const query = `SELECT r.id, r.monto, TIMESTAMPDIFF(DAY, r.fecha_ingreso, r.fecha_salida) AS noches, 
+            r.timestamp, r.estado, h.nombre, h.foto FROM reservas as r
+            INNER JOIN habitaciones as h ON r.id_habitacion = h.id
+            WHERE r.estado > 0 AND r.id_usuario = ?
+            ORDER BY r.timestamp DESC;`
+            const [reservas] = await db.promise().execute(query, [id])
+            return reservas;  
+        } catch (error) {
+            throw error
+        }
     }
 }
 module.exports = Reserva;

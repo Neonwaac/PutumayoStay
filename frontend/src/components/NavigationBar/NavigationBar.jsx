@@ -12,11 +12,14 @@ function NavigationBar() {
   useEffect(() => {
     const verifyToken = async () => {
       const storedUser = JSON.parse(localStorage.getItem("user"));
-
+  
       if (!storedUser || !storedUser.token) {
+        localStorage.removeItem("user");
+        setUser(null);
         navigate("/login");
         return;
       }
+  
       try {
         const response = await axios.post(
           "http://localhost:8077/verificar-token",
@@ -27,29 +30,33 @@ function NavigationBar() {
             },
           }
         );
+  
         if (response.data.valido) {
           setUser(storedUser);
         } else {
-          Swal.fire({
-           icon: "error",
-           title: "Error al iniciar sesión",
-           text: "Usuario o contraseña incorrectos",
-           });
           localStorage.removeItem("user");
+          setUser(null);
+          Swal.fire({
+            icon: "error",
+            title: "Sesión expirada",
+            text: "Tu sesión ha expirado, por favor inicia sesión nuevamente.",
+          });
           navigate("/login");
         }
       } catch (error) {
         localStorage.removeItem("user");
+        setUser(null);
         Swal.fire({
           icon: "error",
           title: "Error al iniciar sesión",
-          text: "Usuario o contraseña incorrectos",
-          });
+          text: "Hubo un problema con la autenticación, intenta de nuevo.",
+        });
         navigate("/login");
       }
     };
+  
     verifyToken();
-  }, [navigate]);
+  }, [navigate]);  
     return (
         <section className="navigation-bar">
             <div className="navigation-bar-left">
