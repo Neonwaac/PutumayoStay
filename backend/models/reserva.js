@@ -30,5 +30,14 @@ class Reserva{
             throw error
         }
     }
+    static async generateDocumentKey(){
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let documentKey = '';
+        for (let i = 0; i < 50; i++) {
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            documentKey += characters[randomIndex];
+        }
+        return documentKey;
+      }
 }
 module.exports = Reserva;

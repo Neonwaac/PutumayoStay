@@ -20,9 +20,9 @@ db.connect((err) => {
         console.log('Conectado a la database --| PutumayoStay |--');
     }
 })
-app.use('/uploads/images', express.static(path.join(__dirname, 'uploads/images')));
+
 app.use('/uploads/archives', express.static(path.join(__dirname, 'uploads/archives')));
-app.use('/uploads/videos', express.static(path.join(__dirname, 'uploads/videos')));
+
 app.use(usuarioRoutes);
 app.use(habitacionRoutes);
 app.use(reviewRoutes);

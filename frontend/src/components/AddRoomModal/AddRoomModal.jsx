@@ -56,7 +56,7 @@ const AddRoomModal = ({ isOpen, onClose, id_empresa }) => {
        Swal.fire({
         icon: "error",
         title: "Error al publicar la habitación",
-        text: "Verifica el servidor o la BD",
+        text: error.response.data.error,
     });
     }
   };
