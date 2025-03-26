@@ -14,6 +14,7 @@
     "react-router-dom": "^7.2.0",
     "react-scripts": "5.0.1",
     "react-toastify": "^11.0.5",
+    "stream-browserify": "^3.0.0",
     "sweetalert2": "^11.17.2",
     "web-vitals": "^2.1.4"
   },
@@ -21,6 +22,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "webpack": "react-scripts webpack",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
