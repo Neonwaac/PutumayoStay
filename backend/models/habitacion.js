@@ -1,6 +1,6 @@
 const db = require("../db/db");
 const fs = require("fs").promises;
-const cloudinary = require("../cloudinaryConfig");
+const cloudinary = require("../config/cloudinaryConfig");
 const FileType = require('file-type');
 class Habitacion {
   constructor(nombre, descripcion, capacidad, precio, foto, categoria) {

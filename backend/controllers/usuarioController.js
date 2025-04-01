@@ -75,5 +75,34 @@ exports.verificarToken = (req, res) => {
     }
 };
 
+exports.googleLogin = async (req, res) => {
+    if (!req.user) {
+        return res.status(401).json({ error: "No autorizado" });
+    }
+    const email = req.user.emails[0].value;
+    const username = req.user.displayName;
+    const foto = req.user.photos[0].value;
+    const password = process.env.PUTUMAYOSTAY_SECRET_KEY;
+    try {
+        const { usuario, token } = await Usuario.googleLogin(username, email, password, foto);
+        const redirectUrl = `http://localhost:3000/auth-success?usuario=${encodeURIComponent(JSON.stringify(usuario))}&token=${encodeURIComponent(token)}`;
+        return res.redirect(redirectUrl);
+    } catch (error) {
+        res.redirect("http://localhost:3000/login");
+        console.error("Error al iniciar sesión con Google:", error);
+    }
+};
 
+exports.obtenerUsuarioPorId = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const usuario = await Usuario.obtenerUsuarioPorId(id);
+        if(!usuario) {
+            return res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+        res.status(200).json(usuario);
+    } catch (error) {
+        res.status(500).json({ message: 'Hubo un error al obtener el usuario', error: error.message });
+    }
+}
 
