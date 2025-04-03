@@ -11,50 +11,34 @@ import Swal from "sweetalert2";
 function SpecificRoomPage() {
   const { id } = useParams();
   const [room, setRoom] = useState(null);
-  //RECUPERAR Y VALIDAR SI EL USUARIO EXISTE EN EL LOCALSTORAGE
   const [user, setUser] = useState();
   const navigate = useNavigate()
+  const [token, setToken] = useState(null);
+    
   useEffect(() => {
-    const verifyToken = async () => {
-      const storedUser = JSON.parse(localStorage.getItem("user"));
-
-      if (!storedUser || !storedUser.token) {
-        navigate("/login");
-        return;
-      }
-      try {
-        const response = await axios.post(
-          "http://localhost:8077/verificar-token",
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${storedUser.token}`,
-            },
-          }
-        );
-        if (response.data.valido) {
-          setUser(storedUser);
-        } else {
-          Swal.fire({
-           icon: "error",
-           title: "Error al iniciar sesión",
-           text: "Usuario o contraseña incorrectos",
-           });
-          localStorage.removeItem("user");
+      const storedToken = localStorage.getItem("token");
+      if (storedToken) {
+          setToken(storedToken);
+      } else {
           navigate("/login");
-        }
-      } catch (error) {
-        Swal.fire({
-          icon: "error",
-          title: "Error al iniciar sesión",
-          text: "Usuario o contraseña incorrectos",
-          });
-        localStorage.removeItem("user");
-        navigate("/login");
       }
-    };
-    verifyToken();
   }, [navigate]);
+  
+  useEffect(() => {
+      const fetchUserByToken = async () => {
+          if (!token) return;
+  
+          try {
+              const response = await axios.get(`http://localhost:8077/usuarios/token/${token}`);
+              setUser(response.data);
+          } catch (error) {
+              console.error("Error al obtener el usuario por token:", error);
+              navigate("/login"); 
+          }
+      };
+  
+      fetchUserByToken();
+  }, [token, navigate]);
   //FETCH A LA HABIACIÓN DEL PARAMETRO ACTUAL id
   useEffect(() => {
     const fetchRoom = async () => {

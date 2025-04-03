@@ -7,6 +7,7 @@ import RoomsPage from './pages/RoomsPage/RoomsPage';
 import ReviewsPage from './pages/ReviewsPage/ReviewsPage';
 import AboutPage from './pages/AboutPage/AboutPage';
 import SpecificRoomPage from './pages/SpecificRoomPage/SpecificRoomPage';
+import ChangePasswordPage from './pages/ChangePasswordPage/ChangePasswordPage';
 function App() {
   return (
     <BrowserRouter>
@@ -20,6 +21,7 @@ function App() {
       <Route path="/specificroom/:id" element={<SpecificRoomPage/>} />
       <Route path="/reviews" element={<ReviewsPage />} />
       <Route path="/about" element={<AboutPage />} />
+      <Route path="/changepassword" element={<ChangePasswordPage />} />
     </Routes>
     </BrowserRouter>
   );

@@ -3,18 +3,39 @@ import './AddReviewCard.css';
 import { FaStar, FaPaperPlane } from "react-icons/fa";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 function AddReviewCard({ id_habitacion, nombre_habitacion }) {
     const [id_usuario, setUser] = useState("");
     const [stars, setStars] = useState(0);
     const [descripcion, setDescripcion] = useState("");
-
+    const navigate = useNavigate();
+    const [token, setToken] = useState(null);
+    
     useEffect(() => {
-        const storedUser = JSON.parse(localStorage.getItem('user'));
-        if (storedUser) {
-            setUser(storedUser.id);
+        const storedToken = localStorage.getItem("token");
+        if (storedToken) {
+            setToken(storedToken);
+        } else {
+            navigate("/login");
         }
-    }, []);
+    }, [navigate]);
+    
+    useEffect(() => {
+        const fetchUserByToken = async () => {
+            if (!token) return;
+    
+            try {
+                const response = await axios.get(`http://localhost:8077/usuarios/token/${token}`);
+                setUser(response.data.id);
+            } catch (error) {
+                console.error("Error al obtener el usuario por token:", error);
+                navigate("/login"); 
+            }
+        };
+    
+        fetchUserByToken();
+    }, [token, navigate]);
 
     const setStarsValue = (actualStarsValue) => {
         setStars(actualStarsValue);

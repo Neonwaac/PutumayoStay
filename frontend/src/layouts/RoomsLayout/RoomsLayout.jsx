@@ -8,15 +8,32 @@ function RoomsLayout({maxRoomCards}){
     const [user, setUser] = useState(null);
     const [rooms, setRooms] = useState([]);
     const navigate = useNavigate();
+    const [token, setToken] = useState(null);
+    
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        const storedUser = JSON.parse(localStorage.getItem('user'));
-        if(storedUser){
-            setUser(storedUser);
-        }else{
-            navigate("/login")
+        const storedToken = localStorage.getItem("token");
+        if (storedToken) {
+            setToken(storedToken);
+        } else {
+            navigate("/login");
         }
-    },[navigate]);
+    }, [navigate]);
+    
+    useEffect(() => {
+        const fetchUserByToken = async () => {
+            if (!token) return;
+    
+            try {
+                const response = await axios.get(`http://localhost:8077/usuarios/token/${token}`);
+                setUser(response.data);
+            } catch (error) {
+                console.error("Error al obtener el usuario por token:", error);
+                navigate("/login"); 
+            }
+        };
+    
+        fetchUserByToken();
+    }, [token, navigate]);
     useEffect(() => {
         const fetchRooms = async() => {
             try {

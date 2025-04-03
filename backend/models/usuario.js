@@ -12,36 +12,47 @@ class Usuario {
         this.correo = correo;
         this.password = password;
     }
-    static async iniciarSesion(username, password) {
-        const query = "SELECT * FROM usuarios WHERE username = ?";
+    static async iniciarSesion(username, password, fromGoogle = false, correo = null) {
+        let query;
+        let queryParam;
+        if (fromGoogle) {
+            if (!correo) {
+                throw new Error("Correo no proporcionado para iniciar sesión con Google");
+            }
+            query = `SELECT * FROM usuarios WHERE correo = ?`;
+            queryParam = correo;
+        } else {
+            query = `SELECT * FROM usuarios WHERE username = ?`;
+            queryParam = username;
+        }
         try {
-            const [dbResponse] = await db.promise().execute(query, [username]);
+            const [dbResponse] = await db.promise().execute(query, [queryParam]);
     
             if (dbResponse.length === 0) {
                 throw new Error("Usuario no encontrado");
             }
-    
             const dbUser = dbResponse[0];
-            const isPasswordValid = await bcrypt.compare(password, dbUser.password);
-    
-            if (!isPasswordValid) {
-                throw new Error("Contraseña incorrecta");
+            if (!fromGoogle) {
+                const isPasswordValid = await bcrypt.compare(password, dbUser.password);
+                if (!isPasswordValid) {
+                    throw new Error("Contraseña incorrecta");
+                }
             }
             const token = this.generarToken(dbUser.id, dbUser.username, dbUser.rol);
             const tokenQuery = "UPDATE usuarios SET token = ? WHERE id = ?";
             await db.promise().execute(tokenQuery, [token, dbUser.id]);
+    
             delete dbUser.password;
     
-            return { usuario: dbUser, token };
+            return { token };
         } catch (error) {
             throw error;
         }
     }
-    
     static generarToken(id, username, rol) {
         return jwt.sign(
             { id, username, rol },
-            process.env.JWT_SECRET || "secret_provisional",
+            process.env.PUTUMAYOSTAY_JWT_SECRET,
             { expiresIn: "1h" }
         );
     }
@@ -54,7 +65,6 @@ class Usuario {
             throw new Error(`Error al obtener usuarios: ${error.message}`);
         }
     }
-
     static async crearUsuario(correo, username, password){
         try{
             const query = `INSERT INTO usuarios (correo, username, password) VALUES (?, ?, ?)`;
@@ -96,51 +106,29 @@ class Usuario {
     }
     static async googleLogin(username, correo, password, foto) {
         try {
-            // Verificar si la cuenta ya existe con Google
-            const existGoogleAccount = await Usuario.googleLoginExistAccount(username, correo);
-            
-            // Verificar si la cuenta ya existe pero fue creada manualmente
-            const existAccount = await Usuario.loginExistAccount(correo);
-            // EN CASO DE QUE EXISTA LA CUENTA NORMAL Y NO LA DE GOOGLE NO SE PUEDE CREAR UNA NUEVA
-            if (existAccount && !existGoogleAccount) {
-                throw new Error("Este correo ya fue registrado directamente en PutumayoStay");
-            }
-            // EN CASO DE QUE EXISTA UN CORRREO IGUAL Y SU NOMBRE COINCIDA CON EL DE GOOGLE SE INICIA SESION
-            if (existAccount && existGoogleAccount) {
-                const { usuario, token } = await Usuario.iniciarSesion(username, password);
-                if (foto) {
-                    await Usuario.addFotoUsuario(usuario.id, username, foto);
-                }
-                return { usuario, token };
+            const existGoogleAccount = await Usuario.googleLoginExistAccount(correo);
+
+            if (existGoogleAccount) {
+                const { token } = await Usuario.iniciarSesion(username, password, true, correo);
+                return { token };
                 
             }
-            // SI NO EXISTE NINGUNA CUENTA SE CREA UNA NUEVA
-            if (!existGoogleAccount && !existAccount) {
+            if (!existGoogleAccount) {
                 const createdUser = await Usuario.crearUsuario(correo, username, password);
                 const userId = createdUser.id;
                 if (foto) {
                     await Usuario.addFotoUsuario(userId, username, foto);
                 }
-                const { usuario, token } = await Usuario.iniciarSesion(username, password);
-                return { usuario, token };
+                const { token } = await Usuario.iniciarSesion(username, password);
+                return { token };
             }
         } catch (error) {
             throw new Error(`Error en googleLogin: ${error.message}`);
         }
     }
-    
-    static async googleLoginExistAccount(username, correo) {
-        try {
-            const query = `SELECT * FROM usuarios WHERE username = ? AND correo = ?`;
-            const [rows] = await db.promise().execute(query, [username, correo]);
-            return rows.length > 0;
-        } catch (error) {
-            throw new Error(`Error al verificar si la cuenta de Google ya se registró anteriormente: ${error.message}`);
-        }
-    }
-    static async loginExistAccount(correo){
+    static async googleLoginExistAccount(correo){
         try{
-            const query = `SELECT * FROM usuarios WHERE  correo = ?; `
+            const query = `SELECT * FROM usuarios WHERE correo = ?; `
             const [rows] = await db.promise().execute(query, [correo]);
             return rows.length > 0;
         }catch(error){
@@ -157,6 +145,30 @@ class Usuario {
             return rows[0];    
         } catch (error) {
             throw new Error(`Error al obtener usuario por ID: ${error.message}`);
+        }
+    }
+    static async obtenerUsuarioPorToken(token){
+        const query = `SELECT * FROM usuarios WHERE token = ?`;
+        try {
+            const [rows] = await db.promise().execute(query, [token]);
+            if (rows.length === 0) {
+                throw new Error("Usuario no encontrado");
+            }
+            return rows[0];    
+        } catch (error) {
+            throw new Error(`Error al obtener usuario por token: ${error.message}`);
+        }
+    }
+    static async cerrarSesion(id){
+        try {
+            const query = `UPDATE usuarios SET token = NULL WHERE id = ?`;
+            const [result] = await db.promise().execute(query, [id]);
+            if (result.affectedRows === 0) {
+                throw new Error("Usuario no encontrado, model");
+            }
+            return true;
+        } catch (error) {
+            throw new Error(`Error al cerrar sesión: ${error.message}`);
         }
     }
 }

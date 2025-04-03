@@ -10,7 +10,6 @@ require("dotenv").config();
 const db = require("./db/db.js");
 const passport = require("./config/passportConfig");
 const session = require("express-session");
-const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
 app.use(express.json());
 app.use(cors());

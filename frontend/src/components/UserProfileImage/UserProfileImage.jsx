@@ -1,9 +1,9 @@
 import React from "react";
 import "./UserProfileImage.css";
 
-function UserProfileImage(){
+function UserProfileImage({id, foto}){
     return(
-        <h1>User Profile Image</h1>
+        <img src={foto} width={500}></img>
     )
 }
 

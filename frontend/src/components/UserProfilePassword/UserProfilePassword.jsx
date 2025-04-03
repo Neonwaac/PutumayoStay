@@ -1,10 +1,10 @@
 import React from "react";
 import "./UserProfilePassword.css";
 
-function UserProfilePassword() {
+function UserProfilePassword({id, password}) {
     return (
         <div className="user-profile-password">
-            <h1>User Profile Password</h1>
+            <h1>{password}</h1>
         </div>
     );
 }

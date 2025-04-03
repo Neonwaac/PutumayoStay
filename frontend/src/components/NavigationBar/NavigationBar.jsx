@@ -7,66 +7,56 @@ import companyLogo from "../../assets/larger-light-logo.png";
 import defaultPhoto from "../../assets/default-user-photo.png";
 
 function NavigationBar() {
+    const [token, setToken] = useState(null);
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
     const location = useLocation();
-
+    
     useEffect(() => {
         const verifyToken = async () => {
-            // 1. Intentar obtener usuario desde los parámetros de la URL
             const params = new URLSearchParams(location.search);
-            const usuarioParam = params.get("usuario");
             const tokenParam = params.get("token");
-
-            let storedUser = JSON.parse(localStorage.getItem("user"));
-
-            if (usuarioParam && tokenParam) {
+            let storedToken = localStorage.getItem("token");
+    
+            // 🔹 Si viene un token en los parámetros, actualizar localStorage y el estado
+            if (tokenParam) {
                 try {
-                    // Decodificar JSON del usuario de la URL
-                    const usuario = JSON.parse(decodeURIComponent(usuarioParam));
-                    usuario.token = tokenParam;
-
-                    // Guardarlo en localStorage
-                    localStorage.setItem("user", JSON.stringify(usuario));
-
-                    // Limpiar los parámetros de la URL
+                    localStorage.setItem("token", tokenParam);
+                    storedToken = tokenParam; // 🔹 Ahora storedToken tiene el valor correcto
                     navigate("/", { replace: true });
-
-                    // Usar el usuario extraído
-                    storedUser = usuario;
                 } catch (error) {
-                    console.error("Error al parsear usuario desde parámetros:", error);
+                    console.error("Error al almacenar el token:", error);
                 }
             }
-
-            // 2. Si no hay usuario en localStorage, redirigir a login
-            if (!storedUser || !storedUser.token) {
-                localStorage.removeItem("user");
-                setUser(null);
+    
+            // 🔹 Si aún no hay token, redirigir al login
+            if (!storedToken) {
+                localStorage.removeItem("token");
+                setToken(null);
                 navigate("/login");
                 return;
             }
-
-            // 3. Verificar el token con el backend
+    
             try {
+                // 🔹 Llamada a backend para verificar el token
                 const response = await axios.post(
                     "http://localhost:8077/verificar-token",
                     {},
                     {
                         headers: {
-                            Authorization: `Bearer ${storedUser.token}`,
+                            Authorization: `Bearer ${storedToken}`,
                         },
                     }
                 );
-
+    
                 if (response.data.valido) {
-                    setUser(storedUser);
+                    setToken(storedToken);
                 } else {
                     throw new Error("Token inválido");
                 }
             } catch (error) {
-                localStorage.removeItem("user");
-                setUser(null);
+                localStorage.removeItem("token");
+                setToken(null);
                 Swal.fire({
                     icon: "error",
                     title: "Sesión expirada",
@@ -75,10 +65,32 @@ function NavigationBar() {
                 navigate("/login");
             }
         };
-
+    
         verifyToken();
     }, [location, navigate]);
 
+    useEffect(() => {
+        const fetchUser = async () => {
+            if (!token) return;
+
+            try {
+                const response = await axios.get(`http://localhost:8077/usuarios/token/${token}`);
+                setUser(response.data);
+            } catch (error) {
+                console.error("Error al obtener el usuario:", error);
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "No se pudo obtener el usuario, token inválido.",
+                });
+                localStorage.removeItem("token");
+                localStorage.removeItem("user");
+                navigate("/login");
+            }
+        };
+
+        fetchUser();
+    }, [token, navigate]);
     return (
         <section className="navigation-bar">
             <div className="navigation-bar-left">

@@ -6,6 +6,32 @@ import Swal from "sweetalert2";
 function RoomCard({key, id, nombre, descripcion, capacidad, foto, precio, categoria, id_empresa}){
     const [user, setUser] = useState(null);
     const navigate = useNavigate()
+    const [token, setToken] = useState(null);
+    
+    useEffect(() => {
+        const storedToken = localStorage.getItem("token");
+        if (storedToken) {
+            setToken(storedToken);
+        } else {
+            navigate("/login");
+        }
+    }, [navigate]);
+    
+    useEffect(() => {
+        const fetchUserByToken = async () => {
+            if (!token) return;
+    
+            try {
+                const response = await axios.get(`http://localhost:8077/usuarios/token/${token}`);
+                setUser(response.data);
+            } catch (error) {
+                console.error("Error al obtener el usuario por token:", error);
+                navigate("/login"); 
+            }
+        };
+    
+        fetchUserByToken();
+    }, [token, navigate]);
     const specificRoom = (e) => {
         e.preventDefault();
         navigate("/specificroom/"+id)
@@ -41,17 +67,6 @@ function RoomCard({key, id, nombre, descripcion, capacidad, foto, precio, catego
             }
           });
     }
-      useEffect(() => {
-        const storedUser = JSON.parse(localStorage.getItem("user"));
-        if (storedUser) {
-          setUser(storedUser);
-        } else {
-          navigate("/login");
-        }
-      }, [navigate]);
-      function sumNumbers(num1, num2){
-        
-      }
     
     return(
         <section className="room-card">

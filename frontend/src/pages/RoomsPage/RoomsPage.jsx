@@ -6,19 +6,38 @@ import { FaSearch, FaPlus } from "react-icons/fa";
 import AppFooter from "../../components/AppFooter/AppFooter";
 import { useNavigate } from "react-router-dom";
 import AddRoomModal from "../../components/AddRoomModal/AddRoomModal";
+import axios from "axios";
 function RoomsPage() {
   const [user, setUser] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
+  const [token, setToken] = useState(null);
+    
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    if (storedUser) {
-      setUser(storedUser);
-    } else {
-      navigate("/login");
-    }
+      const storedToken = localStorage.getItem("token");
+      if (storedToken) {
+          setToken(storedToken);
+      } else {
+          navigate("/login");
+      }
   }, [navigate]);
+  
+  useEffect(() => {
+      const fetchUserByToken = async () => {
+          if (!token) return;
+  
+          try {
+              const response = await axios.get(`http://localhost:8077/usuarios/token/${token}`);
+              setUser(response.data);
+          } catch (error) {
+              console.error("Error al obtener el usuario por token:", error);
+              navigate("/login"); 
+          }
+      };
+  
+      fetchUserByToken();
+  }, [token, navigate]);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false)

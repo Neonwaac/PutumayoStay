@@ -51,8 +51,8 @@ exports.iniciarSesion = async (req, res) => {
         return res.status(400).json({ message: "Faltan campos requeridos" });
     }
     try {
-        const { usuario, token } = await Usuario.iniciarSesion(username, password);
-        return res.status(200).json({ message: "Inicio de sesión exitoso", usuario});
+        const { token } = await Usuario.iniciarSesion(username, password);
+        return res.status(200).json({ message: "Inicio de sesión exitoso", token});
     } catch (error) {
         return res.status(401).json({ message: error.message });
     }
@@ -67,7 +67,7 @@ exports.verificarToken = (req, res) => {
         if (!token) {
             return res.status(401).json({ mensaje: "No autorizado: Token no encontrado", valido: false });
         }
-        const tokenDecoded = jwt.verify(token, process.env.JWT_SECRET || "secret_provisional");
+        const tokenDecoded = jwt.verify(token, process.env.PUTUMAYOSTAY_JWT_SECRET);
         res.json({ valido: true, mensaje: "Token válido", usuario: tokenDecoded });
     } catch (error) {
         console.error("Error al verificar token:", error);
@@ -79,13 +79,13 @@ exports.googleLogin = async (req, res) => {
     if (!req.user) {
         return res.status(401).json({ error: "No autorizado" });
     }
-    const email = req.user.emails[0].value;
+    const correo = req.user.emails[0].value;
     const username = req.user.displayName;
     const foto = req.user.photos[0].value;
     const password = process.env.PUTUMAYOSTAY_SECRET_KEY;
     try {
-        const { usuario, token } = await Usuario.googleLogin(username, email, password, foto);
-        const redirectUrl = `http://localhost:3000/auth-success?usuario=${encodeURIComponent(JSON.stringify(usuario))}&token=${encodeURIComponent(token)}`;
+        const { token } = await Usuario.googleLogin(username, correo, password, foto);
+        const redirectUrl = `http://localhost:3000/auth-success?token=${encodeURIComponent(token)}`;
         return res.redirect(redirectUrl);
     } catch (error) {
         res.redirect("http://localhost:3000/login");
@@ -105,4 +105,30 @@ exports.obtenerUsuarioPorId = async (req, res) => {
         res.status(500).json({ message: 'Hubo un error al obtener el usuario', error: error.message });
     }
 }
+// REFACTOR SESION
+exports.obtenerUsuarioPorToken = async(req, res) => {
+    const token = req.params.id;
+    try{
+        const usuario = await Usuario.obtenerUsuarioPorToken(token);
+        if(!usuario) {
+            return res.status(404).json({ message: 'Usuario no con token '+ token +' no encontrado' });
+        }
+        res.status(200).json(usuario);
+    }catch(error){
+        res.status(500).json({ message: 'Hubo un error al obtener el usuario por token', error: error.message });
+    }
+}
 
+exports.cerrarSesion = async (req, res) => {
+    try {
+        const {id} = req.params;
+        const response = await Usuario.cerrarSesion(id);
+        if(!response) {
+            return res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+        res.status(200).json({ message: 'Sesión cerrada correctamente' });
+    } catch (error) {
+        res.status(500).json({ message: 'Hubo un error al cerrar sesión', error: error.message });
+    }
+
+}

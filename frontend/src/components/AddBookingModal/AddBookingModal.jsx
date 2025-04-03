@@ -14,15 +14,32 @@ function AddBookingModal({ isOpen, onClose, id_habitacion, precio }) {
         id_habitacion: id_habitacion
     });
     const navigate = useNavigate();
+    const [token, setToken] = useState(null);
+    
     useEffect(() => {
-        const storedUser = JSON.parse(localStorage.getItem("user"));
-        if (storedUser) {
-            setUser(storedUser);
-            setFormData(prevState => ({ ...prevState, id_usuario: storedUser.id }));
+        const storedToken = localStorage.getItem("token");
+        if (storedToken) {
+            setToken(storedToken);
         } else {
             navigate("/login");
         }
     }, [navigate]);
+    
+    useEffect(() => {
+        const fetchUserByToken = async () => {
+            if (!token) return;
+            try {
+                const response = await axios.get(`http://localhost:8077/usuarios/token/${token}`);
+                setUser(response.data);
+                setFormData(prevState => ({ ...prevState, id_usuario: response.data.id }));
+            } catch (error) {
+                console.error("Error al obtener el usuario por token:", error);
+                navigate("/login"); 
+            }
+        };
+    
+        fetchUserByToken();
+    }, [token, navigate]);
     const calculateAmount = (fechaIngreso, fechaSalida) => {
         if (!fechaIngreso || !fechaSalida) return "";
         const fecha1 = new Date(fechaIngreso);

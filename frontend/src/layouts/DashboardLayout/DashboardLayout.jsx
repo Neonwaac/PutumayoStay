@@ -9,40 +9,69 @@ import BookingsLayout from "../BookingsLayout/BookingsLayout";
 import BookingHistoryLayout from "../BookingHistoryLayout/BookingHistoryLayout";
 import PaymentsLayout from "../PaymentsLayout/PaymentsLayout";
 import NotificationsLayout from "../NotificationsLayout/NotificationsLayout";
+import axios from "axios";
 
 function DashboardLayout() {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
-    useEffect(()=>{
-        const storedUser = JSON.parse(localStorage.getItem("user"));
-        if (storedUser) {
-          setUser(storedUser);
+    const [token, setToken] = useState(null);
+    
+    useEffect(() => {
+        const storedToken = localStorage.getItem("token");
+        if (storedToken) {
+            setToken(storedToken);
         } else {
-          navigate("/login");
+            navigate("/login");
         }
-      }, [navigate]);
-    const cerrarSesion = (e) => {
-        e.preventDefault();
-        Swal.fire({
-            title: "Estas seguro de cerrar sesión?",
-            icon: "warning",
-            showCancelButton: true,
-            cancelButtonText: "Cancelar",
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Confirmar"
-            }).then((result) => {
-            if (result.isConfirmed) {
-                 Swal.fire({
-                 title: "Hasta pronto!!...",
-                 text: "Has cerrado sesión.",
-                 icon: "success"
-                 });
-                }
-                localStorage.removeItem('user')
-                window.location.reload(true)
-            })
-    }
+    }, [navigate]);
+    
+    useEffect(() => {
+        const fetchUserByToken = async () => {
+            if (!token) return;
+    
+            try {
+                const response = await axios.get(`http://localhost:8077/usuarios/token/${token}`);
+                setUser(response.data);
+            } catch (error) {
+                console.error("Error al obtener el usuario por token:", error);
+                navigate("/login"); 
+            }
+        };
+    
+        fetchUserByToken();
+    }, [token, navigate]);
+    const cerrarSesion = async (e) => {
+      e.preventDefault();
+      
+      const result = await Swal.fire({
+          title: "¿Estás seguro de cerrar sesión?",
+          icon: "warning",
+          showCancelButton: true,
+          cancelButtonText: "Cancelar",
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Confirmar"
+      });
+  
+      if (result.isConfirmed) {
+          try {
+              await axios.get(`http://localhost:8077/usuarios/cerrar-sesion/${user.id}`);
+              window.location.reload(true);
+              await Swal.fire({
+                  title: "¡Hasta pronto!",
+                  text: "Has cerrado sesión.",
+                  icon: "success"
+              });
+          } catch (error) {
+              console.error("Error al cerrar sesión:", error);
+              Swal.fire({
+                  title: "Error",
+                  text: "No se pudo cerrar la sesión.",
+                  icon: "error"
+              });
+          }
+      }
+  };
 
     const [vista, setVista] = useState("ProfileLayout");
     const renderVista = () => {

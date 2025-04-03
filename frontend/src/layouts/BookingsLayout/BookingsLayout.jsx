@@ -8,14 +8,32 @@ function BookingsLayout(){
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
     const [bookings, setBookings] = useState([]);
-    useEffect(()=>{
-        const storedUser = JSON.parse(localStorage.getItem("user"));
-        if (storedUser) {
-          setUser(storedUser);
+    const [token, setToken] = useState(null);
+    
+    useEffect(() => {
+        const storedToken = localStorage.getItem("token");
+        if (storedToken) {
+            setToken(storedToken);
         } else {
-          navigate("/login");
+            navigate("/login");
         }
-      }, [navigate]);
+    }, [navigate]);
+    
+    useEffect(() => {
+        const fetchUserByToken = async () => {
+            if (!token) return;
+    
+            try {
+                const response = await axios.get(`http://localhost:8077/usuarios/token/${token}`);
+                setUser(response.data);
+            } catch (error) {
+                console.error("Error al obtener el usuario por token:", error);
+                navigate("/login"); 
+            }
+        };
+    
+        fetchUserByToken();
+    }, [token, navigate]);
       useEffect(() => {
         const fetchBookings = async() => {
             try {
