@@ -1,18 +1,15 @@
 import React from "react";
 import "./UserProfileData.css";
 
-function UserProfileData({id, username, nombre, apellido, correo, telefono, fecha_nacimiento, fecha_registro}) {
+function UserProfileData({id, nombre, apellido, correo, telefono, edad, timestamp}) {
     return (
-        <div className="user-profile-data">
-            <h1>{id}</h1>
-            <h1>{username}</h1>
+        <section className="user-profile-data">
             <h1>{nombre}</h1>
             <h1>{apellido}</h1>
             <h1>{correo}</h1>
             <h1>{telefono}</h1>
-            <h1>{fecha_nacimiento}</h1>
-            <h1>{fecha_registro}</h1>
-        </div>
+            <h1>{edad}</h1>
+        </section>
     );
 }
 

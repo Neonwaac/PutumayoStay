@@ -29,5 +29,5 @@ body{
   height: 100vh;
   background: var(--ps-color-gs5);
   font-family: "Montserrat", serif;
-  overflow-x: hidden;
+  overflow: hidden;
 }

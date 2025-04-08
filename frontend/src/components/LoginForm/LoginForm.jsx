@@ -33,6 +33,7 @@ function LoginForm() {
         <label className="login-form-label">Nombre de Usuario</label>
         <input
           type="text"
+          name="username"
           className="login-form-input"
           onChange={(e) => setUsername(e.target.value)}
           required
@@ -40,11 +41,12 @@ function LoginForm() {
         <label className="login-form-label">Contraseña</label>
         <input
           type="password"
+          name="password"
           className="login-form-input"
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button onClick={enviarFormulario} className="login-form-button">
+        <button type="submit"onClick={enviarFormulario} className="login-form-button">
           Iniciar Sesión
         </button>
       </form>

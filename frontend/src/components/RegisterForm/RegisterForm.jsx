@@ -37,22 +37,25 @@ function RegisterForm() {
         <label className="register-form-label">Nombre de Usuario</label>
         <input
           type="text"
+          name="username"
           className="register-form-input"
           onChange={(e) => setUsername(e.target.value)}
         />
         <label className="register-form-label">Correo Electrónico</label>
         <input
           type="email"
+          name="email"
           className="register-form-input"
           onChange={(e) => setCorreo(e.target.value)}
         />
         <label className="register-form-label">Contraseña</label>
         <input
+        name="password"
           type="password"
           className="register-form-input"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button onClick={enviarFormulario} className="register-form-button">
+        <button onClick={enviarFormulario} type="submit" className="register-form-button">
           Registrarse
         </button>
       </form>

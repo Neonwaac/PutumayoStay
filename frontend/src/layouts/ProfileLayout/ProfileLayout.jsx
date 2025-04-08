@@ -40,16 +40,16 @@ function ProfileLayout() {
         {user &&<UserProfileImage  
         id={user.id}
         foto={user.foto}
+        username={user.username}
         />}
         {user && <UserProfileData
         id={user.id}
-        username={user.username}
-        nombre={user.nombre}
-        apellido={user.apellido}
+        nombre={user.nombres}
+        apellido={user.apellidos}
         correo={user.correo}
         telefono={user.telefono}
-        fecha_nacimiento={user.edad}
-        fecha_registro={user.timestamp}
+        edad={user.edad}
+        timestamp={user.timestamp}
         />}
         {user && <UserProfilePassword 
         id={user.id}

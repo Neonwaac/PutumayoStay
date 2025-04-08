@@ -1,0 +1,7 @@
+.profile-layout{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 40px;
+    gap: 20px;
+}
