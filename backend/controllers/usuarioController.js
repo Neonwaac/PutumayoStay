@@ -70,7 +70,6 @@ exports.verificarToken = (req, res) => {
         const tokenDecoded = jwt.verify(token, process.env.PUTUMAYOSTAY_JWT_SECRET);
         res.json({ valido: true, mensaje: "Token válido", usuario: tokenDecoded });
     } catch (error) {
-        console.error("Error al verificar token:", error);
         return res.status(401).json({ mensaje: "Token inválido o expirado", valido: false });
     }
 };
