@@ -4,8 +4,6 @@
   "description": "**PutumayoStay** es una aplicación diseñada para la administración eficiente de reservas y gestión hotelera en la región de Putumayo. La plataforma permite a los usuarios encontrar, reservar y administrar hospedajes de manera sencilla, mientras que los administradores pueden gestionar sus propiedades de forma intuitiva y optimizada.",
   "main": "index.js",
   "scripts": {
-    "install": "npm run install-all",
-    "install-all": "npm --prefix backend install && npm --prefix frontend install",
     "dev": "concurrently \"npm run dev-backend\" \"npm run dev-frontend\"",
     "dev-backend": "npm --prefix backend run dev",
     "dev-frontend": "npm --prefix frontend start"
