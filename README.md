@@ -139,4 +139,8 @@ README
 
 Leyder
 
+<<<<<<< HEAD
 cristian care chiche
+=======
+pantoja breaker imagine dragons
+>>>>>>> f671d792ec670ca2dd2f43afd7a69914b620c8a0
