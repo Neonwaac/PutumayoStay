@@ -12,6 +12,7 @@ cypress.config.js
 
 # production
 /build
+rm -rf node_modules/.cache
 
 # misc
 .DS_Store
