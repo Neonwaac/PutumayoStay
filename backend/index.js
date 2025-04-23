@@ -6,6 +6,7 @@ const usuarioRoutes = require("./routes/usuarioRoutes.js");
 const habitacionRoutes = require("./routes/habitacionRoutes.js");
 const reviewRoutes = require("./routes/reviewRoutes.js");
 const reservaRoutes = require("./routes/reservaRoutes.js");
+const pagoRoutes = require("./routes/pagoRoutes.js")
 require("dotenv").config();
 const db = require("./db/db.js");
 const passport = require("./config/passportConfig");
@@ -42,6 +43,7 @@ app.use(usuarioRoutes);
 app.use(habitacionRoutes);
 app.use(reviewRoutes);
 app.use(reservaRoutes);
+app.use(pagoRoutes)
 
 const PORT = process.env.PUTUMAYOSTAY_DB_PORT;
 app.listen(PORT, () => {
