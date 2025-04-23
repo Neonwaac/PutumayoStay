@@ -74,6 +74,7 @@ static async saveImage(foto) {
       const resultado = await cloudinary.uploader.upload(foto.path, {
           folder: "images",
           format: "webp",
+          type: "upload",
           transformation: [{ width: 800, quality: "auto" }]
       });
       await fs.unlink(foto.path);
@@ -91,10 +92,5 @@ static async eliminarHabitacion(id){
     throw new Error("Error al eliminar la habitación")
   }
 }
-
-
-
-
 }
-
 module.exports = Habitacion;
