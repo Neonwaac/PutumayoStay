@@ -84,10 +84,10 @@ exports.googleLogin = async (req, res) => {
     const password = process.env.PUTUMAYOSTAY_SECRET_KEY;
     try {
         const { token } = await Usuario.googleLogin(username, correo, password, foto);
-        const redirectUrl = `http://localhost:3000/auth-success?token=${encodeURIComponent(token)}`;
+        const redirectUrl = `https://localhost:3000/auth-success?token=${encodeURIComponent(token)}`;
         return res.redirect(redirectUrl);
     } catch (error) {
-        res.redirect("http://localhost:3000/login");
+        res.redirect("https://localhost:3000/login");
         console.error("Error al iniciar sesión con Google:", error);
     }
 };

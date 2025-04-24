@@ -8,7 +8,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:8077/auth/google/callback",
+      callbackURL: "https://localhost:8077/auth/google/callback",
       scope: ["profile", "email", "openid"],
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
     },

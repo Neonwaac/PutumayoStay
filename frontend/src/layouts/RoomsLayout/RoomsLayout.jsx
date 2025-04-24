@@ -24,7 +24,7 @@ function RoomsLayout({maxRoomCards}){
             if (!token) return;
     
             try {
-                const response = await axios.get(`http://localhost:8077/usuarios/token/${token}`);
+                const response = await axios.get(`https://localhost:8077/usuarios/token/${token}`);
                 setUser(response.data);
             } catch (error) {
                 console.error("Error al obtener el usuario por token:", error);
@@ -37,7 +37,7 @@ function RoomsLayout({maxRoomCards}){
     useEffect(() => {
         const fetchRooms = async() => {
             try {
-                const response = await axios.get("http://localhost:8077/rooms");
+                const response = await axios.get("https://localhost:8077/rooms");
                 setRooms(response.data)
             } catch (error) {
                 Swal.fire({

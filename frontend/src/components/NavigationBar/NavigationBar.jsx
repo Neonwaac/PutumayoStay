@@ -40,7 +40,7 @@ function NavigationBar() {
             try {
                 // 🔹 Llamada a backend para verificar el token
                 const response = await axios.post(
-                    "http://localhost:8077/verificar-token",
+                    "https://localhost:8077/verificar-token",
                     {},
                     {
                         headers: {
@@ -74,7 +74,7 @@ function NavigationBar() {
             if (!token) return;
 
             try {
-                const response = await axios.get(`http://localhost:8077/usuarios/token/${token}`);
+                const response = await axios.get(`https://localhost:8077/usuarios/token/${token}`);
                 setUser(response.data);
             } catch (error) {
                 console.error("Error al obtener el usuario:", error);

@@ -25,7 +25,7 @@ function ProfileLayout() {
             if (!token) return;
     
             try {
-                const response = await axios.get(`http://localhost:8077/usuarios/token/${token}`);
+                const response = await axios.get(`https://localhost:8077/usuarios/token/${token}`);
                 setUser(response.data);
             } catch (error) {
                 console.error("Error al obtener el usuario por token:", error);

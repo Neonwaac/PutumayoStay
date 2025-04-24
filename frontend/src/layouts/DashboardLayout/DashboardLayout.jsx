@@ -30,7 +30,7 @@ function DashboardLayout() {
             if (!token) return;
     
             try {
-                const response = await axios.get(`http://localhost:8077/usuarios/token/${token}`);
+                const response = await axios.get(`https://localhost:8077/usuarios/token/${token}`);
                 setUser(response.data);
             } catch (error) {
                 console.error("Error al obtener el usuario por token:", error);
@@ -55,7 +55,7 @@ function DashboardLayout() {
   
       if (result.isConfirmed) {
           try {
-              await axios.get(`http://localhost:8077/usuarios/cerrar-sesion/${user.id}`);
+              await axios.get(`https://localhost:8077/usuarios/cerrar-sesion/${user.id}`);
               window.location.reload(true);
               await Swal.fire({
                   title: "¡Hasta pronto!",

@@ -8,7 +8,7 @@ function ReviewsLayout({maxReviewCards}){
     useEffect(() =>{
         const fetchReviews = async () =>{
             try {
-                const response = await axios.get("http://localhost:8077/reviews")
+                const response = await axios.get("https://localhost:8077/reviews")
                 setReviews(response.data)
             } catch (error) {
                 Swal.fire({

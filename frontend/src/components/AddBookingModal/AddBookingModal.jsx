@@ -29,7 +29,7 @@ function AddBookingModal({ isOpen, onClose, id_habitacion, precio }) {
         const fetchUserByToken = async () => {
             if (!token) return;
             try {
-                const response = await axios.get(`http://localhost:8077/usuarios/token/${token}`);
+                const response = await axios.get(`https://localhost:8077/usuarios/token/${token}`);
                 setUser(response.data);
                 setFormData(prevState => ({ ...prevState, id_usuario: response.data.id }));
             } catch (error) {
@@ -60,7 +60,7 @@ function AddBookingModal({ isOpen, onClose, id_habitacion, precio }) {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post("http://localhost:8077/reservas", formData);
+            const response = await axios.post("https://localhost:8077/reservas", formData);
             Swal.fire({
                 title: "Reserva realizada correctamente",
                 icon: "success",

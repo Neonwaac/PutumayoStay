@@ -13,9 +13,9 @@ function LoginForm() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8077/usuarios/login",
+        "https://localhost:8077/usuarios/login",
         { username, password }
-      );
+      );http://localhost:8077/auth/google/
       localStorage.setItem("token", response.data.token);
       navigate("/");
     } catch (error) {
@@ -53,7 +53,7 @@ function LoginForm() {
       <button
         className="login-form-google-button"
         onClick={() =>
-          (window.location.href = "http://localhost:8077/auth/google/")
+          (window.location.href = "https://localhost:8077/auth/google/")
         }
       >
         <span>Iniciar Sesión con Google</span>

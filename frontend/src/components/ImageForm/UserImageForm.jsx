@@ -19,7 +19,7 @@ function UserImageForm() {
         const formData = new FormData();
         formData.append("image", selectedFile);
         try{
-            const response = await axios.post("http://localhost:8077/images", formData);
+            const response = await axios.post("https://localhost:8077/images", formData);
             if(response.status === 200){
             alert("Imagen subida correctamente");
             navigate("/dashboard");

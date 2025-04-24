@@ -22,7 +22,7 @@ function BookingCard({id, monto, noches, timestamp, estado, nombre, foto}){
     const printBooking = async () => {
         console.log(foto)
         try {
-            const response = await axios.post("http://localhost:8077/reservas/generarPDF/"+id, {
+            const response = await axios.post("https://localhost:8077/reservas/generarPDF/"+id, {
                 monto,
                 noches,
                 timestamp,

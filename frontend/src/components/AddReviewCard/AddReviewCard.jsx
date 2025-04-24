@@ -26,7 +26,7 @@ function AddReviewCard({ id_habitacion, nombre_habitacion }) {
             if (!token) return;
     
             try {
-                const response = await axios.get(`http://localhost:8077/usuarios/token/${token}`);
+                const response = await axios.get(`https://localhost:8077/usuarios/token/${token}`);
                 setUser(response.data.id);
             } catch (error) {
                 console.error("Error al obtener el usuario por token:", error);
@@ -54,7 +54,7 @@ function AddReviewCard({ id_habitacion, nombre_habitacion }) {
             id_habitacion
         };
         try {
-            await axios.post("http://localhost:8077/reviews", reviewData);
+            await axios.post("https://localhost:8077/reviews", reviewData);
             Swal.fire({
                 title: "Publicada!",
                 text: "Tu reseña ha sido publicada",

@@ -11,7 +11,7 @@ function SpecificReviewsLayout({id, nombre_habitacion}){
 
     useEffect(() => {
         const fetchRooms = async() =>{
-            const response = await axios.get('http://localhost:8077/reviews/room/'+id)
+            const response = await axios.get('https://localhost:8077/reviews/room/'+id)
             setReviews(response.data)
         }
         fetchRooms()

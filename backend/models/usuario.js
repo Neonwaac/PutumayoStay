@@ -79,7 +79,7 @@ class Usuario {
     static async addFotoUsuario(id, username, foto) {
         try {
             const uniqueName = await Usuario.downloadAndSaveImage(id, username, foto);
-            const photoPath = "http://localhost:8077/uploads/images/"+uniqueName;
+            const photoPath = "https://localhost:8077/uploads/images/"+uniqueName;
             const query = `UPDATE usuarios SET foto = ? WHERE id = ?`;
             const [result] = await db.promise().execute(query, [photoPath, id]);
             return { id, foto: photoPath };

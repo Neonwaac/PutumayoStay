@@ -29,7 +29,7 @@ function SpecificRoomPage() {
           if (!token) return;
   
           try {
-              const response = await axios.get(`http://localhost:8077/usuarios/token/${token}`);
+              const response = await axios.get(`https://localhost:8077/usuarios/token/${token}`);
               setUser(response.data);
           } catch (error) {
               console.error("Error al obtener el usuario por token:", error);
@@ -42,7 +42,7 @@ function SpecificRoomPage() {
   //FETCH A LA HABIACIÓN DEL PARAMETRO ACTUAL id
   useEffect(() => {
     const fetchRoom = async () => {
-      const response = await fetch("http://localhost:8077/rooms/" + id);
+      const response = await fetch("https://localhost:8077/rooms/" + id);
       const data = await response.json();
       setRoom(data);
     };

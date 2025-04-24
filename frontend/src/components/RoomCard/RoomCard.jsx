@@ -22,7 +22,7 @@ function RoomCard({key, id, nombre, descripcion, capacidad, foto, precio, catego
             if (!token) return;
     
             try {
-                const response = await axios.get(`http://localhost:8077/usuarios/token/${token}`);
+                const response = await axios.get(`https://localhost:8077/usuarios/token/${token}`);
                 setUser(response.data);
             } catch (error) {
                 console.error("Error al obtener el usuario por token:", error);
@@ -55,7 +55,7 @@ function RoomCard({key, id, nombre, descripcion, capacidad, foto, precio, catego
                 icon: "success"
               });
               try{
-                axios.delete("http://localhost:8077/rooms/"+id);
+                axios.delete("https://localhost:8077/rooms/"+id);
                 window.location.reload(true);
               }catch(error){
                 Swal.fire({

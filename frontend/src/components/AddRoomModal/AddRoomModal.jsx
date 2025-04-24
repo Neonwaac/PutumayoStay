@@ -39,7 +39,7 @@ const AddRoomModal = ({ isOpen, onClose, id_empresa }) => {
     data.append("id_empresa", id_empresa)
 
     try {
-      const response = await axios.post("http://localhost:8077/rooms", data, {
+      const response = await axios.post("https://localhost:8077/rooms", data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
