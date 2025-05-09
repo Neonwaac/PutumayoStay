@@ -160,7 +160,7 @@ class Reserva{
       .stroke();
 
     doc.end();
-    return ({url: "http://localhost:8077/uploads/archives/" + fileName })
+    return ({url: "https://localhost:8077/uploads/archives/" + fileName })
         } catch (error) {
             throw new Error(error)
         }
