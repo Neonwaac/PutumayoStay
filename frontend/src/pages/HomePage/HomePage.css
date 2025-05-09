@@ -3,3 +3,9 @@
     min-height: 100vh;
     overflow-x: hidden;
 }
+.home-page-bg{
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}

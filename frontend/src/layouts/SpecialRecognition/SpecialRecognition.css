@@ -1,0 +1,84 @@
+.special-recognition {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: 30px;
+    padding: 20px 0;
+    background: linear-gradient(to bottom, var(--ps-color-gs5), rgba(246, 242, 230, 0.5));
+    border-radius: 20px;
+    margin: 20px 0;
+}
+
+.special-recognition-title {
+    width: 100%;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--ps-color-green1);
+    text-align: center;
+    padding: 0.5rem 1rem;
+    margin-bottom: 10px;
+    position: relative;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.special-recognition-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(to right, var(--ps-color-green2), var(--ps-color-green3));
+    border-radius: 2px;
+}
+@keyframes shine {
+    0% {
+        background-position: -100px;
+    }
+    40%, 100% {
+        background-position: 300px;
+    }
+}
+
+.most-bookings, .most-payments {
+    position: relative;
+    overflow: hidden;
+}
+
+.most-bookings::before, .most-payments::before {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+.most-bookings::after, .most-payments::after {
+    mask: linear-gradient(to right, transparent, black, transparent);
+    animation: shine 3s infinite;
+}
+
+/* Media queries para responsividad */
+@media (max-width: 768px) {
+    .most-bookings, .most-payments {
+        width: 45%;
+        min-width: 250px;
+    }
+}
+
+@media (max-width: 576px) {
+    .most-bookings, .most-payments {
+        width: 90%;
+    }
+}

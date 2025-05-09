@@ -1,0 +1,99 @@
+.most-bookings {
+    width: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px 20px;
+    background: var(--ps-color-gs5);
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.most-bookings::before {
+    content: '🏆';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    opacity: 0.2;
+}
+
+.most-bookings::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(to right, var(--ps-color-green2), var(--ps-color-green3));
+}
+
+.most-bookings:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+.most-bookings-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--ps-color-green3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.most-bookings-img::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 25px;
+    height: 25px;
+    background: var(--ps-color-yellow1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: var(--ps-color-gs1);
+    font-weight: bold;
+}
+
+.most-bookings-username {
+    width: 100%;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--ps-color-green1);
+    text-align: center;
+    padding: 0.5rem 0;
+    margin: 0;
+}
+
+.most-bookings-description {
+    width: 100%;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--ps-color-gs3);
+    text-align: center;
+    padding: 0.3rem 0;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.most-bookings-cant {
+    width: auto;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+    padding: 0.5rem 1rem;
+    margin-top: 10px;
+    background: linear-gradient(135deg, var(--ps-color-green2), var(--ps-color-green3));
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}

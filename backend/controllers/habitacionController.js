@@ -56,3 +56,12 @@ exports.eliminarHabitacion = async (req, res) => {
     res.status(500).json({ message: "No se pudo eliminar la habitación" });
   }
 };
+exports.mostBooked = async (req, res) => {
+  try {
+    const habitaciones = await Habitacion.mostBooked();
+    res.status(200).json(habitaciones);
+  } catch (error) {
+    res.status(500).json({ message: "Error al obtener las habitaciones" });
+  }
+}
+

@@ -1,0 +1,87 @@
+.most-booked {
+    width: 45%;
+    max-width: 550px;
+    min-width: 320px;
+    display: flex;
+    flex-direction: row;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    background: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.most-booked::before {
+    content: '🌟';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    opacity: 0.2;
+}
+
+.most-booked::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(to right, var(--ps-color-purple1), var(--ps-color-blue1));
+}
+
+.most-booked:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+.most-booked-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin: 15px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.most-booked:hover .most-booked-img {
+    transform: scale(1.05);
+}
+
+.most-booked-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 15px 20px 15px 0;
+}
+
+.most-booked-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--ps-color-purple1);
+    margin: 0 0 8px 0;
+}
+
+.most-booked-description {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--ps-color-gs3);
+    margin: 0 0 12px 0;
+    line-height: 1.4;
+}
+
+.most-booked-cant {
+    display: inline-block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg, var(--ps-color-purple1), var(--ps-color-blue1));
+    padding: 6px 15px;
+    border-radius: 20px;
+    margin: 5px 0 0 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}

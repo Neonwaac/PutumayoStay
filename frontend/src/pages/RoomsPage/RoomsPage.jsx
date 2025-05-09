@@ -7,40 +7,59 @@ import AppFooter from "../../components/AppFooter/AppFooter";
 import { useNavigate } from "react-router-dom";
 import AddRoomModal from "../../components/AddRoomModal/AddRoomModal";
 import axios from "axios";
+import BestRecomendations from "../../layouts/BestRecomendations/BestRecomendations";
 function RoomsPage() {
   const [user, setUser] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
   const [token, setToken] = useState(null);
-    
+  let [maxRoomCards, setMaxRoomCards] = useState(3);
   useEffect(() => {
-      const storedToken = localStorage.getItem("token");
-      if (storedToken) {
-          setToken(storedToken);
+    const updateMaxRoomCards = () => {
+      const width = window.innerWidth;
+
+      if (width >= 1820) {
+        setMaxRoomCards(4);
+      } else if (width >= 1280) {
+        setMaxRoomCards(3);
+      } else if (width >= 768) {
+        setMaxRoomCards(2);
       } else {
-          navigate("/login");
+        setMaxRoomCards(2);
       }
-  }, [navigate]);
-  
+    };
+    updateMaxRoomCards();
+  });
   useEffect(() => {
-      const fetchUserByToken = async () => {
-          if (!token) return;
-  
-          try {
-              const response = await axios.get(`https://localhost:8077/usuarios/token/${token}`);
-              setUser(response.data);
-          } catch (error) {
-              console.error("Error al obtener el usuario por token:", error);
-              navigate("/login"); 
-          }
-      };
-  
-      fetchUserByToken();
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      setToken(storedToken);
+    } else {
+      navigate("/login");
+    }
+  }, [navigate]);
+
+  useEffect(() => {
+    const fetchUserByToken = async () => {
+      if (!token) return;
+
+      try {
+        const response = await axios.get(
+          `https://localhost:8077/usuarios/token/${token}`
+        );
+        setUser(response.data);
+      } catch (error) {
+        console.error("Error al obtener el usuario por token:", error);
+        navigate("/login");
+      }
+    };
+
+    fetchUserByToken();
   }, [token, navigate]);
 
   const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false)
+  const closeModal = () => setIsModalOpen(false);
   return (
     <section className="rooms-page">
       <NavigationBar />
@@ -86,9 +105,15 @@ function RoomsPage() {
           </button>
         )}
       </div>
-      <RoomsLayout />
+      <BestRecomendations/>
+      <RoomsLayout maxRoomCards={maxRoomCards}/>
+      
       <AppFooter />
-      <AddRoomModal isOpen={isModalOpen} onClose={closeModal} id_empresa={user.id}/>
+      <AddRoomModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        id_empresa={user.id}
+      />
     </section>
   );
 }

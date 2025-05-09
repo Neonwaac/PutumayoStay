@@ -131,3 +131,39 @@ exports.cerrarSesion = async (req, res) => {
     }
 
 }
+
+exports.mostRooms = async (req, res) => {
+    try{
+        const response = await Usuario.mostRooms();
+        if(!response) {
+            return res.status(404).json({ message: 'No se encontraron empresas con habitaciones' });
+        }
+        res.status(200).json(response);
+    }catch(error){
+        res.status(500).json({ message: 'Hubo un error al obtener la empresa con más habitaciones', error: error.message });
+    }
+}
+
+exports.mostPayments = async (req, res) => {
+    try{
+        const response = await Usuario.mostPayments();
+        if(!response) {
+            return res.status(404).json({ message: 'No se encontraron empresas con más pagos' });
+        }
+        res.status(200).json(response);
+    }catch(error){
+        res.status(500).json({ message: 'Hubo un error al obtener la empresa con más pagos', error: error.message });
+    }
+}
+
+exports.mostBookings = async (req, res) => {
+    try{
+        const response = await Usuario.mostBookings();
+        if(!response) {
+            return res.status(404).json({ message: 'No se encontraron empresas con más reservas' });
+        }
+        res.status(200).json(response);
+    }catch(error){
+        res.status(500).json({ message: 'Hubo un error al obtener la empresa con más reservas', error: error.message });
+    }
+}

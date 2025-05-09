@@ -1,0 +1,136 @@
+1. Empresa con más habitaciones registradas
+SELECT 
+e.nombres AS "Empresa",
+  (
+    SELECT COUNT(*) 
+    FROM habitaciones AS h 
+    WHERE h.id_empresa = e.id
+  ) AS "Número de Habitaciones",
+  'Esta es la empresa con más habitaciones registradas' AS observacion
+FROM usuarios e
+WHERE (
+  SELECT COUNT(*) 
+  FROM habitaciones AS h 
+  WHERE h.id_empresa = e.id
+) = (
+  SELECT MAX(conteo)
+  FROM (
+    SELECT COUNT(*) AS conteo
+    FROM habitaciones
+    GROUP BY id_empresa
+  ) AS sub
+);
+📌 Qué hace y por qué se hizo así:
+
+Esta consulta busca cuál es la empresa que tiene registradas más habitaciones en el sistema. Lo hicimos utilizando una subconsulta que cuenta las habitaciones por empresa y la compara con el máximo general.
+
+📌 Para qué es útil:
+
+Nos permite identificar cuál de nuestras empresas tiene más oferta. Esto es muy útil si queremos destacar su marca en la plataforma o negociar beneficios especiales por su participación activa.
+
+📌 Importancia en el sistema:
+
+Implementar este tipo de reconocimiento impulsa a las empresas a registrar más habitaciones, lo que a su vez enriquece la plataforma con más opciones para los usuarios.
+2. Habitación con más reservas en el sistema
+SELECT 
+  h.nombre AS "Habitación",
+  (
+    SELECT COUNT(*) 
+    FROM reservas r 
+    WHERE r.id_habitacion = h.id
+  ) AS "Número de Reservas",
+  'Esta es la habitación con más reservas en el sistema' AS observacion
+FROM habitaciones AS h
+WHERE (
+  SELECT COUNT(*) 
+  FROM reservas AS r 
+  WHERE r.id_habitacion = h.id
+) = (
+  SELECT MAX(total)
+  FROM (
+    SELECT COUNT(*) AS total
+    FROM reservas
+    GROUP BY id_habitacion
+  ) AS sub
+);
+📌 Qué hace y por qué se hizo así:
+
+Busca la habitación más popular, es decir, la que ha sido reservada más veces. Usamos subconsultas anidadas para asegurar que devolvemos únicamente esa habitación con el conteo más alto.
+
+📌 Para qué sirve:
+
+Sirve para identificar qué tipo de habitación prefieren los usuarios. Con esta información podemos tomar decisiones como replicar ese estilo, mejorar el marketing o incluso subir su precio estratégicamente.
+
+📌 Importancia en el sistema:
+
+Visualmente podemos destacar esta habitación como “la más reservada” y guiar a nuevos usuarios hacia opciones probadas y confiables.
+
+
+3. Usuario con más pagos registrados 
+SELECT 
+  u.nombres,
+  u.apellidos,
+  (
+    SELECT COUNT(*) 
+    FROM historial_pagos AS hp 
+    WHERE hp.id_usuario = u.id
+  ) AS "Pagos Realizados",
+  'Este usuario es quien más pagos ha realizado' AS observacion
+FROM usuarios u
+WHERE (
+  SELECT COUNT(*) 
+  FROM historial_pagos AS hp 
+  WHERE hp.id_usuario = u.id
+) = (
+  SELECT MAX(total)
+  FROM (
+    SELECT COUNT(*) AS total
+    FROM historial_pagos
+    GROUP BY id_usuario
+  ) AS sub
+);
+📌 Qué hace y por qué se hizo así:
+
+Identifica al usuario que más pagos ha realizado. Se utilizó una estructura similar a las consultas anteriores para asegurar que solo obtenemos al top 1.
+
+📌 Para qué es útil:
+
+Este usuario probablemente sea uno de los más constantes y comprometidos. Conocerlo nos permite considerarlo para programas de lealtad, descuentos o funciones beta.
+
+📌 Importancia en el sistema:
+
+Reconocer a los usuarios activos económicamente puede mejorar la retención y fomentar mayor confianza en nuestra plataforma.
+4. Usuario con mas reservas
+SELECT 
+  u.nombres,
+  u.apellidos,
+  (
+    SELECT COUNT(*) 
+    FROM reservas AS r 
+    WHERE r.id_usuario = u.id
+  ) AS total_reservas,
+  'Este usuario tiene el mayor número de reservas' AS observacion
+FROM usuarios u
+WHERE (
+  SELECT COUNT(*) 
+  FROM reservas AS r 
+  WHERE r.id_usuario = u.id
+) = (
+  SELECT MAX(total)
+  FROM (
+    SELECT COUNT(*) AS total
+    FROM reservas
+    GROUP BY id_usuario
+  ) AS conteo
+);
+📌 Qué hace y por qué se hizo así:
+
+Devuelve al usuario que más ha reservado. Se diseñó usando subconsultas que agrupan las reservas por usuario y seleccionan el mayor.
+
+📌 Para qué sirve:
+
+Nos ayuda a ver quién es el cliente más frecuente. Podemos usar esto para darle beneficios especiales o simplemente para mostrarlo como un ejemplo de fidelidad.
+
+📌 Importancia en el sistema:
+
+Este tipo de reconocimiento motiva a otros usuarios a reservar más y también le da un toque humano a la plataforma: nuestros usuarios no son solo datos, son personas que podemos premiar.

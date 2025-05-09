@@ -1,0 +1,111 @@
+.best-recomendations {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: 30px;
+    padding: 20px 0;
+    background: linear-gradient(to bottom, var(--ps-color-gs5), rgba(246, 242, 230, 0.5));
+    border-radius: 20px;
+    margin: 20px 0;
+}
+
+.best-recomendations-title {
+    width: 100%;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--ps-color-green1);
+    text-align: center;
+    padding: 0.5rem 1rem;
+    margin-bottom: 10px;
+    position: relative;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.best-recomendations-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(to right, var(--ps-color-orange1), var(--ps-color-yellow1));
+    border-radius: 2px;
+}
+@keyframes shine {
+    0% {
+        background-position: -100px;
+    }
+    40%, 100% {
+        background-position: 300px;
+    }
+}
+
+.most-rooms::after, .most-booked::after {
+    mask: linear-gradient(to right, transparent, black, transparent);
+    animation: shine 3s infinite;
+}
+
+.most-rooms::before, .most-booked::before {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* Efecto especial para el cursor en most-booked */
+.most-booked {
+    position: relative;
+    overflow: hidden;
+}
+
+.most-booked::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.most-booked:hover::after {
+    opacity: 1;
+}
+
+/* Media queries para responsividad */
+@media (max-width: 992px) {
+    .most-rooms, .most-booked {
+        width: 90%;
+    }
+}
+
+@media (max-width: 576px) {
+    .most-rooms, .most-booked {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .most-rooms-img, .most-booked-img {
+        margin: 20px auto 10px auto;
+    }
+    
+    .most-rooms-info, .most-booked-info {
+        padding: 0 20px 20px 20px;
+        align-items: center;
+    }
+}

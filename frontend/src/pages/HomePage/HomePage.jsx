@@ -5,7 +5,8 @@ import RoomsLayout from "../../layouts/RoomsLayout/RoomsLayout";
 import AppFooter from "../../components/AppFooter/AppFooter";
 import ReviewsLayout from "../../layouts/ReviewsLayout/ReviewsLayout";
 import { useNavigate } from "react-router-dom";
-
+import SpecialRecognition from "../../layouts/SpecialRecognition/SpecialRecognition";
+import HomePageBg from "../../assets/home-page-bg.jpg";
 function HomePage() {
 
     const [maxRoomCards, setMaxRoomCards] = useState(3);
@@ -38,6 +39,7 @@ function HomePage() {
     return (
         <section clasName="home-page">
             <NavigationBar/>
+            <img className="home-page-bg"src={HomePageBg}/>
             <div className="rooms-layout-view-all-container">
                 <h1 className="rooms-layout-title">Habitaciones Disponibles</h1>
                 <button className="rooms-layout-view-all-button" onClick={goRoomsPage}>Ver todas las habitaciones</button>
@@ -48,6 +50,7 @@ function HomePage() {
                 <button className="reviews-layout-view-all-button" onClick={goReviewsPage}>Ver más reseñas de usuarios</button>
             </div>
             <ReviewsLayout maxReviewCards={2}/>
+            <SpecialRecognition />
             <AppFooter />
         </section>
     );
