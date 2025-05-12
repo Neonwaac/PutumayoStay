@@ -147,6 +147,55 @@ class Habitacion {
       throw new Error("Error al obtener las habitaciones más reservadas");
     }
   }
-
+  static async obtenerHabitacionesPorCategoria(categoria){
+    try{
+      const query = `SELECT 
+      habitaciones.id, 
+      habitaciones.nombre, 
+      habitaciones.descripcion, 
+      habitaciones.foto, 
+      habitaciones.capacidad, 
+      habitaciones.precio, 
+      habitaciones.id_empresa, 
+      categorias.nombre AS categoria
+    FROM habitaciones
+    LEFT JOIN categorias ON habitaciones.categoria = categorias.id
+    WHERE habitaciones.categoria = ?
+    ORDER BY habitaciones.id DESC;
+    `;
+      const [result] = await db.promise().execute(query, [categoria]);
+      if (result.length === 0) {
+        throw new Error("No se encontraron habitaciones para esta categoria");
+      }
+      return result;
+    }catch(error){
+      throw new Error("Error al obtener las habitaciones por categoria");
+    }
+  }
+  static async obtenerHabitacionesPorBusqueda(busqueda){
+    try{
+      const query = `SELECT 
+      habitaciones.id, 
+      habitaciones.nombre, 
+      habitaciones.descripcion, 
+      habitaciones.foto, 
+      habitaciones.capacidad, 
+      habitaciones.precio, 
+      habitaciones.id_empresa, 
+      categorias.nombre AS categoria
+    FROM habitaciones
+    LEFT JOIN categorias ON habitaciones.categoria = categorias.id
+    WHERE habitaciones.nombre OR habitaciones.descripcion  LIKE ?
+    ORDER BY habitaciones.id DESC;
+    `;
+      const [result] = await db.promise().execute(query, [`%${busqueda}%`]);
+      if (result.length === 0) {
+        throw new Error("No se encontraron habitaciones para esta busqueda");
+      }
+      return result;
+    }catch(error){
+      throw new Error("Error al obtener las habitaciones por busqueda");
+    }
+  }
 }
 module.exports = Habitacion;

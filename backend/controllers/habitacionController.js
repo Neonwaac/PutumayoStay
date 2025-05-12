@@ -65,3 +65,29 @@ exports.mostBooked = async (req, res) => {
   }
 }
 
+exports.obtenerHabitacionesPorCategoria = async (req, res) => {
+  const { category } = req.params;
+  try{
+    const habitaciones = await Habitacion.obtenerHabitacionesPorCategoria(category)
+    if(!habitaciones) {
+      return res.status(404).json({ message: "No se encontraron habitaciones para esta categoria" });
+    }
+    res.status(200).json(habitaciones);
+  }catch(error){
+    res.status(500).json({ message: "Error al obtener las habitaciones por categoria" });
+  }
+}
+
+exports.obtenerHabitacionesPorBusqueda = async (req, res) => {
+  const {search} = req.params;
+  try{
+    const habitaciones = await Habitacion.obtenerHabitacionesPorBusqueda(search)
+    if(!habitaciones) {
+      return res.status(404).json({ message: "No se encontraron habitaciones para esta busqueda" });
+    }
+    res.status(200).json(habitaciones);
+  }catch(error){
+    res.status(500).json({ message: "Error al obtener las habitaciones por busqueda" });
+  }
+}
+

@@ -10,9 +10,26 @@ import axios from "axios";
 import BestRecomendations from "../../layouts/BestRecomendations/BestRecomendations";
 function RoomsPage() {
   const [user, setUser] = useState("");
+  const [category, setCategory] = useState(null);
+  const [search, setSearch] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
-
+  const changeCategory = (id) => {
+    if(category === id){
+      setCategory(null);
+      return;
+    }
+    setSearch("");
+    setCategory(id);
+  }
+  const changeSearch = (text) => {
+    if (search === text) {
+      setSearch("");
+      return;
+    }
+    setCategory(null);
+    setSearch(text);
+  };
   const [token, setToken] = useState(null);
   let [maxRoomCards, setMaxRoomCards] = useState(3);
   useEffect(() => {
@@ -31,6 +48,7 @@ function RoomsPage() {
     };
     updateMaxRoomCards();
   });
+
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
@@ -39,7 +57,6 @@ function RoomsPage() {
       navigate("/login");
     }
   }, [navigate]);
-
   useEffect(() => {
     const fetchUserByToken = async () => {
       if (!token) return;
@@ -70,8 +87,15 @@ function RoomsPage() {
             className="rooms-page-filter-search-input"
             type="text"
             placeholder="Busca por nombre de habitación"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                changeSearch(e.target.value);
+              }
+            }}
           ></input>
-          <button className="rooms-page-filter-search-button">
+          <button className="rooms-page-filter-search-button" onClick={(e) => {
+            const input = document.querySelector(".rooms-page-filter-search-input");
+    changeSearch(input.value);}}>
             <FaSearch />
           </button>
         </div>
@@ -79,18 +103,16 @@ function RoomsPage() {
           <p className="rooms-page-filter-category-title">
             ¿Que tipo de habitación buscas?
           </p>
-          <button className="rooms-page-filter-category-option">
-            Estándar
-          </button>
-          <button className="rooms-page-filter-category-option">Doble</button>
-          <button className="rooms-page-filter-category-option">Suite</button>
-          <button className="rooms-page-filter-category-option">
+          <button className="rooms-page-filter-category-option" onClick={(e) => changeCategory(1)}>Estándar</button>
+          <button className="rooms-page-filter-category-option" onClick={(e) => changeCategory(2)}>Doble</button>
+          <button className="rooms-page-filter-category-option" onClick={(e) => changeCategory(3)}>Suite</button>
+          <button className="rooms-page-filter-category-option" onClick={(e) => changeCategory(4)}>
             Suite Jr
           </button>
-          <button className="rooms-page-filter-category-option">
+          <button className="rooms-page-filter-category-option" onClick={(e) => changeCategory(5)}>
             Familiar
           </button>
-          <button className="rooms-page-filter-category-option">
+          <button className="rooms-page-filter-category-option" onClick={(e) => changeCategory(6)}>
             Penthouse
           </button>
         </div>
@@ -105,9 +127,13 @@ function RoomsPage() {
           </button>
         )}
       </div>
+      <RoomsLayout 
+      key={category || search}
+      maxRoomCards={maxRoomCards}
+      category={category}
+      search={search}
+      />
       <BestRecomendations/>
-      <RoomsLayout maxRoomCards={maxRoomCards}/>
-      
       <AppFooter />
       <AddRoomModal
         isOpen={isModalOpen}

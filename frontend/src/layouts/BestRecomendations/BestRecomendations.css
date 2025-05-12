@@ -5,10 +5,9 @@
     justify-content: center;
     align-items: stretch;
     gap: 30px;
-    padding: 20px 0;
     background: linear-gradient(to bottom, var(--ps-color-gs5), rgba(246, 242, 230, 0.5));
     border-radius: 20px;
-    margin: 20px 0;
+    margin-bottom: 20px;
 }
 
 .best-recomendations-title {

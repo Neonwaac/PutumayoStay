@@ -4,7 +4,7 @@ import "./RoomsLayout.css";
 import axios from "axios";
 import RoomCard from "../../components/RoomCard/RoomCard";
 import Swal from "sweetalert2";
-function RoomsLayout({ maxRoomCards }) {
+function RoomsLayout({ maxRoomCards, category, search }) {
   const [user, setUser] = useState(null);
   const [rooms, setRooms] = useState([]);
   const [visibleRooms, setVisibleRooms] = useState(maxRoomCards);
@@ -39,8 +39,16 @@ function RoomsLayout({ maxRoomCards }) {
   }, [token, navigate]);
   useEffect(() => {
     const fetchRooms = async () => {
+      let URI = "https://localhost:8077/rooms/";
       try {
-        const response = await axios.get("https://localhost:8077/rooms");
+        if (category) {
+          URI += "category/" + category;
+        }
+        if (search) {
+          URI += "search/" + search;
+        }
+        console.log(URI);
+        const response = await axios.get(URI);
         setRooms(response.data);
       } catch (error) {
         Swal.fire({
@@ -51,7 +59,7 @@ function RoomsLayout({ maxRoomCards }) {
       }
     };
     fetchRooms();
-  }, []);
+  }, [category]);
   const showMoreRooms = () => {
     setVisibleRooms((prev) => Math.min(prev + maxRoomCards, rooms.length));
   };
