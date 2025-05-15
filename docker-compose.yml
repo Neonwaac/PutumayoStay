@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "8077:8077"  
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PUTUMAYOSTAY_DB_HOST: db
+      PUTUMAYOSTAY_DB_USER: root
+      PUTUMAYOSTAY_DB_PASSWORD: ""
+      PUTUMAYOSTAY_DB_NAME: putumayostay
+      PUTUMAYOSTAY_DB_PORT: 3306
+    networks:
+      - app-network
+
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: putumayostay
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    networks:
+      - app-network
+
+volumes:
+  mysql-data:
+
+networks:
+  app-network:

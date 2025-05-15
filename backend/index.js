@@ -49,7 +49,9 @@ app.use(habitacionRoutes);
 app.use(reviewRoutes);
 app.use(reservaRoutes);
 
-const PORT = process.env.PUTUMAYOSTAY_DB_PORT;
+// Por esto (mejor separar puerto de servidor y DB):
+const PORT = process.env.PORT || 8077;
+const DB_PORT = process.env.PUTUMAYOSTAY_DB_PORT || 3306;
 
 https.createServer(options, app).listen(PORT, () => {
   console.log("Servidor corriendo en https://localhost:" + PORT);
