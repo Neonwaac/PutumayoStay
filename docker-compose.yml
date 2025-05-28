@@ -5,7 +5,7 @@ services:
     build:
       context: ./backend
     ports:
-      - "8077:8077"  
+      - "8077:8077"
     depends_on:
       db:
         condition: service_healthy
@@ -15,6 +15,16 @@ services:
       PUTUMAYOSTAY_DB_PASSWORD: ""
       PUTUMAYOSTAY_DB_NAME: putumayostay
       PUTUMAYOSTAY_DB_PORT: 3306
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:443"
+    depends_on:
+      - backend
     networks:
       - app-network
 
