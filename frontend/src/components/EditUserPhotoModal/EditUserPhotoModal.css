@@ -1,0 +1,201 @@
+.edit-user-photo-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+}
+
+.edit-user-photo-modal-content {
+  background: var(--ps-color-gs5);
+  padding: 40px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 450px;
+  min-width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  animation: modalAppear 0.3s ease-out;
+}
+
+@keyframes modalAppear {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.edit-user-photo-modal-title {
+  font-size: 1.8rem;
+  text-align: center;
+  margin-bottom: 30px;
+  color: var(--ps-color-gs1);
+  font-weight: 600;
+}
+
+.edit-user-photo-modal-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+}
+
+.edit-user-photo-modal-image-container {
+  width: 100%;
+  max-width: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.edit-user-photo-modal-preview-image {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid var(--ps-color-gs4);
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.edit-user-photo-modal-input-image[type="file"] {
+  display: none;
+}
+
+.edit-user-photo-modal-label-image {
+  width: 100%;
+  padding: 12px 24px;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--ps-color-blue1), var(--ps-color-blue2));
+  color: var(--ps-color-gs5);
+  border-radius: 12px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit-user-photo-modal-label-image:hover {
+  background: linear-gradient(135deg, var(--ps-color-blue2), var(--ps-color-blue1));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.edit-user-photo-modal-buttons {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.edit-user-photo-modal-button {
+  flex: 1;
+  min-width: 120px;
+  max-width: 150px;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--ps-color-green1), var(--ps-color-green2));
+  color: var(--ps-color-gs5);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.edit-user-photo-modal-button-close {
+  flex: 1;
+  min-width: 120px;
+  max-width: 150px;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--ps-color-red3), var(--ps-color-red1));
+  color: var(--ps-color-gs5);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.edit-user-photo-modal-button:hover {
+  background: linear-gradient(135deg, var(--ps-color-green1), var(--ps-color-green3));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.edit-user-photo-modal-button-close:hover {
+  background: linear-gradient(135deg, var(--ps-color-red2), var(--ps-color-red1));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.edit-user-photo-modal-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.edit-user-photo-modal-content::-webkit-scrollbar-track {
+  background: var(--ps-color-gs4);
+  border-radius: 3px;
+}
+
+.edit-user-photo-modal-content::-webkit-scrollbar-thumb {
+  background: var(--ps-color-gs2);
+  border-radius: 3px;
+}
+
+.edit-user-photo-modal-content::-webkit-scrollbar-thumb:hover {
+  background: var(--ps-color-gs1);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .edit-user-photo-modal-content {
+    width: 95%;
+    padding: 30px 20px;
+    min-width: 300px;
+  }
+  
+  .edit-user-photo-modal-preview-image {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .edit-user-photo-modal-title {
+    font-size: 1.5rem;
+  }
+  
+  .edit-user-photo-modal-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .edit-user-photo-modal-button,
+  .edit-user-photo-modal-button-close {
+    width: 100%;
+    max-width: none;
+  }
+}

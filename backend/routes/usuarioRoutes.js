@@ -2,14 +2,17 @@ const express = require('express');
 const router = express.Router();
 const usuarioController = require('../controllers/usuarioController');
 const multer = require('multer');
-const upload = multer({ dest: 'uploads/' });
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 const passport = require("../config/passportConfig");
 const fs = require('fs');
 //USUARIO NORMAL
 router.post('/usuarios', usuarioController.crearUsuario);
 router.get('/usuarios/mostpayments', usuarioController.mostPayments);
 router.get('/usuarios/mostbookings', usuarioController.mostBookings);
-router.post('/usuarios/:id/foto', upload.single('foto'), usuarioController.addFotoUsuario);
+router.put('/usuarios/:id/username', usuarioController.updateUsername);
+router.put('/usuarios/:id/photo', upload.single('foto'), usuarioController.updateFotoUsuario);
 router.post('/usuarios/login', usuarioController.iniciarSesion)
 router.post('/verificar-token', usuarioController.verificarToken);
 router.get('/usuarios', usuarioController.obtenerUsuarios);

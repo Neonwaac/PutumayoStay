@@ -85,9 +85,18 @@ class Usuario {
       throw new Error(`Error al insertar usuario: ${error.message}`);
     }
   }
-  static async addFotoUsuario(id, username, foto) {
+  static async addFotoUsuario(id, username, foto, fromGoogle = false) {
     try {
-      const uniqueName = await Usuario.downloadAndSaveImage(id, username, foto);
+      let uniqueName;
+      if (fromGoogle) {
+         uniqueName = await Usuario.downloadAndSaveImage(
+          id,
+          username,
+          foto
+        );
+      } else {
+        uniqueName = await Usuario.SaveImage(id, username, foto);
+      }
       const photoPath = "https://localhost:8077/uploads/images/" + uniqueName;
       const query = `UPDATE usuarios SET foto = ? WHERE id = ?`;
       const [result] = await db.promise().execute(query, [photoPath, id]);
@@ -96,6 +105,31 @@ class Usuario {
       throw new Error(`Error al agregar foto: ${error.message}`);
     }
   }
+static async SaveImage(id, username, foto) {
+  try {
+    const imageDir = path.join(__dirname, "../uploads/images/");
+    const ext = path.extname(foto.originalname);
+    const uniqueName = "usuarios" + id + username + ext;
+    const imagePath = path.join(imageDir, uniqueName);
+
+    // Eliminar cualquier archivo anterior con el mismo prefijo
+    const files = fs.readdirSync(imageDir);
+    const prefix = `usuarios${id}`;
+    files.forEach(file => {
+      if (file.startsWith(prefix)) {
+        fs.unlinkSync(path.join(imageDir, file));
+      }
+    });
+
+    // Guardar la nueva imagen
+    fs.writeFileSync(imagePath, foto.buffer);
+
+    return uniqueName;
+  } catch (error) {
+    throw new Error(`Error al guardar la imagen: ${error.message}`);
+  }
+}
+
   static async downloadAndSaveImage(id, username, imageUrl) {
     try {
       const response = await axios({
@@ -136,7 +170,7 @@ class Usuario {
         );
         const userId = createdUser.id;
         if (foto) {
-          await Usuario.addFotoUsuario(userId, username, foto);
+          await Usuario.addFotoUsuario(userId, username, foto, true);
         }
         const { token } = await Usuario.iniciarSesion(username, password);
         return { token };
@@ -216,17 +250,17 @@ class Usuario {
                 GROUP BY id_empresa
               ) AS sub
             );`;
-        const [rows] = await db.promise().execute(query);
-        if (rows.length === 0) {
-          throw new Error("No se encontraron habitaciones");
-        }
-        return rows;
+      const [rows] = await db.promise().execute(query);
+      if (rows.length === 0) {
+        throw new Error("No se encontraron habitaciones");
+      }
+      return rows;
     } catch (error) {
-        throw new Error(`Error al obtener habitaciones: ${error.message}`);
+      throw new Error(`Error al obtener habitaciones: ${error.message}`);
     }
   }
   static async mostPayments() {
-    try{
+    try {
       const query = `SELECT 
       u.id,
       u.username,
@@ -255,12 +289,12 @@ class Usuario {
         throw new Error("No se encontraron pagos");
       }
       return rows;
-    }catch(error){
+    } catch (error) {
       throw new Error(`Error al obtener pagos: ${error.message}`);
     }
   }
-  static async mostBookings(){
-    try{
+  static async mostBookings() {
+    try {
       const query = `SELECT 
       u.id,
       u.username,
@@ -289,7 +323,7 @@ class Usuario {
         throw new Error("No se encontraron reservas");
       }
       return rows;
-    }catch(error){
+    } catch (error) {
       throw new Error(`Error al obtener reservas: ${error.message}`);
     }
   }

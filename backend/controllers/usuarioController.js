@@ -167,3 +167,22 @@ exports.mostBookings = async (req, res) => {
         res.status(500).json({ message: 'Hubo un error al obtener la empresa con más reservas', error: error.message });
     }
 }
+
+exports.updateFotoUsuario = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const username = req.body.username;
+        const foto = req.file;
+        if (!foto) {
+            return res.status(400).json({ message: 'No se subió ninguna foto' });
+        }
+        const response = await Usuario.addFotoUsuario(id,username, foto, false);
+        res.status(200).json({ message: 'Foto actualizada correctamente', foto: response });
+    } catch (error) {
+        res.status(500).json({ message: 'Hubo un error al actualizar la foto', error: error.message });
+    }
+}
+
+exports.updateUsername = async (req, res) => {
+    
+}
