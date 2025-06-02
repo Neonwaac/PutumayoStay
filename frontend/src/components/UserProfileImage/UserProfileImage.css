@@ -1,11 +1,10 @@
 .user-profile-image{
     width: 100%;
-    height: auto;
+    height: 75px;
     display: flex;
-    justify-content: center;
-    gap: 40px;
+    justify-content: space-between;
+    padding: 20px;
     background: linear-gradient(to right, var(--ps-color-green1), var(--ps-color-green2), var(--ps-color-green2));
-    align-items: center;
     border-radius: 20px 20px 0px 0px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
 }.user-profile-image-image{
@@ -13,11 +12,55 @@
     height: 150px;
     border-radius: 50%;
     object-fit: cover;
+    border: 2px solid var(--ps-color-gs5);
+    transition: transform 0.3s ease;
+    cursor: pointer;
 }
+.user-profile-image-image:hover{
+    transform: scale(1.05);
+    filter: brightness(0.7);
+    transition: transform 0.3s ease;
+}
+.user-profile-image-wrapper {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  cursor: pointer;
+}
+
+.user-profile-image-edit-icon {
+  position: absolute;
+  top: 80px;
+  left: 80px;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 40px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.user-profile-image-wrapper:hover .user-profile-image-edit-icon {
+  opacity: 1;
+}
+
 .user-profile-image-username{
     font-size: 30px;
     font-weight: 600;
     color: var(--ps-color-gs5);
     text-align: center;
     text-transform: capitalize;
+    align-items: center;
+    display: flex;
+    gap: 10px;
+    align-self: center;
+}
+.user-profile-image-username-span{
+    color: var(--ps-color-yellow1);
+    cursor: pointer;
+    transition: color 0.3s ease;
+    font-weight: 600;
+}
+.user-profile-image-username-span:hover{
+    color: var(--ps-color-yellow2);
 }

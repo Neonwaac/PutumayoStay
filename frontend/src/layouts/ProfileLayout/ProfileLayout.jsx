@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./ProfileLayout.css";
 import UserProfileData from "../../components/UserProfileData/UserProfileData";
 import UserProfileImage from "../../components/UserProfileImage/UserProfileImage";
-import UserProfilePassword from "../../components/UserProfilePassword/UserProfilePassword";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -50,10 +49,6 @@ function ProfileLayout() {
         telefono={user.telefono}
         edad={user.edad}
         timestamp={user.timestamp}
-        />}
-        {user && <UserProfilePassword 
-        id={user.id}
-        password={user.password}
         />}
     </section>
   );

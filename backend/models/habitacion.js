@@ -113,7 +113,7 @@ class Habitacion {
     }
   }
   static async mostBooked() {
-    try{
+    try {
       const quer = `SELECT 
       h.id,
       h.nombre,
@@ -143,12 +143,12 @@ class Habitacion {
         throw new Error("No se encontraron habitaciones más reservadas");
       }
       return result[0];
-    }catch(error){
+    } catch (error) {
       throw new Error("Error al obtener las habitaciones más reservadas");
     }
   }
-  static async obtenerHabitacionesPorCategoria(categoria){
-    try{
+  static async obtenerHabitacionesPorCategoria(categoria) {
+    try {
       const query = `SELECT 
       habitaciones.id, 
       habitaciones.nombre, 
@@ -168,32 +168,35 @@ class Habitacion {
         throw new Error("No se encontraron habitaciones para esta categoria");
       }
       return result;
-    }catch(error){
+    } catch (error) {
       throw new Error("Error al obtener las habitaciones por categoria");
     }
   }
-  static async obtenerHabitacionesPorBusqueda(busqueda){
-    try{
+  static async obtenerHabitacionesPorBusqueda(busqueda) {
+    try {
       const query = `SELECT 
-      habitaciones.id, 
-      habitaciones.nombre, 
-      habitaciones.descripcion, 
-      habitaciones.foto, 
-      habitaciones.capacidad, 
-      habitaciones.precio, 
-      habitaciones.id_empresa, 
-      categorias.nombre AS categoria
-    FROM habitaciones
-    LEFT JOIN categorias ON habitaciones.categoria = categorias.id
-    WHERE habitaciones.nombre OR habitaciones.descripcion  LIKE ?
-    ORDER BY habitaciones.id DESC;
+  habitaciones.id, 
+  habitaciones.nombre, 
+  habitaciones.descripcion, 
+  habitaciones.foto, 
+  habitaciones.capacidad, 
+  habitaciones.precio, 
+  habitaciones.id_empresa, 
+  categorias.nombre AS categoria
+FROM habitaciones
+LEFT JOIN categorias ON habitaciones.categoria = categorias.id
+WHERE LOWER(habitaciones.nombre) LIKE LOWER(?) OR LOWER(habitaciones.descripcion) LIKE LOWER(?)
+ORDER BY habitaciones.id DESC;
     `;
-      const [result] = await db.promise().execute(query, [`%${busqueda}%`]);
+      const [result] = await db
+        .promise()
+        .execute(query, [`%${busqueda}%`, `%${busqueda}%`]);
+
       if (result.length === 0) {
         throw new Error("No se encontraron habitaciones para esta busqueda");
       }
       return result;
-    }catch(error){
+    } catch (error) {
       throw new Error("Error al obtener las habitaciones por busqueda");
     }
   }
