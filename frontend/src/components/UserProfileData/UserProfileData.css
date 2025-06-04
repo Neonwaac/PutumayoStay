@@ -55,6 +55,14 @@
     font-size: 1rem;
     font-weight: 500;
 }
+.user-profile-data-input{
+    width: 100%;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 10px;
+    padding: 20px;
+}
 .user-profile-data-buttons-container{
     height: 60px;
     border-radius: 10px;
@@ -62,7 +70,6 @@
     display: flex;
     justify-content: space-around;
 }
-
 .user-profile-data-button{
     width: 30%;
     border: none;

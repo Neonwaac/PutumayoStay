@@ -182,7 +182,33 @@ exports.updateFotoUsuario = async (req, res) => {
         res.status(500).json({ message: 'Hubo un error al actualizar la foto', error: error.message });
     }
 }
-
 exports.updateUsername = async (req, res) => {
-    
+    try {
+        const {id} = req.params;
+        const {username} = req.body;
+        const response = await Usuario.updateUsername(id, username);
+        if (!response) {
+            return res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+        res.status(200).json({ message: 'Nombre de usuario actualizado correctamente', usuario: response });
+    } catch (error) {
+        res.status(500).json({ message: 'Hubo un error al actualizar el nombre de usuario', error: error.message });
+    }
+
+}
+exports.updateDatosUsuario = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { nombres, apellidos, correo, telefono, edad } = req.body;
+        if (!nombres || !apellidos || !correo || !telefono || !edad) {
+            return res.status(400).json({ message: 'Faltan campos por llenar' });
+        }
+        const response = await Usuario.updateDatosUsuario(id, nombres, apellidos, correo, telefono, edad);
+        if (!response) {
+            return res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+        res.status(200).json({ message: 'Datos del usuario actualizados correctamente', usuario: response });
+    } catch (error) {
+        res.status(500).json({ message: 'Hubo un error al actualizar los datos del usuario', error: error.message });
+    }
 }

@@ -55,6 +55,16 @@
     gap: 10px;
     align-self: center;
 }
+.user-profile-image-input{
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background-color: var(--ps-color-gs5);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ps-color-green1);
+
+}
 .user-profile-image-username-span{
     color: var(--ps-color-yellow1);
     cursor: pointer;

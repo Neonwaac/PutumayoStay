@@ -37,3 +37,21 @@ exports.generarPDF = async (req, res) => {
     res.status(500).json({ error: "No se pudo generar el PDF" });
   }
 };
+exports.actualizarEstadoReserva = async (req, res) => {
+  const { estado, id } = req.params;
+  try {
+    await Reserva.actualizarEstadoReserva(estado, id);
+    res.status(200).json("Estado de reserva actualizado correctamente");
+  } catch (error) {
+    res.status(500).json("No se pudo actualizar el estado de la reserva");
+  }
+}
+exports.obtenerHistorialReservas = async(req, res) => {
+  const { id } = req.params;
+  try {
+    const reservas = await Reserva.obtenerHistorialReservas(id);
+    res.status(200).json(reservas);
+  } catch (error) {
+    res.status(500).json("No se pudieron obtener las reservas del historial");
+  }
+}

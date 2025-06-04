@@ -61,11 +61,10 @@
     color: var(--ps-color-gs1);
 }
 .booking-card-button-print{
-    width: 50px;
-    height: 50px;
+    width: 200px;
+    height: 100%;
     font-size: 1.2rem;
     border: none;
-    border-radius: 50%;
     background: linear-gradient(135deg, var(--ps-color-blue1), var(--ps-color-blue2));
     transition-duration: 0.2s;
     color: var(--ps-color-gs5);
@@ -80,7 +79,7 @@
     padding: 20px;
 }
 .booking-card-button-pay{
-    padding: 15px;
+    padding: 20px;
     width: 100px;
     border: none;
     border-radius: 20px;
@@ -90,7 +89,7 @@
 }
 
 .booking-card-button-cancel{
-    padding: 15px;
+    padding: 20px;
     width: 100px;
     border: none;
     border-radius: 20px;

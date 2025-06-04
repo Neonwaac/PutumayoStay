@@ -43,8 +43,8 @@ function ProfileLayout() {
         />}
         {user && <UserProfileData
         id={user.id}
-        nombre={user.nombres}
-        apellido={user.apellidos}
+        nombres={user.nombres}
+        apellidos={user.apellidos}
         correo={user.correo}
         telefono={user.telefono}
         edad={user.edad}

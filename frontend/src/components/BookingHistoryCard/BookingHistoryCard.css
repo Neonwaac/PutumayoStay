@@ -1,0 +1,77 @@
+.history-card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+    align-items: center;
+}
+
+.history-card-date {
+    width: 100%;
+    margin-left: 5%;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ps-color-gs3);
+}
+
+.history-card-hr {
+    width: 100%;
+    height: 1px;
+    background: var(--ps-color-gs4);
+    margin-bottom: 20px;
+    border: none;
+}
+
+.history-card-content {
+    width: 95%;
+    display: flex;
+    background: #f1f1f1;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    border-radius: 0px 30px 30px 30px;
+    gap: 20px;
+    align-items: center;
+}
+
+.history-card-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.history-card-info-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    flex-grow: 1;
+}
+
+.history-card-title {
+    width: 100%;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--ps-color-gs1);
+    margin-bottom: 10px;
+}
+
+.history-card-info {
+    width: 100%;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin: 5px 0px;
+    color: var(--ps-color-gs1);
+}
+
+.history-card-button-print {
+    width: 200px;
+    height: 100%;
+    font-size: 1.2rem;
+    border: none;
+    background: linear-gradient(135deg, var(--ps-color-blue1), var(--ps-color-blue2));
+    transition-duration: 0.2s;
+    color: var(--ps-color-gs5);
+}
+
+.history-card-button-print:hover {
+    background: linear-gradient(135deg, var(--ps-color-blue2), var(--ps-color-blue3));
+}

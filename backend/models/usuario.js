@@ -327,5 +327,35 @@ static async SaveImage(id, username, foto) {
       throw new Error(`Error al obtener reservas: ${error.message}`);
     }
   }
+  static async updateUsername(id, username) {
+    try {
+      const query = `UPDATE usuarios SET username = ? WHERE id = ?`;
+      const [result] = await db.promise().execute(query, [username, id]);
+      if (result.affectedRows === 0) {
+        throw new Error("Usuario no encontrado");
+      }
+      return { id, username };
+    } catch (error) {
+      throw new Error(`Error al actualizar el nombre de usuario: ${error.message}`);
+    }
+  }
+  static async updateDatosUsuario(id, nombre, apellido, correo, telefono) {
+    try {
+      const query = `UPDATE usuarios SET nombres = ?, apellidos = ?, correo = ?, telefono = ? WHERE id = ?`;
+      const [result] = await db.promise().execute(query, [
+        nombre,
+        apellido,
+        correo,
+        telefono,
+        id,
+      ]);
+      if (result.affectedRows === 0) {
+        throw new Error("Usuario no encontrado");
+      }
+      return { id, nombre, apellido, correo, telefono };
+    } catch (error) {
+      throw new Error(`Error al actualizar los datos del usuario: ${error.message}`);
+    }
+  }
 }
 module.exports = Usuario;

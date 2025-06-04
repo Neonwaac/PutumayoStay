@@ -19,6 +19,14 @@ function BookingCard({id, monto, noches, timestamp, estado, nombre, foto}){
             return new Date(timestamp).toLocaleDateString();
         }
     };
+    const cancelBooking = async () => {
+        try{
+            const response = await axios.patch('https://localhost:8077/reservas/3/'+id);
+            
+        }catch(error){
+            
+        }
+    }
     const printBooking = async () => {
         console.log(foto)
         try {
@@ -30,8 +38,6 @@ function BookingCard({id, monto, noches, timestamp, estado, nombre, foto}){
                 nombre,
                 foto
             });
-    
-            // Redirigir al usuario a la URL del PDF generado
             if (response.data.url) {
                 window.open(response.data.url, "_blank");
             }
@@ -51,11 +57,11 @@ function BookingCard({id, monto, noches, timestamp, estado, nombre, foto}){
                 <p className="booking-card-info">Total a pagar: {monto}</p>
                 <p className="booking-card-info">Noches totales: {noches}</p>
                 </div>
-                <button className="booking-card-button-print" onClick={printBooking}><FaPrint/></button>
                 <div className="booking-card-buttons">
                 <button className="booking-card-button-pay">Pagar</button>
-                <button className="booking-card-button-cancel">Cancelar</button>
+                <button className="booking-card-button-cancel" onClick={cancelBooking}>Cancelar</button>
                 </div>
+                <button className="booking-card-button-print" onClick={printBooking}><FaPrint/></button>
             </div>
         </section>
     )

@@ -13,8 +13,27 @@ class Reserva{
     static async crearReserva(monto, fecha_ingreso, fecha_salida, id_usuario, id_habitacion){
         try {
          const query = `INSERT INTO reservas (monto, fecha_ingreso, fecha_salida, id_usuario, id_habitacion) VALUES (?, ?, ?, ?, ?)`
-         db.promise().execute(query, [monto, fecha_ingreso, fecha_salida, id_usuario, id_habitacion])
+         const [response] = await db.promise().execute(query, [monto, fecha_ingreso, fecha_salida, id_usuario, id_habitacion]);
+         await Reserva.crearHistorialReserva(response.insertId, id_usuario)
          return;
+        } catch (error) {
+            throw error
+        }
+    }
+    static async actualizarEstadoReserva(estado, id){
+        try {
+            const query = `UPDATE reservas SET estado = ? WHERE id = ?`
+            await db.promise().execute(query, [estado, id])
+            return;
+        } catch (error) {
+            throw error
+        }
+    }
+    static async crearHistorialReserva(id_reserva, id_usuario){
+        try {
+            const query = `INSERT INTO historial_reservas (id_reserva, id_usuario) VALUES (?, ?)`
+            db.promise().execute(query, [id_reserva, id_usuario])
+            return;
         } catch (error) {
             throw error
         }
@@ -24,7 +43,21 @@ class Reserva{
             const query = `SELECT r.id, r.monto, TIMESTAMPDIFF(DAY, r.fecha_ingreso, r.fecha_salida) AS noches, 
             r.timestamp, r.estado, h.nombre, h.foto FROM reservas as r
             INNER JOIN habitaciones as h ON r.id_habitacion = h.id
-            WHERE r.estado > 0 AND r.id_usuario = ?
+            WHERE r.estado = 1 AND r.id_usuario = ?
+            ORDER BY r.timestamp DESC;`
+            const [reservas] = await db.promise().execute(query, [id])
+            return reservas;  
+        } catch (error) {
+            throw error
+        }
+    }
+    static async obtenerHistorialReservas(id){
+        try {
+            const query = `SELECT r.id, r.monto, TIMESTAMPDIFF(DAY, r.fecha_ingreso, r.fecha_salida) AS noches, 
+            r.timestamp, r.estado, h.nombre, h.foto FROM reservas as r
+            INNER JOIN habitaciones as h ON r.id_habitacion = h.id
+            INNER JOIN historial_reservas as hr ON hr.id_reserva = r.id
+            WHERE hr.id_usuario = ?
             ORDER BY r.timestamp DESC;`
             const [reservas] = await db.promise().execute(query, [id])
             return reservas;  

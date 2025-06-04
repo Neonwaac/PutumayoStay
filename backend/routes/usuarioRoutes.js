@@ -13,6 +13,7 @@ router.get('/usuarios/mostpayments', usuarioController.mostPayments);
 router.get('/usuarios/mostbookings', usuarioController.mostBookings);
 router.put('/usuarios/:id/username', usuarioController.updateUsername);
 router.put('/usuarios/:id/photo', upload.single('foto'), usuarioController.updateFotoUsuario);
+router.put('/usuarios/:id/data', usuarioController.updateDatosUsuario);
 router.post('/usuarios/login', usuarioController.iniciarSesion)
 router.post('/verificar-token', usuarioController.verificarToken);
 router.get('/usuarios', usuarioController.obtenerUsuarios);
