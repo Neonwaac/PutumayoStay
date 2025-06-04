@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const usuarioController = require('../controllers/usuarioController');
 const multer = require('multer');
-
+const apiKeyMiddleware = require('../middlewares/apiKeyMiddleware');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 const passport = require("../config/passportConfig");
@@ -16,7 +16,7 @@ router.put('/usuarios/:id/photo', upload.single('foto'), usuarioController.updat
 router.put('/usuarios/:id/data', usuarioController.updateDatosUsuario);
 router.post('/usuarios/login', usuarioController.iniciarSesion)
 router.post('/verificar-token', usuarioController.verificarToken);
-router.get('/usuarios', usuarioController.obtenerUsuarios);
+router.get('/usuarios', apiKeyMiddleware, usuarioController.obtenerUsuarios);
 router.get('/empresa/mostrooms', usuarioController.mostRooms);
 router.get('/usuarios/:id', usuarioController.obtenerUsuarioPorId);
 router.get('/usuarios/cerrar-sesion/:id', usuarioController.cerrarSesion);
