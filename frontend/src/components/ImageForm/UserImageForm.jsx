@@ -3,6 +3,8 @@ import "./UserImageForm.css"
 import axios from "axios";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
+const apiKey = process.env.REACT_APP_PUTUMAYOSTAY_API_KEY
+
 function UserImageForm() {
     const navigate = useNavigate();
     const [selectedFile, setSelectedFile] = useState(null);
@@ -19,7 +21,7 @@ function UserImageForm() {
         const formData = new FormData();
         formData.append("image", selectedFile);
         try{
-            const response = await axios.post("https://localhost:8077/images", formData);
+            const response = await axios.post("https://localhost:8077/images",{headers: {"x-api-key": apiKey}}, formData);
             if(response.status === 200){
             alert("Imagen subida correctamente");
             navigate("/dashboard");

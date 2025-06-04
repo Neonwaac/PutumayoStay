@@ -2,6 +2,7 @@ import React from "react";
 import "./BookingCard.css";
 import { FaPrint } from "react-icons/fa";
 import axios from "axios";
+const apiKey = process.env.REACT_APP_PUTUMAYOSTAY_API_KEY
 function BookingCard({id, monto, noches, timestamp, estado, nombre, foto}){
     const formatTimeAgo = (timestamp) => {
         const now = new Date();
@@ -21,7 +22,7 @@ function BookingCard({id, monto, noches, timestamp, estado, nombre, foto}){
     };
     const cancelBooking = async () => {
         try{
-            const response = await axios.patch('https://localhost:8077/reservas/3/'+id);
+            const response = await axios.patch('https://localhost:8077/reservas/3/'+id,{headers: {"x-api-key": apiKey}});
             
         }catch(error){
             
@@ -30,7 +31,7 @@ function BookingCard({id, monto, noches, timestamp, estado, nombre, foto}){
     const printBooking = async () => {
         console.log(foto)
         try {
-            const response = await axios.post("https://localhost:8077/reservas/generarPDF/"+id, {
+            const response = await axios.post("https://localhost:8077/reservas/generarPDF/"+id,{headers: {"x-api-key": apiKey}}, {
                 monto,
                 noches,
                 timestamp,

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./MostPayments.css";
 import axios from "axios";
+const apiKey = process.env.REACT_APP_PUTUMAYOSTAY_API_KEY
 
 function MostPayments() {
     const [user, setUser] = useState({});
@@ -8,7 +9,7 @@ function MostPayments() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get("https://localhost:8077/usuarios/mostpayments");
+                const response = await axios.get("https://localhost:8077/usuarios/mostpayments",{headers: {"x-api-key": apiKey}});
                 setUser(response.data[0]);
             } catch (error) {
                 console.error("Error al obtener el usuario con más pagos:", error);

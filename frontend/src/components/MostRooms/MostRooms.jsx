@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./MostRooms.css";
 import axios from "axios";
+const apiKey = process.env.REACT_APP_PUTUMAYOSTAY_API_KEY
 
 function MostRooms() {
     const [empresa, setEmpresa] = useState({});
@@ -8,7 +9,7 @@ function MostRooms() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get("https://localhost:8077/empresa/mostrooms");
+                const response = await axios.get("https://localhost:8077/empresa/mostrooms",{headers: {"x-api-key": apiKey}});
                 setEmpresa(response.data[0]);
             } catch (error) {
                 console.error("Error al obtener la empresa con más habitaciones:", error);

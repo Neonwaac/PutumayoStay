@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./MostBooked.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+const apiKey = process.env.REACT_APP_PUTUMAYOSTAY_API_KEY
 
 function MostBooked() {
     const [room, setRoom] = useState({});
@@ -9,7 +10,7 @@ function MostBooked() {
     useEffect(() => {
         const fetchData = async () => {
             try{
-                const response = await axios.get("https://localhost:8077/rooms/mostbooked")
+                const response = await axios.get("https://localhost:8077/rooms/mostbooked",{headers: {"x-api-key": apiKey}})
                 setRoom(response.data);
             }catch(error){
                 console.error("Error al obtener la habitación más reservada:", error);

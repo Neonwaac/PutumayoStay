@@ -2,6 +2,7 @@ import React from "react";
 import "./BookingHistoryCard.css";
 import { FaPrint } from "react-icons/fa";
 import axios from "axios";
+const apiKey = process.env.REACT_APP_PUTUMAYOSTAY_API_KEY
 
 function BookingHistoryCard({ id, monto, noches, timestamp, estado, nombre, foto }) {
   const formatTimeAgo = (timestamp) => {
@@ -23,7 +24,7 @@ function BookingHistoryCard({ id, monto, noches, timestamp, estado, nombre, foto
 
   const printBooking = async () => {
     try {
-      const response = await axios.post(`https://localhost:8077/reservas/generarPDF/${id}`, {
+      const response = await axios.post(`https://localhost:8077/reservas/generarPDF/${id}`, {headers: {"x-api-key": apiKey}},{
         monto,
         noches,
         timestamp,

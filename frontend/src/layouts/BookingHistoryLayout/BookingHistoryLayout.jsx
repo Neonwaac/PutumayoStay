@@ -3,6 +3,7 @@ import "./BookingHistoryLayout.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import BookingHistoryCard from "../../components/BookingHistoryCard/BookingHistoryCard";
+const apiKey = process.env.REACT_APP_PUTUMAYOSTAY_API_KEY
 
 function BookingHistoryLayout() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ function BookingHistoryLayout() {
     const fetchUserByToken = async () => {
       if (!token) return;
       try {
-        const response = await axios.get(`https://localhost:8077/usuarios/token/${token}`);
+        const response = await axios.get(`https://localhost:8077/usuarios/token/${token}`,{headers: {"x-api-key": apiKey}});
         setUser(response.data);
       } catch (error) {
         console.error("Error al obtener el usuario por token:", error);
@@ -39,7 +40,7 @@ function BookingHistoryLayout() {
     const fetchHistoryBookings = async () => {
       if (!user) return;
       try {
-        const response = await axios.get(`https://localhost:8077/reservas/history/${user.id}`);
+        const response = await axios.get(`https://localhost:8077/reservas/history/${user.id}`,{headers: {"x-api-key": apiKey}});
         setHistoryBookings(response.data);
       } catch (error) {
         console.log(error);

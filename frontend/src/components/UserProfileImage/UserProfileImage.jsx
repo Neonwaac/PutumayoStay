@@ -4,6 +4,7 @@ import { FaEdit, FaSave } from "react-icons/fa";
 import EditUserPhotoModal from "../EditUserPhotoModal/EditUserPhotoModal";
 import axios from "axios";
 import Swal from "sweetalert2";
+const apiKey = process.env.REACT_APP_PUTUMAYOSTAY_API_KEY
 
 function UserProfileImage({ id, foto, username }) {
   const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
@@ -39,7 +40,7 @@ function UserProfileImage({ id, foto, username }) {
               icon: "success",
             });
             try {
-              axios.put(`https://localhost:8077/usuarios/${id}/username`, {
+              axios.put(`https://localhost:8077/usuarios/${id}/username`,{headers: {"x-api-key": apiKey}}, {
                 username: newUsername,
               });
               setCurrentUsername(newUsername);

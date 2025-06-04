@@ -8,6 +8,7 @@ import SpecificReviewsLayout from "../../layouts/SpecificReviewsLayout/SpecificR
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
+const apiKey = process.env.REACT_APP_PUTUMAYOSTAY_API_KEY;
 function SpecificRoomPage() {
   const { id } = useParams();
   const [room, setRoom] = useState(null);
@@ -29,7 +30,7 @@ function SpecificRoomPage() {
           if (!token) return;
   
           try {
-              const response = await axios.get(`https://localhost:8077/usuarios/token/${token}`);
+              const response = await axios.get(`https://localhost:8077/usuarios/token/${token}`, {headers: {"x-api-key": apiKey}});
               setUser(response.data);
           } catch (error) {
               console.error("Error al obtener el usuario por token:", error);
@@ -42,7 +43,7 @@ function SpecificRoomPage() {
   //FETCH A LA HABIACIÓN DEL PARAMETRO ACTUAL id
   useEffect(() => {
     const fetchRoom = async () => {
-      const response = await fetch("https://localhost:8077/rooms/" + id);
+      const response = await fetch("https://localhost:8077/rooms/" + id, {headers: {"x-api-key": apiKey}});
       const data = await response.json();
       setRoom(data);
     };

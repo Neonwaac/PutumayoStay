@@ -3,6 +3,7 @@ import "./BookingsLayout.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import BookingCard from "../../components/BookingCard/BookingCard";
+const apiKey = process.env.REACT_APP_PUTUMAYOSTAY_API_KEY
 
 function BookingsLayout() {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ function BookingsLayout() {
       if (!token) return;
 
       try {
-        const response = await axios.get(`https://localhost:8077/usuarios/token/${token}`);
+        const response = await axios.get(`https://localhost:8077/usuarios/token/${token}`,{headers: {"x-api-key": apiKey}});
         setUser(response.data);
       } catch (error) {
         console.error("Error al obtener el usuario por token:", error);
@@ -40,7 +41,7 @@ function BookingsLayout() {
     const fetchBookings = async () => {
       if (!user) return;
       try {
-        const response = await axios.get("https://localhost:8077/reservas/" + user.id);
+        const response = await axios.get("https://localhost:8077/reservas/"+ user.id,{headers: {"x-api-key": apiKey}});
         setBookings(response.data);
       } catch (error) {
         console.log(error);

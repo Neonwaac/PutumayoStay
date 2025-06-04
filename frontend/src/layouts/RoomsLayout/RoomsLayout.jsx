@@ -4,6 +4,8 @@ import "./RoomsLayout.css";
 import axios from "axios";
 import RoomCard from "../../components/RoomCard/RoomCard";
 import Swal from "sweetalert2";
+const apiKey = process.env.REACT_APP_PUTUMAYOSTAY_API_KEY;
+
 function RoomsLayout({ maxRoomCards, category, search }) {
   const [user, setUser] = useState(null);
   const [rooms, setRooms] = useState([]);
@@ -26,7 +28,7 @@ function RoomsLayout({ maxRoomCards, category, search }) {
 
       try {
         const response = await axios.get(
-          `https://localhost:8077/usuarios/token/${token}`
+          `https://localhost:8077/usuarios/token/${token}`, {headers: {"x-api-key": apiKey}}
         );
         setUser(response.data);
       } catch (error) {
@@ -48,7 +50,7 @@ function RoomsLayout({ maxRoomCards, category, search }) {
           URI += "search/" + search;
         }
         console.log(URI);
-        const response = await axios.get(URI);
+        const response = await axios.get(URI, {headers: {"x-api-key": apiKey}});
         setRooms(response.data);
       } catch (error) {
         Swal.fire({

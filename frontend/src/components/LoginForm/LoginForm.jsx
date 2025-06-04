@@ -5,6 +5,8 @@ import axios from "axios";
 import companyLogo from "../../assets/larger-dark-logo.png";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+const apiKey = process.env.REACT_APP_PUTUMAYOSTAY_API_KEY
+
 function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -13,7 +15,7 @@ function LoginForm() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://localhost:8077/usuarios/login",
+        "https://localhost:8077/usuarios/login",{headers: {"x-api-key": apiKey}},
         { username, password }
       );
       localStorage.setItem("token", response.data.token);
@@ -53,7 +55,7 @@ function LoginForm() {
       <button
         className="login-form-google-button"
         onClick={() =>
-          (window.location.href = "https://localhost:8077/auth/google/")
+          (window.location.href = "https://localhost:8077/auth/google/",{headers: {"x-api-key": apiKey}})
         }
       >
         <span>Iniciar Sesión con Google</span>

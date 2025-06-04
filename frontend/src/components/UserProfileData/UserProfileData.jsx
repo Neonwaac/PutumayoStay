@@ -3,6 +3,7 @@ import "./UserProfileData.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
+const apiKey = process.env.REACT_APP_PUTUMAYOSTAY_API_KEY
 
 function UserProfileData({
   id,
@@ -65,7 +66,7 @@ function UserProfileData({
               icon: "success",
             });
             try {
-              axios.put(`https://localhost:8077/usuarios/${id}/data`, formData);
+              axios.put(`https://localhost:8077/usuarios/${id}/data`, {headers: {"x-api-key": apiKey}}, formData);
               setIsEditing(false);
             } catch (error) {
               Swal.fire({

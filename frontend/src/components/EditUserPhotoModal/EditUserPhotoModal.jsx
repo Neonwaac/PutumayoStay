@@ -3,6 +3,7 @@ import "./EditUserPhotoModal.css";
 import PreviewPhoto from "../../assets/default-preview-photo.png";
 import axios from "axios";
 import Swal from "sweetalert2";
+const apiKey = process.env.REACT_APP_PUTUMAYOSTAY_API_KEY
 
 const EditUserPhotoModal = ({ isOpen, onClose, userId, currentPhoto, username }) => {
   const [formData, setFormData] = useState({
@@ -39,6 +40,7 @@ const EditUserPhotoModal = ({ isOpen, onClose, userId, currentPhoto, username })
       const response = await axios.put(`https://localhost:8077/usuarios/${userId}/photo`, data, {
         headers: {
           "Content-Type": "multipart/form-data",
+          "x-api-key": apiKey
         },
       });
       
