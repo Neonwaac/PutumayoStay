@@ -3,6 +3,7 @@ import "./AddRoomModal.css";
 import PreviewPhoto from "../../assets/default-preview-photo.png"
 import axios from "axios";
 import Swal from "sweetalert2";
+const apiKey = process.env.REACT_APP_PUTUMAYOSTAY_API_KEY
 const AddRoomModal = ({ isOpen, onClose, id_empresa }) => {
   const [formData, setFormData] = useState({
     nombre: "",

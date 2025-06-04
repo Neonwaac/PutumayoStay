@@ -9,6 +9,7 @@ function BookingHistoryLayout() {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [historyBookings, setHistoryBookings] = useState([]);
+  const [maxHistoryCards, setMaxHistoryCards] = useState(3);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
@@ -48,9 +49,17 @@ function BookingHistoryLayout() {
     fetchHistoryBookings();
   }, [user]);
 
+  const showMoreHistory = () => {
+    setMaxHistoryCards(prev => Math.min(prev + 3, historyBookings.length));
+  };
+
+  const showLessHistory = () => {
+    setMaxHistoryCards(prev => Math.max(prev - 3, 3));
+  };
+
   return (
     <section className="history-layout">
-      {historyBookings.map((booking) => (
+      {historyBookings.slice(0, maxHistoryCards).map((booking) => (
         <BookingHistoryCard
           key={booking.id}
           id={booking.id}
@@ -62,8 +71,28 @@ function BookingHistoryLayout() {
           foto={booking.foto}
         />
       ))}
+
+      <div className="history-layout-show">
+        {maxHistoryCards < historyBookings.length && (
+          <button
+            className="history-layout-show-button history-layout-show-button-more"
+            onClick={showMoreHistory}
+          >
+            Ver más
+          </button>
+        )}
+        {maxHistoryCards > 3 && (
+          <button
+            className="history-layout-show-button history-layout-show-button-less"
+            onClick={showLessHistory}
+          >
+            Ver menos
+          </button>
+        )}
+      </div>
     </section>
   );
 }
 
 export default BookingHistoryLayout;
+

@@ -4,7 +4,7 @@ import { FaStar, FaPaperPlane } from "react-icons/fa";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-
+const apiKey = process.env.REACT_APP_PUTUMAYOSTAY_API_KEY
 function AddReviewCard({ id_habitacion, nombre_habitacion }) {
     const [id_usuario, setUser] = useState("");
     const [stars, setStars] = useState(0);
@@ -26,7 +26,7 @@ function AddReviewCard({ id_habitacion, nombre_habitacion }) {
             if (!token) return;
     
             try {
-                const response = await axios.get(`https://localhost:8077/usuarios/token/${token}`);
+                const response = await axios.get(`https://localhost:8077/usuarios/token/${token}`, {headers: {"x-api-key": apiKey}});
                 setUser(response.data.id);
             } catch (error) {
                 console.error("Error al obtener el usuario por token:", error);
@@ -54,7 +54,7 @@ function AddReviewCard({ id_habitacion, nombre_habitacion }) {
             id_habitacion
         };
         try {
-            await axios.post("https://localhost:8077/reviews", reviewData);
+            await axios.post("https://localhost:8077/reviews",{headers: {Authorization: apiKey}}, reviewData);
             Swal.fire({
                 title: "Publicada!",
                 text: "Tu reseña ha sido publicada",

@@ -15,7 +15,7 @@ function LoginForm() {
       const response = await axios.post(
         "https://localhost:8077/usuarios/login",
         { username, password }
-      );http://localhost:8077/auth/google/
+      );
       localStorage.setItem("token", response.data.token);
       navigate("/");
     } catch (error) {

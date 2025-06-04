@@ -8,6 +8,7 @@ import ReviewsPage from './pages/ReviewsPage/ReviewsPage';
 import AboutPage from './pages/AboutPage/AboutPage';
 import SpecificRoomPage from './pages/SpecificRoomPage/SpecificRoomPage';
 import ChangePasswordPage from './pages/ChangePasswordPage/ChangePasswordPage';
+import Prueba from './pages/prueba/prueba';
 function App() {
   return (
     <BrowserRouter>
@@ -22,6 +23,7 @@ function App() {
       <Route path="/reviews" element={<ReviewsPage />} />
       <Route path="/about" element={<AboutPage />} />
       <Route path="/changepassword" element={<ChangePasswordPage />} />
+      <Route path="/prueba" element={<Prueba />} />
     </Routes>
     </BrowserRouter>
   );

@@ -12,6 +12,7 @@ require("dotenv").config();
 const db = require("./db/db.js");
 const passport = require("./config/passportConfig");
 const session = require("express-session");
+const apiKeyMiddleware = require("./middlewares/apiKeyMiddleware");
 
 app.use(express.json());
 app.use(cors());
@@ -39,6 +40,7 @@ db.connect((err) => {
     console.log("Conectado a la database --| PutumayoStay |--");
   }
 });
+app.use("/", apiKeyMiddleware);
 app.use("/uploads/images", express.static(path.join(__dirname, "uploads/images")));
 app.use(
   "/uploads/archives",
