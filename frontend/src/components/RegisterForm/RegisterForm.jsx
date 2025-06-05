@@ -13,7 +13,7 @@ function RegisterForm() {
   const enviarFormulario = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("https://localhost:8077/usuarios", {headers: {"x-api-key": apiKey}},{
+      const response = await axios.post("https://localhost:8077/usuarios",{
         username,
         correo,
         password,

@@ -15,7 +15,7 @@ function LoginForm() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://localhost:8077/usuarios/login",{headers: {"x-api-key": apiKey}},
+        "https://localhost:8077/usuarios/login",
         { username, password }
       );
       localStorage.setItem("token", response.data.token);

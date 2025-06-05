@@ -41,7 +41,6 @@ db.connect((err) => {
   }
 });
 app.use(usuarioRoutes);
-app.use("/", apiKeyMiddleware);
 app.use("/uploads/images", express.static(path.join(__dirname, "uploads/images")));
 app.use(
   "/uploads/archives",

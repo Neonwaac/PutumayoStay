@@ -40,7 +40,6 @@ const EditUserPhotoModal = ({ isOpen, onClose, userId, currentPhoto, username })
       const response = await axios.put(`https://localhost:8077/usuarios/${userId}/photo`, data, {
         headers: {
           "Content-Type": "multipart/form-data",
-          "x-api-key": apiKey
         },
       });
       

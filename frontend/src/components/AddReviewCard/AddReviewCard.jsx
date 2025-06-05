@@ -26,7 +26,7 @@ function AddReviewCard({ id_habitacion, nombre_habitacion }) {
             if (!token) return;
     
             try {
-                const response = await axios.get(`https://localhost:8077/usuarios/token/${token}`, {headers: {"x-api-key": apiKey}});
+                const response = await axios.get(`https://localhost:8077/usuarios/token/${token}`);
                 setUser(response.data.id);
             } catch (error) {
                 console.error("Error al obtener el usuario por token:", error);

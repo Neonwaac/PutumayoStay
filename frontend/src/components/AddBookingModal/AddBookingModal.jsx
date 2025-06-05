@@ -76,7 +76,7 @@ function AddBookingModal({ isOpen, onClose, id_habitacion, precio }) {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post("https://localhost:8077/reservas", {headers: {"x-api-key": apiKey}}, formData);
+            const response = await axios.post("https://localhost:8077/reservas", formData);
             Swal.fire({
                 title: "Reserva realizada correctamente",
                 icon: "success",
