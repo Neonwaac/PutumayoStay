@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 import AddRoomModal from "../../components/AddRoomModal/AddRoomModal";
 import axios from "axios";
 import BestRecomendations from "../../layouts/BestRecomendations/BestRecomendations";
-const apiKey = process.env.REACT_APP_PUTUMAYOSTAY_API_KEY;
 function RoomsPage() {
   const [user, setUser] = useState("");
   const [category, setCategory] = useState(null);
@@ -64,7 +63,7 @@ function RoomsPage() {
 
       try {
         const response = await axios.get(
-          `https://localhost:8077/usuarios/token/${token}`, {headers: {"x-api-key": apiKey}}
+          `https://localhost:8077/usuarios/token/${token}`
         );
         setUser(response.data);
       } catch (error) {

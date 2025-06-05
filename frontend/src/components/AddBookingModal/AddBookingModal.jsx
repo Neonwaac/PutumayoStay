@@ -3,7 +3,7 @@ import './AddBookingModal.css';
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-const apiKey = process.env.REACT_APP_PUTUMAYOSTAY_API_KEY
+
 function AddBookingModal({ isOpen, onClose, id_habitacion, precio }) {
     const [user, setUser] = useState(null);
     const [formData, setFormData] = useState({
@@ -15,7 +15,7 @@ function AddBookingModal({ isOpen, onClose, id_habitacion, precio }) {
     });
     const navigate = useNavigate();
     const [token, setToken] = useState(null);
-
+    
     useEffect(() => {
         const storedToken = localStorage.getItem("token");
         if (storedToken) {
@@ -24,12 +24,12 @@ function AddBookingModal({ isOpen, onClose, id_habitacion, precio }) {
             navigate("/login");
         }
     }, [navigate]);
-
+    
     useEffect(() => {
         const fetchUserByToken = async () => {
             if (!token) return;
             try {
-                const response = await axios.get(`https://localhost:8077/usuarios/token/${token}`,{headers: {"x-api-key": apiKey}});
+                const response = await axios.get(`https://localhost:8077/usuarios/token/${token}`);
                 setUser(response.data);
                 setFormData(prevState => ({ ...prevState, id_usuario: response.data.id }));
             } catch (error) {
@@ -37,40 +37,24 @@ function AddBookingModal({ isOpen, onClose, id_habitacion, precio }) {
                 navigate("/login"); 
             }
         };
-
+    
         fetchUserByToken();
     }, [token, navigate]);
-
     const calculateAmount = (fechaIngreso, fechaSalida) => {
         if (!fechaIngreso || !fechaSalida) return "";
         const fecha1 = new Date(fechaIngreso);
         const fecha2 = new Date(fechaSalida);
         const diferenciaDias = Math.ceil((fecha2 - fecha1) / (1000 * 60 * 60 * 24));
         return diferenciaDias > 0 ? "$ " + (diferenciaDias * Number(precio.split("COP")[0].replace(".", ""))).toLocaleString("es-CO") + "COP" : "Nada";
-    };
 
+    }
     const handleChange = (event) => {
         const { name, value } = event.target;
-        const updatedFormData = { ...formData, [name]: value };
-
-        if (name === "fecha_ingreso" || name === "fecha_salida") {
-            // Validar que la salida no sea menor o igual que ingreso
-            if (
-                name === "fecha_salida" &&
-                updatedFormData.fecha_ingreso &&
-                new Date(value) <= new Date(updatedFormData.fecha_ingreso)
-            ) {
-                Swal.fire({
-                    icon: "warning",
-                    title: "Fecha inválida",
-                    text: "La fecha de salida debe ser al menos un día después de la fecha de ingreso.",
-                });
-                return;
-            }
-            updatedFormData.monto = calculateAmount(updatedFormData.fecha_ingreso, updatedFormData.fecha_salida);
+        const updatedFormData = ({ ...formData, [name]: value });
+        if(name == "fecha_ingreso" || name == "fecha_salida"){
+            updatedFormData.monto = calculateAmount(updatedFormData.fecha_ingreso, updatedFormData.fecha_salida)
         }
-
-        setFormData(updatedFormData);
+        setFormData(updatedFormData)
     };
 
     const handleSubmit = async (event) => {
@@ -93,8 +77,6 @@ function AddBookingModal({ isOpen, onClose, id_habitacion, precio }) {
             });
         }
     };
-
-    const today = new Date().toISOString().split("T")[0];
 
     return (
         isOpen && (
@@ -129,7 +111,6 @@ function AddBookingModal({ isOpen, onClose, id_habitacion, precio }) {
                                 value={formData.fecha_ingreso}
                                 onChange={handleChange}
                                 required
-                                min={today}
                             />
                             <label className="add-booking-modal-label">
                                 Fecha de Salida:
@@ -141,7 +122,6 @@ function AddBookingModal({ isOpen, onClose, id_habitacion, precio }) {
                                 value={formData.fecha_salida}
                                 onChange={handleChange}
                                 required
-                                min={formData.fecha_ingreso || today}
                             />
                         </div>
                         <button className="add-booking-modal-button" type="submit">

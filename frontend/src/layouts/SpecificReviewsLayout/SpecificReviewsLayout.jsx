@@ -4,7 +4,6 @@ import Swal from "sweetalert2";
 import './SpecificReviewsLayout.css'
 import ReviewCard from "../../components/ReviewCard/ReviewCard";
 import AddReviewCard from "../../components/AddReviewCard/AddReviewCard";
-const apiKey = process.env.REACT_APP_PUTUMAYOSTAY_API_KEY;
 
 function SpecificReviewsLayout({id, nombre_habitacion}){
     const [reviews, setReviews] = useState([]);
@@ -12,7 +11,7 @@ function SpecificReviewsLayout({id, nombre_habitacion}){
 
     useEffect(() => {
         const fetchRooms = async() =>{
-            const response = await axios.get('https://localhost:8077/reviews/room/'+id, {headers: {"x-api-key": apiKey}})
+            const response = await axios.get('https://localhost:8077/reviews/room/'+id)
             setReviews(response.data)
         }
         fetchRooms()

@@ -5,7 +5,6 @@ import Swal from "sweetalert2";
 import "./NavigationBar.css";
 import companyLogo from "../../assets/larger-light-logo.png";
 import defaultPhoto from "../../assets/default-user-photo.png";
-const apiKey = process.env.REACT_APP_PUTUMAYOSTAY_API_KEY
 
 function NavigationBar() {
     const [token, setToken] = useState(null);
@@ -46,7 +45,6 @@ function NavigationBar() {
                     {
                         headers: {
                             Authorization: `Bearer ${storedToken}`,
-                            "x-api-key": apiKey
                         },
                     }
                 );
@@ -76,7 +74,7 @@ function NavigationBar() {
             if (!token) return;
 
             try {
-                const response = await axios.get(`https://localhost:8077/usuarios/token/${token}`,{headers: {"x-api-key": apiKey}});
+                const response = await axios.get(`https://localhost:8077/usuarios/token/${token}`);
                 setUser(response.data);
             } catch (error) {
                 console.error("Error al obtener el usuario:", error);

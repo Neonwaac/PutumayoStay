@@ -4,7 +4,6 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import companyLogo from "../../assets/larger-dark-logo.png";
-const apiKey = process.env.REACT_APP_PUTUMAYOSTAY_API_KEY
 
 function RegisterForm() {
   const [username, setUsername] = useState("");
@@ -13,7 +12,7 @@ function RegisterForm() {
   const enviarFormulario = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("https://localhost:8077/usuarios",{
+      const response = await axios.post("https://localhost:8077/usuarios", {
         username,
         correo,
         password,

@@ -3,13 +3,12 @@ import './ReviewsLayout.css';
 import ReviewCard from "../../components/ReviewCard/ReviewCard";
 import axios from "axios";
 import Swal from "sweetalert2";
-const apiKey = process.env.REACT_APP_PUTUMAYOSTAY_API_KEY;
 function ReviewsLayout({maxReviewCards}){
     const [reviews, setReviews] = useState([]);
     useEffect(() =>{
         const fetchReviews = async () =>{
             try {
-                const response = await axios.get("https://localhost:8077/reviews", {headers: {"x-api-key": apiKey}})
+                const response = await axios.get("https://localhost:8077/reviews")
                 setReviews(response.data)
             } catch (error) {
                 Swal.fire({

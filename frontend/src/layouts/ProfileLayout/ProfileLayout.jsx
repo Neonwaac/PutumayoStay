@@ -4,8 +4,6 @@ import UserProfileData from "../../components/UserProfileData/UserProfileData";
 import UserProfileImage from "../../components/UserProfileImage/UserProfileImage";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-const apiKey = process.env.REACT_APP_PUTUMAYOSTAY_API_KEY
-
 
 function ProfileLayout() {
   const navigate = useNavigate();
@@ -26,7 +24,7 @@ function ProfileLayout() {
             if (!token) return;
     
             try {
-                const response = await axios.get(`https://localhost:8077/usuarios/token/${token}`, {headers: {"x-api-key": apiKey}});
+                const response = await axios.get(`https://localhost:8077/usuarios/token/${token}`);
                 setUser(response.data);
             } catch (error) {
                 console.error("Error al obtener el usuario por token:", error);

@@ -3,8 +3,6 @@ import './RoomCard.css';
 import { useNavigate } from "react-router-dom";
 import axios from "axios"
 import Swal from "sweetalert2";
-const apiKey = process.env.REACT_APP_PUTUMAYOSTAY_API_KEY
-
 function RoomCard({key, id, nombre, descripcion, capacidad, foto, precio, categoria, id_empresa}){
     const [user, setUser] = useState(null);
     const navigate = useNavigate()
@@ -24,7 +22,7 @@ function RoomCard({key, id, nombre, descripcion, capacidad, foto, precio, catego
             if (!token) return;
     
             try {
-                const response = await axios.get(`https://localhost:8077/usuarios/token/${token}`,{headers: {"x-api-key": apiKey}});
+                const response = await axios.get(`https://localhost:8077/usuarios/token/${token}`);
                 setUser(response.data);
             } catch (error) {
                 console.error("Error al obtener el usuario por token:", error);
@@ -57,7 +55,7 @@ function RoomCard({key, id, nombre, descripcion, capacidad, foto, precio, catego
                 icon: "success"
               });
               try{
-                axios.delete("https://localhost:8077/rooms/"+id,{headers: {"x-api-key": apiKey}});
+                axios.delete("https://localhost:8077/rooms/"+id);
                 window.location.reload(true);
               }catch(error){
                 Swal.fire({
