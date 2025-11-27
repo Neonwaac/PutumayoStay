@@ -1,7 +1,7 @@
 import "./DashboardLayout.css";
 import "../../components/DashboardMenu/DashboardMenu.css";
 import React, {useState, useEffect} from "react";
-import { FaUser, FaBell, FaArrowAltCircleLeft, FaCalendarCheck, FaHistory, FaCreditCard} from "react-icons/fa"; 
+import { FaUser, FaBell, FaArrowAltCircleLeft, FaCalendarCheck, FaHistory, FaCreditCard, FaCube} from "react-icons/fa"; 
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import ProfileLayout from "../ProfileLayout/ProfileLayout";
@@ -9,6 +9,7 @@ import BookingsLayout from "../BookingsLayout/BookingsLayout";
 import BookingHistoryLayout from "../BookingHistoryLayout/BookingHistoryLayout";
 import PaymentsLayout from "../PaymentsLayout/PaymentsLayout";
 import NotificationsLayout from "../NotificationsLayout/NotificationsLayout";
+import BlockchainLayout from "../BlockchainLayout/BlockchainLayout";
 import axios from "axios";
 
 function DashboardLayout() {
@@ -86,6 +87,8 @@ function DashboardLayout() {
           return <PaymentsLayout />;
         case "NotificationsLayout":
           return <NotificationsLayout />;
+        case "BlockchainLayout":
+          return <BlockchainLayout />;
         default:
           return <ProfileLayout />;
       }
@@ -122,6 +125,12 @@ function DashboardLayout() {
             
             Notificaciones
           </div>
+          {user && Number(user.rol) === 2 && (
+            <div className="dashboard-menu-option" onClick={() => setVista("BlockchainLayout")}>
+              <FaCube className="dashboard-menu-option-icon" />
+              Blockchain
+            </div>
+          )}
           <div
             className="dashboard-menu-option-close-session"
             onClick={cerrarSesion}

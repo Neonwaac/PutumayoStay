@@ -6,6 +6,7 @@ const usuarioRoutes = require("./routes/usuarioRoutes.js");
 const habitacionRoutes = require("./routes/habitacionRoutes.js");
 const reviewRoutes = require("./routes/reviewRoutes.js");
 const reservaRoutes = require("./routes/reservaRoutes.js");
+const blockchainRoutes = require("./routes/blockchainRoutes.js");
 const fs = require("fs")
 const https = require("https")
 require("dotenv").config();
@@ -50,6 +51,7 @@ app.use(
 app.use(habitacionRoutes);
 app.use(reviewRoutes);
 app.use(reservaRoutes);
+app.use(blockchainRoutes);
 
 // Por esto (mejor separar puerto de servidor y DB):
 const PORT = process.env.PORT || 8077;

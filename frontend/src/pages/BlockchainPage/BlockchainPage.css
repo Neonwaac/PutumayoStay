@@ -1,0 +1,11 @@
+.blockchain-page {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #f8f9fa;
+}
+
+.blockchain-page .blockchain-layout {
+    flex: 1;
+}

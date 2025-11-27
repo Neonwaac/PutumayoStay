@@ -2,6 +2,7 @@ const db = require('../db/db');
 const fs = require("fs");
 const path = require("path");
 const PDFDocument = require("pdfkit");
+const Blockchain = require('./blockchain');
 class Reserva{
     constructor(monto, fecha_ingreso, fecha_salida, id_usuario, id_habitacion){
         this.monto = monto,
@@ -15,7 +16,23 @@ class Reserva{
          const query = `INSERT INTO reservas (monto, fecha_ingreso, fecha_salida, id_usuario, id_habitacion) VALUES (?, ?, ?, ?, ?)`
          const [response] = await db.promise().execute(query, [monto, fecha_ingreso, fecha_salida, id_usuario, id_habitacion]);
          await Reserva.crearHistorialReserva(response.insertId, id_usuario)
-         return;
+         // Append a block to the blockchain recording this reservation
+         try {
+           const payload = {
+             tipo: 'reserva',
+             id_reserva: response.insertId,
+             monto,
+             fecha_ingreso,
+             fecha_salida,
+             id_usuario,
+             id_habitacion
+           };
+           await Blockchain.createBlock({ data: JSON.stringify(payload), id_reserva: response.insertId, creator_id: id_usuario });
+         } catch (err) {
+           // Non-fatal: log but do not prevent reservation creation
+           console.error('Error creando bloque de reserva:', err);
+         }
+         return response.insertId;
         } catch (error) {
             throw error
         }

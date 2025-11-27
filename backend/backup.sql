@@ -125,6 +125,25 @@ CREATE TABLE `historial_pagos` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `blockchain`
+--
+
+CREATE TABLE `blockchain` (
+  `id` int(11) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `data` text NOT NULL,
+  `hash` varchar(128) NOT NULL,
+  `previous_hash` varchar(128) NOT NULL,
+  `nonce` int(11) NOT NULL,
+  `id_reserva` int(11) DEFAULT NULL,
+  `id_pago` int(11) DEFAULT NULL,
+  `creator_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `historial_reservas`
 --
 
@@ -323,6 +342,15 @@ ALTER TABLE `usuarios`
   ADD KEY `rol` (`rol`);
 
 --
+-- Indices de la tabla `blockchain`
+--
+ALTER TABLE `blockchain`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_reserva` (`id_reserva`),
+  ADD KEY `id_pago` (`id_pago`),
+  ADD KEY `creator_id` (`creator_id`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -381,6 +409,12 @@ ALTER TABLE `usuarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
+-- AUTO_INCREMENT de la tabla `blockchain`
+--
+ALTER TABLE `blockchain`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- Restricciones para tablas volcadas
 --
 
@@ -423,6 +457,13 @@ ALTER TABLE `reviews`
 --
 ALTER TABLE `usuarios`
   ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`rol`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+--
+-- Filtros para la tabla `blockchain`
+--
+ALTER TABLE `blockchain`
+  ADD CONSTRAINT `blockchain_ibfk_1` FOREIGN KEY (`id_reserva`) REFERENCES `reservas` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `blockchain_ibfk_2` FOREIGN KEY (`creator_id`) REFERENCES `usuarios` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `blockchain_ibfk_3` FOREIGN KEY (`id_pago`) REFERENCES `historial_pagos` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
