@@ -40,6 +40,8 @@ function AddBookingModal({ isOpen, onClose, id_habitacion, precio }) {
     
         fetchUserByToken();
     }, [token, navigate]);
+    const today = new Date().toISOString().split('T')[0];
+
     const calculateAmount = (fechaIngreso, fechaSalida) => {
         if (!fechaIngreso || !fechaSalida) return "";
         const fecha1 = new Date(fechaIngreso);
@@ -59,6 +61,14 @@ function AddBookingModal({ isOpen, onClose, id_habitacion, precio }) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        if (user && (user.rol === 2 || user.rol === 3)) {
+            Swal.fire({
+                icon: "error",
+                title: "Acción no permitida",
+                text: "Los administradores y empresas no pueden realizar reservas.",
+            });
+            return;
+        }
         try {
             const response = await axios.post("https://localhost:8077/reservas", formData);
             Swal.fire({
@@ -66,7 +76,7 @@ function AddBookingModal({ isOpen, onClose, id_habitacion, precio }) {
                 icon: "success",
                 draggable: true
             });
-            window.location.reload(true);
+            navigate("rooms")
             onClose();
         } catch (error) {
             console.error("Error al realizar la reserva", error);
@@ -108,6 +118,7 @@ function AddBookingModal({ isOpen, onClose, id_habitacion, precio }) {
                                 className="add-booking-modal-input"
                                 type="date"
                                 name="fecha_ingreso"
+                                min={today}
                                 value={formData.fecha_ingreso}
                                 onChange={handleChange}
                                 required
@@ -119,6 +130,7 @@ function AddBookingModal({ isOpen, onClose, id_habitacion, precio }) {
                                 className="add-booking-modal-input"
                                 type="date"
                                 name="fecha_salida"
+                                min={formData.fecha_ingreso || today}
                                 value={formData.fecha_salida}
                                 onChange={handleChange}
                                 required

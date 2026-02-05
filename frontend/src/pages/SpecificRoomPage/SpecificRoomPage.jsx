@@ -66,6 +66,7 @@ function SpecificRoomPage() {
         telefono_empresa={room.telefono_empresa}
         correo_empresa={room.correo_empresa}
         foto_empresa={room.foto_empresa}
+        rol_usuario={user ? user.rol : null}
       />
       <h1 className="specific-room-page-reviews-title">
         Reseñas de {room.nombre}

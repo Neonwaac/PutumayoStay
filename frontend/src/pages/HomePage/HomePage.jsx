@@ -7,9 +7,29 @@ import ReviewsLayout from "../../layouts/ReviewsLayout/ReviewsLayout";
 import { useNavigate } from "react-router-dom";
 import SpecialRecognition from "../../layouts/SpecialRecognition/SpecialRecognition";
 import HomePageBg from "../../assets/home-page-bg.jpg";
-function HomePage() {
+import AdminPanel from "../../components/AdminPanel/AdminPanel";
+import axios from "axios";
 
+function HomePage() {
+    const [user, setUser] = useState(null);
     const [maxRoomCards, setMaxRoomCards] = useState(3);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            const token = localStorage.getItem("token");
+            if (token) {
+                try {
+                    const response = await axios.get(`https://localhost:8077/usuarios/token/${token}`);
+                    setUser(response.data);
+                } catch (error) {
+                    console.error("Error fetching user:", error);
+                }
+            }
+        };
+        fetchUser();
+    }, []);
+
     useEffect(() => {
         const updateMaxRoomCards = () => {
             const width = window.innerWidth;
@@ -27,7 +47,6 @@ function HomePage() {
         updateMaxRoomCards();
     });
 
-    const navigate = useNavigate();
     const goRoomsPage = (e) => {
         e.preventDefault();
         navigate("/rooms")
@@ -36,8 +55,19 @@ function HomePage() {
         e.preventDefault();
         navigate("/reviews")
     }
+
+    if (user && user.rol === 2) {
+        return (
+            <section className="home-page">
+                <NavigationBar />
+                <AdminPanel />
+                <AppFooter />
+            </section>
+        );
+    }
+
     return (
-        <section clasName="home-page">
+        <section className="home-page">
             <NavigationBar/>
             <img className="home-page-bg"src={HomePageBg}/>
             <div className="rooms-layout-view-all-container">

@@ -98,10 +98,24 @@
     font-size: 1.2rem;
     letter-spacing: 2px;
     color: var(--ps-color-yellow1);
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    align-self: start;
 }
 
+.review-card-delete-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    transition: background-color 0.3s;
+    font-weight: 600;
+}
+
+.review-card-delete-btn:hover {
+    background-color: #c82333;
+}   
 .review-card-date {
     font-size: 0.9rem;
     color: var(--ps-color-gs3);

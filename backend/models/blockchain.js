@@ -55,11 +55,36 @@ class Blockchain {
     }
   }
 
-  static async list(limit = 100) {
+  static async list(limit = 100, startDate = null, endDate = null) {
     // Ensure table exists first
     await Blockchain.ensureTableExists();
-    const query = `SELECT * FROM blockchain ORDER BY id DESC LIMIT ${parseInt(limit, 10)}`;
-    const [rows] = await db.promise().execute(query);
+    let query = `SELECT * FROM blockchain`;
+    const params = [];
+    const conditions = [];
+
+    if (startDate && typeof startDate === 'string' && startDate.trim() !== '') {
+        conditions.push(`timestamp >= ?`);
+        params.push(startDate + ' 00:00:00');
+    }
+    if (endDate && typeof endDate === 'string' && endDate.trim() !== '') {
+        conditions.push(`timestamp <= ?`);
+        params.push(endDate + ' 23:59:59');
+    }
+
+    if (conditions.length > 0) {
+        query += ` WHERE ` + conditions.join(' AND ');
+    }
+
+    query += ` ORDER BY id DESC LIMIT ?`;
+    
+    let parsedLimit = parseInt(limit, 10);
+    if (isNaN(parsedLimit) || parsedLimit <= 0) {
+        parsedLimit = 100;
+    }
+    params.push(parsedLimit);
+
+    // Use query instead of execute for dynamic queries to avoid prepared statement issues with varying parameters
+    const [rows] = await db.promise().query(query, params);
     return rows;
   }
 

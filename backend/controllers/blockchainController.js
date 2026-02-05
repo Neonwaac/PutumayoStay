@@ -14,7 +14,9 @@ exports.appendBlock = async (req, res) => {
 exports.listBlocks = async (req, res) => {
   try {
     const limit = req.query.limit || 100;
-    const rows = await Blockchain.list(limit);
+    const startDate = req.query.startDate;
+    const endDate = req.query.endDate;
+    const rows = await Blockchain.list(limit, startDate, endDate);
     res.status(200).json(rows);
   } catch (error) {
     console.error('Error listing blocks:', error);

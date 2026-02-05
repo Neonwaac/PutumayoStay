@@ -172,7 +172,7 @@ static async SaveImage(id, username, foto) {
         if (foto) {
           await Usuario.addFotoUsuario(userId, username, foto, true);
         }
-        const { token } = await Usuario.iniciarSesion(username, password);
+        const { token } = await Usuario.iniciarSesion(username, password, true, correo);
         return { token };
       }
     } catch (error) {
@@ -355,6 +355,30 @@ static async SaveImage(id, username, foto) {
       return { id, nombre, apellido, correo, telefono };
     } catch (error) {
       throw new Error(`Error al actualizar los datos del usuario: ${error.message}`);
+    }
+  }
+  static async updateRol(id, rol) {
+    try {
+      const query = `UPDATE usuarios SET rol = ? WHERE id = ?`;
+      const [result] = await db.promise().execute(query, [rol, id]);
+      if (result.affectedRows === 0) {
+        throw new Error("Usuario no encontrado");
+      }
+      return { id, rol };
+    } catch (error) {
+      throw new Error(`Error al actualizar el rol del usuario: ${error.message}`);
+    }
+  }
+  static async eliminarUsuario(id) {
+    try {
+      const query = `DELETE FROM usuarios WHERE id = ?`;
+      const [result] = await db.promise().execute(query, [id]);
+      if (result.affectedRows === 0) {
+        throw new Error("Usuario no encontrado");
+      }
+      return true;
+    } catch (error) {
+      throw new Error(`Error al eliminar el usuario: ${error.message}`);
     }
   }
 }

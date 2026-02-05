@@ -2,12 +2,17 @@ import React, { useEffect, useState } from "react";
 import "./BlockchainLayout.css";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { FaLink, FaClock, FaHashtag, FaDatabase, FaUser, FaReceipt, FaCreditCard } from "react-icons/fa";
+import { FaLink, FaClock, FaHashtag, FaDatabase, FaUser, FaReceipt, FaCreditCard, FaChevronDown, FaChevronUp, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 function BlockchainLayout() {
     const [blocks, setBlocks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(5);
+    const [expandedBlocks, setExpandedBlocks] = useState({});
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
 
     useEffect(() => {
         fetchBlocks();
@@ -16,9 +21,14 @@ function BlockchainLayout() {
     const fetchBlocks = async () => {
         try {
             setLoading(true);
-            const response = await axios.get("https://localhost:8077/blockchain?limit=50");
+            let url = "https://localhost:8077/blockchain?limit=50";
+            if (startDate) url += `&startDate=${startDate}`;
+            if (endDate) url += `&endDate=${endDate}`;
+            
+            const response = await axios.get(url);
             setBlocks(response.data);
             setError(null);
+            setCurrentPage(1); // Reset to first page on new fetch
         } catch (error) {
             console.error("Error fetching blockchain:", error);
             setError("No se pudieron cargar los bloques");
@@ -30,6 +40,48 @@ function BlockchainLayout() {
         } finally {
             setLoading(false);
         }
+    };
+
+    const clearFilters = () => {
+        setStartDate("");
+        setEndDate("");
+        // We need to call fetchBlocks after state update, but since setState is async, 
+        // it's better to just reload or call fetch with empty strings directly.
+        // Or use a useEffect dependent on filter trigger. 
+        // For simplicity, I'll just reset state and call fetch with empty params manually or wait for user to click filter again.
+        // Better UX: clear and fetch immediately.
+        setStartDate("");
+        setEndDate("");
+        
+        // Hack to fetch immediately without waiting for state update
+        (async () => {
+             try {
+                setLoading(true);
+                const response = await axios.get("https://localhost:8077/blockchain?limit=50");
+                setBlocks(response.data);
+                setError(null);
+                setCurrentPage(1);
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setLoading(false);
+            }
+        })();
+    };
+
+    // Pagination logic
+    const indexOfLastBlock = currentPage * itemsPerPage;
+    const indexOfFirstBlock = indexOfLastBlock - itemsPerPage;
+    const currentBlocks = blocks.slice(indexOfFirstBlock, indexOfLastBlock);
+    const totalPages = Math.ceil(blocks.length / itemsPerPage);
+
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+    const toggleBlock = (id) => {
+        setExpandedBlocks(prev => ({
+            ...prev,
+            [id]: !prev[id]
+        }));
     };
 
     const formatTimestamp = (timestamp) => {
@@ -101,7 +153,37 @@ function BlockchainLayout() {
     return (
         <div className="blockchain-layout">
             <div className="blockchain-layout-header">
-                <h2 className="blockchain-layout-title">🔗 Blockchain PutumayoStay</h2>
+                <h2 className="blockchain-layout-title">PutumayoStay BC</h2>
+                
+                <div className="blockchain-filters">
+                    <div className="filter-group">
+                        <label>Desde:</label>
+                        <input 
+                            type="date" 
+                            value={startDate} 
+                            onChange={(e) => setStartDate(e.target.value)}
+                            className="blockchain-date-input"
+                        />
+                    </div>
+                    <div className="filter-group">
+                        <label>Hasta:</label>
+                        <input 
+                            type="date" 
+                            value={endDate} 
+                            onChange={(e) => setEndDate(e.target.value)}
+                            className="blockchain-date-input"
+                        />
+                    </div>
+                    <button onClick={fetchBlocks} className="blockchain-filter-btn">
+                        Filtrar
+                    </button>
+                    {(startDate || endDate) && (
+                        <button onClick={clearFilters} className="blockchain-clear-btn">
+                            Limpiar
+                        </button>
+                    )}
+                </div>
+
                 <div className="blockchain-stats">
                     <div className="blockchain-stat">
                         <span className="blockchain-stat-number">{blocks.length}</span>
@@ -119,10 +201,17 @@ function BlockchainLayout() {
                         <p>No hay bloques en la cadena</p>
                     </div>
                 ) : (
-                    blocks.map((block, index) => {
+                    currentBlocks.map((block, index) => {
                         const blockData = parseBlockData(block.data);
+                        const isExpanded = expandedBlocks[block.id];
+                        
                         return (
-                            <div key={block.id} className="blockchain-block" style={{borderLeft: `4px solid ${getBlockTypeColor(block.data)}`}}>
+                            <div 
+                                key={block.id} 
+                                className={`blockchain-block ${isExpanded ? 'expanded' : 'collapsed'}`}
+                                style={{borderLeft: `4px solid ${getBlockTypeColor(block.data)}`, cursor: 'pointer'}}
+                                onClick={() => toggleBlock(block.id)}
+                            >
                                 <div className="blockchain-block-header">
                                     <div className="blockchain-block-type">
                                         {getBlockTypeIcon(block.data)}
@@ -130,58 +219,85 @@ function BlockchainLayout() {
                                     </div>
                                     <div className="blockchain-block-number">
                                         #{block.id}
+                                        {isExpanded ? <FaChevronUp style={{marginLeft: '10px'}}/> : <FaChevronDown style={{marginLeft: '10px'}}/>}
                                     </div>
                                 </div>
                                 
                                 <div className="blockchain-block-content">
-                                    <div className="blockchain-block-row">
-                                        <FaHashtag className="blockchain-icon" />
-                                        <span className="blockchain-label">Hash:</span>
-                                        <span className="blockchain-value hash">{formatHash(block.hash)}</span>
-                                    </div>
-                                    
-                                    <div className="blockchain-block-row">
-                                        <FaLink className="blockchain-icon" />
-                                        <span className="blockchain-label">Hash Anterior:</span>
-                                        <span className="blockchain-value hash">{formatHash(block.previous_hash)}</span>
-                                    </div>
-                                    
                                     <div className="blockchain-block-row">
                                         <FaClock className="blockchain-icon" />
                                         <span className="blockchain-label">Timestamp:</span>
                                         <span className="blockchain-value">{formatTimestamp(block.timestamp)}</span>
                                     </div>
 
-                                    {blockData.tipo === 'reserva' && (
-                                        <div className="blockchain-block-details">
-                                            <h4>📋 Detalles de Reserva</h4>
-                                            <p><strong>Monto:</strong> {blockData.monto}</p>
-                                            <p><strong>Habitación ID:</strong> {blockData.id_habitacion}</p>
-                                            <p><strong>Fechas:</strong> {blockData.fecha_ingreso} - {blockData.fecha_salida}</p>
-                                            <p><strong>Usuario:</strong> {blockData.id_usuario}</p>
-                                        </div>
-                                    )}
+                                    {isExpanded && (
+                                        <>
+                                            <div className="blockchain-block-row">
+                                                <FaHashtag className="blockchain-icon" />
+                                                <span className="blockchain-label">Hash:</span>
+                                                <span className="blockchain-value hash">{formatHash(block.hash)}</span>
+                                            </div>
+                                            
+                                            <div className="blockchain-block-row">
+                                                <FaLink className="blockchain-icon" />
+                                                <span className="blockchain-label">Hash Anterior:</span>
+                                                <span className="blockchain-value hash">{formatHash(block.previous_hash)}</span>
+                                            </div>
 
-                                    {blockData.tipo === 'pago' && (
-                                        <div className="blockchain-block-details">
-                                            <h4>💳 Detalles de Pago</h4>
-                                            <p><strong>Monto:</strong> {blockData.monto}</p>
-                                            <p><strong>Reserva ID:</strong> {blockData.id_reserva}</p>
-                                            <p><strong>Usuario:</strong> {blockData.id_usuario}</p>
-                                        </div>
-                                    )}
+                                            {blockData.tipo === 'reserva' && (
+                                                <div className="blockchain-block-details">
+                                                    <h4>📋 Detalles de Reserva</h4>
+                                                    <p><strong>Monto:</strong> {blockData.monto}</p>
+                                                    <p><strong>Habitación ID:</strong> {blockData.id_habitacion}</p>
+                                                    <p><strong>Fechas:</strong> {blockData.fecha_ingreso} - {blockData.fecha_salida}</p>
+                                                    <p><strong>Usuario:</strong> {blockData.id_usuario}</p>
+                                                </div>
+                                            )}
 
-                                    <div className="blockchain-block-row">
-                                        <FaUser className="blockchain-icon" />
-                                        <span className="blockchain-label">Nonce:</span>
-                                        <span className="blockchain-value">{block.nonce}</span>
-                                    </div>
+                                            {blockData.tipo === 'pago' && (
+                                                <div className="blockchain-block-details">
+                                                    <h4>💳 Detalles de Pago</h4>
+                                                    <p><strong>Monto:</strong> {blockData.monto}</p>
+                                                    <p><strong>Reserva ID:</strong> {blockData.id_reserva}</p>
+                                                    <p><strong>Usuario:</strong> {blockData.id_usuario}</p>
+                                                </div>
+                                            )}
+
+                                            <div className="blockchain-block-row">
+                                                <FaUser className="blockchain-icon" />
+                                                <span className="blockchain-label">Nonce:</span>
+                                                <span className="blockchain-value">{block.nonce}</span>
+                                            </div>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         );
                     })
                 )}
             </div>
+
+            {blocks.length > itemsPerPage && (
+                <div className="blockchain-pagination">
+                    <button 
+                        onClick={() => paginate(currentPage - 1)} 
+                        disabled={currentPage === 1}
+                        className="pagination-btn"
+                    >
+                        <FaChevronLeft /> Anterior
+                    </button>
+                    <span className="pagination-info">
+                        Página {currentPage} de {totalPages}
+                    </span>
+                    <button 
+                        onClick={() => paginate(currentPage + 1)} 
+                        disabled={currentPage === totalPages}
+                        className="pagination-btn"
+                    >
+                        Siguiente <FaChevronRight />
+                    </button>
+                </div>
+            )}
         </div>
     );
 }

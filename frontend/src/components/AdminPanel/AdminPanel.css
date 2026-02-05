@@ -1,0 +1,54 @@
+.admin-panel-container {
+    padding: 20px;
+    background-color: #f4f4f9;
+    min-height: 100vh;
+}
+
+.admin-panel-title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.admin-panel-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.admin-panel-table th,
+.admin-panel-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.admin-panel-table th {
+    background-color: var(--ps-color-green2);
+    color: white;
+}
+
+.admin-panel-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.admin-panel-select {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.admin-panel-delete-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.admin-panel-delete-btn:hover {
+    background-color: #c82333;
+}

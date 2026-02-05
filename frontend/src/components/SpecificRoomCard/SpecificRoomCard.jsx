@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import './SpecificRoomCard.css'
 import AddBookingModal from "../AddBookingModal/AddBookingModal";
 
-function SpecificRoomCard({id, nombre, descripcion, capacidad, foto, precio, categoria, nombre_empresa, telefono_empresa, correo_empresa, foto_empresa}){
+function SpecificRoomCard({id, nombre, descripcion, capacidad, foto, precio, categoria, nombre_empresa, telefono_empresa, correo_empresa, foto_empresa, rol_usuario}){
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false)
@@ -26,7 +26,7 @@ function SpecificRoomCard({id, nombre, descripcion, capacidad, foto, precio, cat
                     </div>
                     
                 </div>
-                <button className="specific-room-card-button"  onClick={openModal}>Reservar habitación ahora</button>
+                {rol_usuario === 1 ? <button className="specific-room-card-button"  onClick={openModal}>Reservar habitación ahora</button> : null} 
                 <AddBookingModal isOpen={isModalOpen} onClose={closeModal} id_habitacion={id} precio={precio}/>
             </div>
         </section>

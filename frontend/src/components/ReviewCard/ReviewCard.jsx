@@ -1,9 +1,61 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import './ReviewCard.css';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import defaultPhoto from "../../assets/default-user-photo.png"
-function ReviewCard({id, valor, descripcion, timestamp, nombre_usuario, foto_usuario, nombre_habitacion, id_habitacion}){
+import axios from "axios";
+import Swal from "sweetalert2";
+
+function ReviewCard({id, valor, descripcion, timestamp, nombre_usuario, foto_usuario, nombre_habitacion, id_habitacion, id_usuario}){
+    const [user, setUser] = useState(null);
+    const navigate = useNavigate();
     const starValue = valor && !isNaN(valor) && valor > 0 ? "⭐".repeat(Math.min(valor, 5)) : "⭐";
+    
+    useEffect(() => {
+        const fetchUser = async () => {
+            const token = localStorage.getItem("token");
+            if (token) {
+                try {
+                    const response = await axios.get(`https://localhost:8077/usuarios/token/${token}`);
+                    setUser(response.data);
+                } catch (error) {
+                    console.error("Error fetching user:", error);
+                }
+            }
+        };
+        fetchUser();
+    }, []);
+
+    const handleDelete = async () => {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "No podrás revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, eliminar!'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    await axios.delete(`https://localhost:8077/reviews/${id}`);
+                    Swal.fire(
+                        'Eliminado!',
+                        'Tu comentario ha sido eliminado.',
+                        'success'
+                    ).then(() => {
+                        window.location.reload();
+                    });
+                } catch (error) {
+                    Swal.fire(
+                        'Error!',
+                        'Hubo un problema al eliminar el comentario.',
+                        'error'
+                    );
+                }
+            }
+        })
+    };
+
     const formatTimeAgo = (timestamp) => {
         const now = new Date();
         const reviewDate = new Date(timestamp);
@@ -43,6 +95,11 @@ function ReviewCard({id, valor, descripcion, timestamp, nombre_usuario, foto_usu
             <div className="review-card-right">
                 <p className="review-card-stars">{starValue}</p>
                 <h3 className="review-card-date">{formatTimeAgo(timestamp)}</h3>
+                {user && (user.rol === 2 || user.id === id_usuario) && (
+                    <button className="review-card-delete-btn" onClick={handleDelete}>
+                        Eliminar
+                    </button>
+                )}
             </div>
         </section>
     )

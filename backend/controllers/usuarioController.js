@@ -78,9 +78,9 @@ exports.googleLogin = async (req, res) => {
     if (!req.user) {
         return res.status(401).json({ error: "No autorizado" });
     }
-    const correo = req.user.emails[0].value;
+    const correo = req.user.emails && req.user.emails.length > 0 ? req.user.emails[0].value : null;
     const username = req.user.displayName;
-    const foto = req.user.photos[0].value;
+    const foto = req.user.photos && req.user.photos.length > 0 ? req.user.photos[0].value : null;
     const password = process.env.PUTUMAYOSTAY_SECRET_KEY;
     try {
         const { token } = await Usuario.googleLogin(username, correo, password, foto);
@@ -210,5 +210,33 @@ exports.updateDatosUsuario = async (req, res) => {
         res.status(200).json({ message: 'Datos del usuario actualizados correctamente', usuario: response });
     } catch (error) {
         res.status(500).json({ message: 'Hubo un error al actualizar los datos del usuario', error: error.message });
+    }
+}
+exports.updateRol = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { rol } = req.body;
+        if (!rol) {
+            return res.status(400).json({ message: 'Falta el rol' });
+        }
+        const response = await Usuario.updateRol(id, rol);
+        if (!response) {
+            return res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+        res.status(200).json({ message: 'Rol actualizado correctamente', usuario: response });
+    } catch (error) {
+        res.status(500).json({ message: 'Hubo un error al actualizar el rol', error: error.message });
+    }
+}
+exports.eliminarUsuario = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const response = await Usuario.eliminarUsuario(id);
+        if (!response) {
+            return res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+        res.status(200).json({ message: 'Usuario eliminado correctamente' });
+    } catch (error) {
+        res.status(500).json({ message: 'Hubo un error al eliminar el usuario', error: error.message });
     }
 }

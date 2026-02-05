@@ -28,6 +28,7 @@ function ReviewsLayout({maxReviewCards}){
                 valor={review.valor}
                 descripcion={review.descripcion}
                 timestamp={review.timestamp}
+                id_usuario={review.id_usuario}
                 nombre_usuario={review.nombre_usuario}
                 foto_usuario={review.foto_usuario}
                 nombre_habitacion={review.nombre_habitacion}

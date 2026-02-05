@@ -21,7 +21,7 @@ function BookingCard({id, monto, noches, timestamp, estado, nombre, foto}){
     };
     const cancelBooking = async () => {
         try{
-            const response = await axios.patch('https://localhost:8077/reservas/3/'+id);
+            const response = await axios.patch('https://localhost:8077/reservas/'+3+'/'+id);
             
         }catch(error){
             

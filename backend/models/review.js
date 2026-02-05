@@ -8,8 +8,8 @@ class Review{
     }
     static async ObtenerReviews(){
         try {
-            const query = `SELECT reviews.id, reviews.valor, reviews.descripcion, reviews.timestamp, 
-            usuarios.username AS nombre_usuario, usuarios.foto AS foto_usuario,
+            const query = `SELECT reviews.id, reviews.valor, reviews.descripcion, reviews.timestamp, reviews.id_usuario,
+            usuarios.username AS nombre_usuario, usuarios.foto AS foto_usuario, reviews.id_usuario,
             habitaciones.nombre AS nombre_habitacion, id_habitacion
             FROM reviews
             LEFT JOIN habitaciones ON reviews.id_habitacion = habitaciones.id
@@ -25,7 +25,7 @@ class Review{
     static async ObtenerReviewsPorHabitacion(id){
         try {
             const query = `SELECT reviews.id, reviews.valor, reviews.descripcion, reviews.timestamp, 
-            usuarios.username AS nombre_usuario, usuarios.foto AS foto_usuario,
+            usuarios.username AS nombre_usuario, usuarios.foto AS foto_usuario, reviews.id_usuario,
             habitaciones.nombre AS nombre_habitacion, id_habitacion
             FROM reviews
             LEFT JOIN habitaciones ON reviews.id_habitacion = habitaciones.id
@@ -46,6 +46,15 @@ class Review{
             return
         } catch (error) {
             throw new Error(`Error al crear la review: ${error.message}`)
+        }
+    }
+    static async EliminarReview(id){
+        try {
+            const query = "DELETE FROM reviews WHERE id = ?"
+            await db.promise().execute(query, [id])
+            return
+        } catch (error) {
+            throw new Error(`Error al eliminar la review: ${error.message}`)
         }
     }
 }

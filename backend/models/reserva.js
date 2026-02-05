@@ -13,8 +13,19 @@ class Reserva{
     }
     static async crearReserva(monto, fecha_ingreso, fecha_salida, id_usuario, id_habitacion){
         try {
+            const ingreso = new Date(fecha_ingreso).toISOString().split('T')[0];
+            const today = new Date().toISOString().split('T')[0];
+
+            if (ingreso < today) {
+                throw new Error("No se puede reservar en una fecha anterior a hoy");
+            }
+
          const query = `INSERT INTO reservas (monto, fecha_ingreso, fecha_salida, id_usuario, id_habitacion) VALUES (?, ?, ?, ?, ?)`
          const [response] = await db.promise().execute(query, [monto, fecha_ingreso, fecha_salida, id_usuario, id_habitacion]);
+         
+         const updateRoomQuery = `UPDATE habitaciones SET estado = 2 WHERE id = ?`;
+         await db.promise().execute(updateRoomQuery, [id_habitacion]);
+
          await Reserva.crearHistorialReserva(response.insertId, id_usuario)
          // Append a block to the blockchain recording this reservation
          try {

@@ -29,3 +29,13 @@ exports.CrearReview = async(req, res) => {
         res.status(500).json('Error al publicar la review')
     }
 }
+
+exports.EliminarReview = async(req, res) => {
+    try{
+        const { id } = req.params;
+        await Review.EliminarReview(id);
+        res.status(200).json('Review eliminada correctamente')
+    }catch(error){
+        res.status(500).json('Error al eliminar la review')
+    }
+}

@@ -79,7 +79,7 @@ function RoomCard({key, id, nombre, descripcion, capacidad, foto, precio, catego
                 <p className="room-card-info">✔️ $ {precio} por noche</p>
                 <p className="room-card-info">✔️ Habitación {categoria}</p>
                 <button className="room-card-info-button" onClick={specificRoom} >Mas info</button>
-                <button className="room-card-button" onClick={specificRoom} >Reservar Ahora</button>
+                {user && user.rol === 1 ? <button className="room-card-button" onClick={specificRoom} >Reservar Ahora</button> : null}
             </div>
         </section>
     )

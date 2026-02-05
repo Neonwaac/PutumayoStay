@@ -16,6 +16,7 @@ class Habitacion {
       const query = `SELECT habitaciones.id, habitaciones.nombre, habitaciones.descripcion, habitaciones.foto, habitaciones.capacidad, habitaciones.precio, habitaciones.id_empresa, categorias.nombre AS categoria
             FROM habitaciones
             LEFT JOIN categorias ON habitaciones.categoria = categorias.id
+            WHERE habitaciones.estado = 1
             ORDER BY habitaciones.id DESC`;
       const [habitaciones] = await db.promise().execute(query);
       return habitaciones;
@@ -31,7 +32,7 @@ class Habitacion {
       FROM habitaciones
       LEFT JOIN categorias ON habitaciones.categoria = categorias.id
       LEFT JOIN usuarios ON habitaciones.id_empresa = usuarios.id
-       WHERE habitaciones.id = ?`;
+       WHERE habitaciones.id = ? AND habitaciones.estado = 1`;
       const [result] = await db.promise().execute(query, [id]);
       if (result.length === 0) {
         throw new Error("No se encontro la habitación con ID " + id);
@@ -160,7 +161,7 @@ class Habitacion {
       categorias.nombre AS categoria
     FROM habitaciones
     LEFT JOIN categorias ON habitaciones.categoria = categorias.id
-    WHERE habitaciones.categoria = ?
+    WHERE habitaciones.categoria = ? AND habitaciones.estado = 1
     ORDER BY habitaciones.id DESC;
     `;
       const [result] = await db.promise().execute(query, [categoria]);
@@ -185,7 +186,7 @@ class Habitacion {
   categorias.nombre AS categoria
 FROM habitaciones
 LEFT JOIN categorias ON habitaciones.categoria = categorias.id
-WHERE LOWER(habitaciones.nombre) LIKE LOWER(?) OR LOWER(habitaciones.descripcion) LIKE LOWER(?)
+WHERE (LOWER(habitaciones.nombre) LIKE LOWER(?) OR LOWER(habitaciones.descripcion) LIKE LOWER(?)) AND habitaciones.estado = 1
 ORDER BY habitaciones.id DESC;
     `;
       const [result] = await db
